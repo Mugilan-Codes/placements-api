@@ -4,5 +4,5 @@
 
 ### TODO
 
-- Create a Error Constructor for various errors.
+- use [KNEX.JS](http://knexjs.org/) as a SQL Query Builder
 - Remove `console.log` in production because it is not async. Use loggers like `winston`
