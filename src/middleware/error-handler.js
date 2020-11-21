@@ -14,12 +14,12 @@ export default (err, req, res, next) => {
     res.status(err.status).send({
       error: {
         status: err.status,
-        message: err.message || 'Internal Server Error',
+        message: err.message,
       },
     });
     return;
   }
 
   next(ApiError.internal());
-  res.status(500).send('Something went wrong!');
+  // res.status(500).send('Something went wrong!');
 };

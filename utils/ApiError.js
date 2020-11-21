@@ -12,7 +12,7 @@ export default class ApiError {
     return new ApiError(404, 'Not Found');
   }
 
-  static internal(msg) {
+  static internal(msg = 'Internal Server Error!') {
     return new ApiError(500, msg);
   }
 }
