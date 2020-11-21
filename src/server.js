@@ -5,7 +5,7 @@ import helmet from 'helmet';
 
 import { api_port } from './config';
 import { errorHandler, logger } from './middleware';
-import { ApiError } from '../utils';
+import { ApiError } from './utils';
 
 const app = express();
 
@@ -21,9 +21,6 @@ app.get('/', (req, res, next) => {
 });
 
 app.use((req, res, next) => {
-  // const err = new Error('Not Found');
-  // err.status = 404;
-  // next(err);
   next(ApiError.notFound());
 });
 

@@ -2,7 +2,7 @@
   "name": "placements-api",
   "version": "1.0.0",
   "description": "Placements API for Anna University - CUIC",
-  "main": "index.js",
+  "main": "src/server.js",
   "scripts": {
     "dev": "nodemon --exec babel-node ./src/server.js",
     "clean": "rm -rf ./dist",
