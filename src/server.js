@@ -1,12 +1,14 @@
 import express from 'express';
 import cors from 'cors';
 import compression from 'compression';
+import helmet from 'helmet';
 
 import { api_port } from './config';
-import { logger } from './middleware';
+import { errorHandler, logger } from './middleware';
 
 const app = express();
 
+app.use(helmet());
 app.use(cors());
 app.use(compression());
 app.use(express.json());
@@ -18,8 +20,12 @@ app.get('/', (req, res, next) => {
 });
 
 app.use((req, res) => {
-  res.status(404).send('404 Not Found!');
+  const err = new Error('Not Found');
+  err.status = 404;
+  next(err);
 });
+
+app.use(errorHandler);
 
 app.listen(api_port, () => {
   console.log(
