@@ -21,7 +21,8 @@
     "express-promise-router": "^4.0.1",
     "helmet": "^4.2.0",
     "knex": "^0.21.12",
-    "mysql2": "^2.2.5"
+    "mysql2": "^2.2.5",
+    "objection": "^2.2.3"
   },
   "devDependencies": {
     "@babel/cli": "^7.12.1",
