@@ -6,6 +6,7 @@ import helmet from 'helmet';
 import { api_port } from './config';
 import { errorHandler, logger } from './middleware';
 import { ApiError } from './utils';
+import mountRoutes from './routes';
 
 const app = express();
 
@@ -15,6 +16,8 @@ app.use(compression());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(logger);
+
+mountRoutes(app);
 
 app.get('/', (req, res, next) => {
   res.send('API Running...');

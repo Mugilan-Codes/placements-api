@@ -1,6 +1,6 @@
 import bcrypt from 'bcrypt';
 
-export default password = {
+export default {
   hash: (password, saltRounds = 10) => {
     return bcrypt.hash(password, saltRounds);
   },
