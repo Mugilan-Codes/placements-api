@@ -2,7 +2,7 @@ import Knex from 'knex';
 
 import { host, user, password, database } from './env';
 
-const options = {
+const knex = Knex({
   client: 'mysql2',
   connection: {
     host,
@@ -10,8 +10,7 @@ const options = {
     password,
     database,
   },
-};
-
-const knex = Knex(options);
+  useNullAsDefault: true,
+});
 
 export default knex;
