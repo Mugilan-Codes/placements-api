@@ -4,6 +4,7 @@
   "description": "Placements API for Anna University - CUIC",
   "main": "src/server.js",
   "scripts": {
+    "migrate": "knex migrate:latest --knexfile ./src/config/knexfile.js",
     "dev": "nodemon --exec babel-node ./src/server.js",
     "clean": "rm -rf ./dist",
     "build": "npm run clean && babel ./src -d dist",
@@ -21,8 +22,7 @@
     "express-promise-router": "^4.0.1",
     "helmet": "^4.2.0",
     "knex": "^0.21.12",
-    "mysql2": "^2.2.5",
-    "objection": "^2.2.3"
+    "mysql2": "^2.2.5"
   },
   "devDependencies": {
     "@babel/cli": "^7.12.1",
