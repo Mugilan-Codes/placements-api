@@ -1,3 +1,7 @@
+CREATE DATABASE IF NOT EXISTS `placement_db`;
+
+USE `placement_db`;
+
 CREATE TABLE IF NOT EXISTS `courses` (
   `course_id` VARCHAR(5) PRIMARY KEY,
   `degree` ENUM('UG', 'PG') NOT NULL,
@@ -8,9 +12,9 @@ CREATE TABLE IF NOT EXISTS `courses` (
 
 CREATE TABLE IF NOT EXISTS `student` (
   `register_no` VARCHAR(15) PRIMARY KEY,
-  `name`,
-  `email`,
-  `stud_email`,
+  `name` VARCHAR(50) NOT NULL,
+  `email` VARCHAR(50),
+  `stud_email` VARCHAR(50),
   `course_id` VARCHAR(5),
   FOREIGN KEY (`course_id`) 
     REFERENCES `courses`(`course_id`) 
