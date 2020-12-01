@@ -1,0 +1,1 @@
+export { registerController } from './student';
