@@ -13,8 +13,9 @@ CREATE TABLE IF NOT EXISTS course (
 CREATE TABLE IF NOT EXISTS student (
   register_no VARCHAR(15) PRIMARY KEY,
   name VARCHAR(50) NOT NULL,
-  email VARCHAR(50),
-  stud_email VARCHAR(50),
+  email VARCHAR(50) NOT NULL UNIQUE,
+  stud_email VARCHAR(50) NOT NULL UNIQUE,
+  password VARCHAR(50) NOT NULL,
   course_id VARCHAR(10),
   created_on TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   FOREIGN KEY (`course_id`) 
