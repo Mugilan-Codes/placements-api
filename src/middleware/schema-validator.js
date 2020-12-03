@@ -1,7 +1,7 @@
 const validator = (schema, property = 'body') => {
   return (req, res, next) => {
     const { error, value } = schema.validate(req[property], {
-      abortEarly: false,
+      abortEarly: true,
     });
 
     const isValid = error == null;
@@ -11,9 +11,8 @@ const validator = (schema, property = 'body') => {
       next();
     } else {
       const { details } = error;
-      const message = details.map((i) => i.message).join(',');
+      const message = details.map((i) => i.message);
 
-      console.error('Validation Error -> ', message);
       res.status(422).json({ error: message });
     }
   };

@@ -18,6 +18,7 @@ CREATE TABLE IF NOT EXISTS student (
   password VARCHAR(50) NOT NULL,
   course_id VARCHAR(10),
   created_on TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  updated_on TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   FOREIGN KEY (`course_id`) 
     REFERENCES `course`(`course_id`)
 ) ENGINE=INNODB;
@@ -29,6 +30,7 @@ CREATE TABLE IF NOT EXISTS marks (
       AND `cgpa` <= 10),
   active_backlog INT DEFAULT 0,
   backlog_history INT DEFAULT 0,
+  updated_on TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   FOREIGN KEY (`register_no`) 
     REFERENCES `student`(`register_no`) 
     ON DELETE CASCADE
@@ -48,6 +50,7 @@ CREATE TABLE IF NOT EXISTS education (
   grad_percentage NUMERIC(4, 2) 
     CHECK(`grad_percentage` >= 0 
       AND `grad_percentage` <= 100),
+  updated_on TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   FOREIGN KEY (`register_no`)
     REFERENCES `student`(`register_no`)
     ON DELETE CASCADE

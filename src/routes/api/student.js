@@ -1,6 +1,8 @@
 import { ApiError, router } from '../../utils';
 import { DB } from '../../config';
 import { registerController } from '../../controllers';
+import { validate } from '../../middleware';
+import schema from '../../models/schema';
 
 router
   .get('/', (req, res, next) => {
@@ -9,6 +11,6 @@ router
   .get('/test', (req, res, next) => {
     next(ApiError.badRequest('This is a bad request'));
   })
-  .post('/register', registerController);
+  .post('/register', validate(schema.registerStudent), registerController);
 
 export default router;
