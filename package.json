@@ -21,6 +21,7 @@
     "express": "^4.17.1",
     "express-promise-router": "^4.0.1",
     "helmet": "^4.2.0",
+    "joi": "^17.3.0",
     "knex": "^0.21.12",
     "mysql2": "^2.2.5"
   },
