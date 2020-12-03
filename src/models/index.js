@@ -1,1 +1,1 @@
-export { default as Student } from './Student';
+export { Student, studentSchema } from './Student';
