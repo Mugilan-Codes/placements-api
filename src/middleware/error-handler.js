@@ -11,6 +11,8 @@ export default (err, req, res, next) => {
     return;
   }
 
+  console.log({ err });
+
   return res.status(500).send({
     error: {
       status: 500,

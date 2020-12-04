@@ -1,4 +1,17 @@
+import { addCourseService } from '../services/admin';
+import { ApiError } from '../utils';
+
 export const addCourseController = async (req, res, next) => {
-  console.log(req.body);
-  res.json(req.body);
+  try {
+    const course = await addCourseService(req.body);
+
+    if (course.err_msg) {
+      return next(ApiError.conflict(course.err_msg));
+    }
+
+    res.json({ course });
+  } catch (err) {
+    console.log('Controller --> addCourseController');
+    next(err);
+  }
 };
