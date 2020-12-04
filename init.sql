@@ -1,13 +1,17 @@
+DROP DATABASE IF EXISTS `placement_db`;
+
 CREATE DATABASE IF NOT EXISTS `placement_db`;
 
 USE `placement_db`;
 
 CREATE TABLE IF NOT EXISTS course (
-  course_id VARCHAR(10) PRIMARY KEY,
+  course_id VARCHAR(15) PRIMARY KEY,
   degree ENUM('UG', 'PG') NOT NULL,
-  short_name VARCHAR(5) NOT NULL UNIQUE,
-  course_name VARCHAR(50) NOT NULL UNIQUE,
-  department VARCHAR(50) NOT NULL
+  type ENUM('R', 'SS') DEFAULT 'R',
+  short_name VARCHAR(25) NOT NULL,
+  course_name VARCHAR(75) NOT NULL UNIQUE,
+  department VARCHAR(75) NOT NULL,
+  UNIQUE(short_name, type)
 ) ENGINE=INNODB;
 
 CREATE TABLE IF NOT EXISTS student (
@@ -16,7 +20,7 @@ CREATE TABLE IF NOT EXISTS student (
   email VARCHAR(50) NOT NULL UNIQUE,
   stud_email VARCHAR(50) NOT NULL UNIQUE,
   password VARCHAR(50) NOT NULL,
-  course_id VARCHAR(10),
+  course_id VARCHAR(15),
   created_on TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   updated_on TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   FOREIGN KEY (`course_id`) 
@@ -55,3 +59,11 @@ CREATE TABLE IF NOT EXISTS education (
     REFERENCES `student`(`register_no`)
     ON DELETE CASCADE
 ) ENGINE=INNODB;
+
+INSERT INTO course 
+  (course_id, degree, type, short_name, course_name, department) 
+VALUES 
+  ('pg-mca-r', 'PG', 'R', 'MCA', 'Master of Computer Applications - Regular', 'Information Science & Technology'),
+  ('pg-mca-ss', 'PG', 'SS', 'MCA', 'Master of Computer Applications - Self Supporting', 'Information Science & Technology'),
+  ('pg-mba-r', 'PG', 'R', 'MBA', 'Master of Buisness Administrations - Regular', 'Management Studies'),
+  ('ug-cse', 'UG', 'R', 'CSE', 'B.E. Computer Science and Engineering', 'Computer Science & Engineering');

@@ -11,7 +11,7 @@ export default (err, req, res, next) => {
     return;
   }
 
-  res.status(500).send({
+  return res.status(500).send({
     error: {
       status: 500,
       message: 'Internal Server Error',

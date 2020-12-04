@@ -1,5 +1,5 @@
 const validator = (schema, property = 'body') => {
-  return (req, res, next) => {
+  return async (req, res, next) => {
     const { error, value } = schema.validate(req[property], {
       abortEarly: true,
     });
@@ -11,7 +11,7 @@ const validator = (schema, property = 'body') => {
       next();
     } else {
       const { details } = error;
-      const message = details.map((i) => i.message);
+      const message = await details.map((i) => i.message);
 
       res.status(422).json({ error: message });
     }

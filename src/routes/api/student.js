@@ -1,5 +1,4 @@
 import { ApiError, router } from '../../utils';
-import { DB } from '../../config';
 import { registerController } from '../../controllers';
 import { validate } from '../../middleware';
 import schema from '../../models/schema';
