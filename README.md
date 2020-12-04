@@ -8,6 +8,11 @@
 - Remove `console.log` in production because it is not async. Use loggers like `winston`
 - Docker Environment for Development and Testing
 
+### Create Tables
+
+- Create MySQL user and move into it.
+- source the init.sql file by using `source init.sql`.
+
 #### ROUTES
 
 - Add Course - course id, degree, short name, course name, department - New courses can be added only while authenticated
