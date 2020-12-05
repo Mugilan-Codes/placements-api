@@ -1,22 +1,36 @@
 import { DB } from '../config';
 
-export const addCourse = async ({
-  course_id,
-  degree,
-  type,
-  short_name,
-  course_name,
-  department,
-}) => {
-  //! returning not supported by mysql in knex.js
-  await DB.insert({
+class Course {
+  tableName = 'course';
+
+  addCourse = async ({
     course_id,
     degree,
     type,
     short_name,
     course_name,
     department,
-  }).into('course');
+  }) => {
+    await DB.insert({
+      course_id,
+      degree,
+      type,
+      short_name,
+      course_name,
+      department,
+    }).into(this.tableName);
 
-  return course_id;
-};
+    //! returning not supported by mysql in knex.js
+    return course_id;
+  };
+
+  findById = async ({ course_id }) => {
+    const result = await DB(this.tableName).where({ course_id });
+
+    console.log({ result });
+
+    return result[0];
+  };
+}
+
+export default new Course();
