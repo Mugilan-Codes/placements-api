@@ -1,5 +1,7 @@
-export default class Student {
-  constructor() {}
+class Student {
+  tableName = 'student';
 
-  addStudent() {}
+  addStudent = () => {};
 }
+
+export default new Student();

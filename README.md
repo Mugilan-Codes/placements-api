@@ -16,7 +16,7 @@
 
 #### ROUTES
 
-- Add Course - course id, degree, short name, course name, department - New courses can be added only while authenticated
+- Update or Delete a course (course_id): Access only by Admin
 - Register Student - register number, name, email, student email, dob, password, course_id - Confirmation email to student email and email for both verification. needs only one.
 - Login Student - using register number/student email with password
 - student mark and education - register number, cgpa(avg till now), active backlog, backlog history, 10th & 12th Board and percentage, Grad course and percentage for PG students.

@@ -19,8 +19,8 @@ class Course {
       department,
     }).into(this.tableName);
 
-    //! returning not supported by mysql in knex.js
-    return course_id;
+    //! Using findById as a returning one
+    return this.findById(course_id);
   };
 
   findById = async (course_id) => {

@@ -7,7 +7,7 @@ export const addCourseService = async (course) => {
     const course_id = `${degree}-${short_name}-${typeDefault}`.toLowerCase();
     console.log({ course_id });
 
-    let course = await Course.findById(course_id);
+    let course = await Course.findOne({ course_id });
     if (course) {
       return { err_msg: 'Course Id already exists!' };
     }
