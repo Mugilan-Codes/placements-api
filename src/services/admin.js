@@ -3,16 +3,23 @@ import { Course } from '../models';
 export const addCourseService = async (course) => {
   const { degree, type, short_name, course_name, department } = course;
   try {
-    // const course_id = `${degree}-${short_name}-${
-    //   type ? type : 'R'
-    // }`.toLowerCase();
-    const course_id = `${degree}-${short_name}-${type}`.toLowerCase();
+    let typeDefault = type || 'R';
+    const course_id = `${degree}-${short_name}-${typeDefault}`.toLowerCase();
     console.log({ course_id });
 
-    let course = await Course.findById({ course_id });
-
+    let course = await Course.findById(course_id);
     if (course) {
-      return { err_msg: 'Course Id Already Exists!' };
+      return { err_msg: 'Course Id already exists!' };
+    }
+
+    course = await Course.findOne({ course_name });
+    if (course) {
+      return { err_msg: 'Course Name already exists!' };
+    }
+
+    course = await Course.findOne({ short_name, type: typeDefault });
+    if (course) {
+      return { err_msg: `${short_name} - ${typeDefault} already exists!` };
     }
 
     return await Course.addCourse({

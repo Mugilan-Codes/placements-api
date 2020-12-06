@@ -1,6 +1,4 @@
 import { DB } from '../config';
-
-//todo: findOne - to find unique course exists already (course_id (or) short_name & type (or) course_name)
 class Course {
   tableName = 'course';
 
@@ -25,10 +23,28 @@ class Course {
     return course_id;
   };
 
-  findById = async ({ course_id }) => {
+  findById = async (course_id) => {
     const result = await DB(this.tableName).where({ course_id });
 
     return result[0];
+  };
+
+  findOne = async ({ course_id, course_name, short_name, type } = {}) => {
+    let course;
+
+    if (course_id) {
+      course = this.findById(course_id);
+    }
+
+    if (course_name) {
+      course = (await DB(this.tableName).where({ course_name }))[0];
+    }
+
+    if (short_name && type) {
+      course = (await DB(this.tableName).where({ short_name, type }))[0];
+    }
+
+    return course;
   };
 }
 

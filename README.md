@@ -7,6 +7,7 @@
 - use [KNEX.JS](http://knexjs.org/) as a SQL Query Builder
 - Remove `console.log` in production because it is not async. Use loggers like `winston`
 - Docker Environment for Development and Testing
+- Handle Errors efficiently
 
 ### Create Tables
 
