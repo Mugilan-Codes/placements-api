@@ -3,9 +3,10 @@ import { Course } from '../models';
 export const addCourseService = async (course) => {
   const { degree, type, short_name, course_name, department } = course;
   try {
-    const course_id = `${degree}-${short_name}-${
-      type ? type : 'R'
-    }`.toLowerCase();
+    // const course_id = `${degree}-${short_name}-${
+    //   type ? type : 'R'
+    // }`.toLowerCase();
+    const course_id = `${degree}-${short_name}-${type}`.toLowerCase();
     console.log({ course_id });
 
     let course = await Course.findById({ course_id });
@@ -24,8 +25,7 @@ export const addCourseService = async (course) => {
     });
   } catch (err) {
     console.log('Service --> addCourseService');
-    console.log(err.message);
-    // return new Error(err.sqlMessage);
-    return Error(err.message);
+    console.log(err);
+    throw new Error(err.sqlMessage);
   }
 };

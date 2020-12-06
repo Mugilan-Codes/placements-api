@@ -11,12 +11,12 @@ export default (err, req, res, next) => {
     return;
   }
 
-  console.log({ err });
+  console.log(err.message);
 
   return res.status(500).send({
     error: {
       status: 500,
-      message: 'Internal Server Error',
+      message: err.message || 'Internal Server Error',
     },
   });
 };

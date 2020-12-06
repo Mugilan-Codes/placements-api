@@ -1,4 +1,4 @@
-import { addCourseService } from '../services/admin';
+import { addCourseService } from '../services';
 import { ApiError } from '../utils';
 
 export const addCourseController = async (req, res, next) => {
