@@ -1,2 +1,2 @@
 export { addCourseService } from './admin';
-export { default as Student } from './student';
+export { default as StudentService } from './student';

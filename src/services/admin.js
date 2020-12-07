@@ -32,7 +32,9 @@ export const addCourseService = async (course) => {
     });
   } catch (err) {
     console.log('Service --> addCourseService');
-    console.log(err);
-    throw new Error(err.sqlMessage);
+    if (err.sqlMessage) {
+      throw new Error(err.sqlMessage);
+    }
+    throw new Error(err.message);
   }
 };

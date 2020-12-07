@@ -2,17 +2,12 @@ import Joi from 'joi';
 
 const schema = {
   registerStudent: Joi.object().keys({
-    register_no: Joi.string().min(6).required(), //! Validate only numbers
-    reg_no: Joi.string()
-      .min(6)
-      .error(new Error('Atleast 6'))
-      .regex(/^d+$/)
-      .error(new Error('Must contain only digits')),
+    register_no: Joi.string().min(6).required(),
     name: Joi.string().min(3).required(),
     email: Joi.string().email().required(),
-    stud_email: Joi.string().email().required(),
     password: Joi.string().alphanum().min(8).max(50).required(),
     confirm_password: Joi.ref('password'),
+    course_id: Joi.string().max(15),
   }),
   addCourse: Joi.object().keys({
     degree: Joi.string().uppercase().valid('UG', 'PG').required(),

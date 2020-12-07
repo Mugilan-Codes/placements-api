@@ -20,7 +20,7 @@ class Course {
     }).into(this.tableName);
 
     //! Using findById as a returning one
-    return this.findById(course_id);
+    return await this.findById(course_id);
   };
 
   findById = async (course_id) => {
@@ -33,7 +33,7 @@ class Course {
     let course;
 
     if (course_id) {
-      course = this.findById(course_id);
+      course = await this.findById(course_id);
     }
 
     if (course_name) {

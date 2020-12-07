@@ -10,7 +10,7 @@ const knex = Knex({
     password,
     database,
   },
-  // useNullAsDefault: true,
+  useNullAsDefault: true,
 });
 
 export default knex;
