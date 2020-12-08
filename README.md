@@ -21,3 +21,4 @@
 - Login Student - using register number/student email with password
 - student mark and education - register number, cgpa(avg till now), active backlog, backlog history, 10th & 12th Board and percentage, Grad course and percentage for PG students.
 - Students initially be unverified and will be verified by the admin.
+- Authorization for Admin and Student.
