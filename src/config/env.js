@@ -8,3 +8,5 @@ export const password = process.env.DB_PASS || null;
 export const database = process.env.DB_NAME || process.env.USER;
 
 export const environment = process.env.NODE_ENV || 'development';
+
+export const jwt_secret = process.env.JWT_SECRET;
