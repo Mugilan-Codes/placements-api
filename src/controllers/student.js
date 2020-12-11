@@ -27,6 +27,17 @@ class StudentController {
       next(err);
     }
   };
+
+  getOne = async (req, res, next) => {
+    const { register_no } = req.params;
+    try {
+      const student = await StudentService.getOne(register_no);
+      res.json(student);
+    } catch (err) {
+      console.log('StudentController --> getOne');
+      next(err);
+    }
+  };
 }
 
 export default new StudentController();

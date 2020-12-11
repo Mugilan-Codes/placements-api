@@ -54,7 +54,26 @@ class StudentService {
 
       return students;
     } catch (err) {
-      console.log('StudentService --> register');
+      console.log('StudentService --> getAll');
+      throw new Error(err.message);
+    }
+  }
+
+  async getOne(register_no) {
+    try {
+      const studentInfo = await Student.findById(register_no);
+
+      let { password, course_id, ...resultObj } = studentInfo;
+
+      const courseInfo = await Course.findById(course_id);
+
+      resultObj['course'] = courseInfo;
+
+      // Retrieve Mark & Education in similar way
+
+      return resultObj;
+    } catch (err) {
+      console.log('StudentService --> getOne');
       throw new Error(err.message);
     }
   }
