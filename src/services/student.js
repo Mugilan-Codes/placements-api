@@ -1,5 +1,5 @@
 import { Course, Student } from '../models';
-import { bcryptPass } from '../utils';
+import { bcryptPass, Role, token } from '../utils';
 
 class StudentService {
   async register(student) {
@@ -28,7 +28,7 @@ class StudentService {
       const created_on = new Date();
       const updated_on = new Date();
 
-      return await Student.add({
+      const user = await Student.add({
         register_no,
         name,
         email,
@@ -37,6 +37,17 @@ class StudentService {
         created_on,
         updated_on,
       });
+
+      const payload = {
+        sub: user.register_no,
+        role: Role.Student,
+      };
+
+      const authToken = token.sign(payload);
+
+      const studentWithoutPassword = await this._returnWithoutPassword(user);
+
+      return { studentWithoutPassword, authToken };
     } catch (err) {
       console.log('StudentService --> register');
       if (err.sqlMessage) {
@@ -44,6 +55,12 @@ class StudentService {
       }
       throw new Error(err.message);
     }
+  }
+
+  // Helper Function to return values without password
+  async _returnWithoutPassword(user) {
+    const { password, ...userWithoutPassword } = user;
+    return userWithoutPassword;
   }
 
   async getAll() {
