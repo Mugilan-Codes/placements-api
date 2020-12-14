@@ -9,6 +9,13 @@ const schema = {
     confirm_password: Joi.ref('password'),
     course_id: Joi.string().max(15),
   }),
+  loginStudent: Joi.object()
+    .keys({
+      register_no: Joi.string().min(6),
+      email: Joi.string().email(),
+      password: Joi.string().alphanum().min(8).max(50).required(),
+    })
+    .xor(register_no, email),
   addCourse: Joi.object().keys({
     degree: Joi.string().uppercase().valid('UG', 'PG').required(),
     type: Joi.string().uppercase().valid('R', 'SS'),

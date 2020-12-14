@@ -2,6 +2,8 @@ import { Course, Student } from '../models';
 import { bcryptPass, Role, token } from '../utils';
 
 class StudentService {
+  className = 'StudentService';
+
   async register(student) {
     const { register_no, name, email, password, course_id } = student;
     try {
@@ -49,7 +51,7 @@ class StudentService {
 
       return { studentWithoutPassword, authToken };
     } catch (err) {
-      console.log('StudentService --> register');
+      console.log(`${this.className} --> register`);
       if (err.sqlMessage) {
         throw new Error(err.sqlMessage);
       }
@@ -71,7 +73,7 @@ class StudentService {
 
       return students;
     } catch (err) {
-      console.log('StudentService --> getAll');
+      console.log(`${this.className} --> getAll`);
       throw new Error(err.message);
     }
   }
@@ -90,7 +92,7 @@ class StudentService {
 
       return resultObj;
     } catch (err) {
-      console.log('StudentService --> getOne');
+      console.log(`${this.className} --> getOne`);
       throw new Error(err.message);
     }
   }

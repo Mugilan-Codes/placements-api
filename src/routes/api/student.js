@@ -6,6 +6,7 @@ import { Student } from '../../controllers';
 router
   .get('/', authorize(Role.Student), Student.getAll)
   .get('/:register_no', Student.getOne)
-  .post('/register', validate(schema.registerStudent), Student.register);
+  .post('/register', validate(schema.registerStudent), Student.register)
+  .post('/login', validate(schema.loginStudent));
 
 export default router;

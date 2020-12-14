@@ -2,6 +2,8 @@ import { StudentService } from '../services';
 import { ApiError } from '../utils';
 
 class StudentController {
+  className = 'StudentController';
+
   register = async (req, res, next) => {
     try {
       const student = await StudentService.register(req.body);
@@ -12,8 +14,15 @@ class StudentController {
 
       res.json(student);
     } catch (err) {
-      console.log('StudentController --> register');
+      console.log(`${this.className} --> register`);
       next(err);
+    }
+  };
+
+  login = async (req, res, next) => {
+    try {
+    } catch (err) {
+      console.log(`${this.className} --> login`);
     }
   };
 
@@ -23,7 +32,7 @@ class StudentController {
 
       res.json(students);
     } catch (err) {
-      console.log('StudentController --> getAll');
+      console.log(`${this.className} --> getAll`);
       next(err);
     }
   };
@@ -34,7 +43,7 @@ class StudentController {
       const student = await StudentService.getOne(register_no);
       res.json(student);
     } catch (err) {
-      console.log('StudentController --> getOne');
+      console.log(`${this.className} --> getOne`);
       next(err);
     }
   };
