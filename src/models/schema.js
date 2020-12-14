@@ -1,6 +1,33 @@
 import Joi from 'joi';
 
-export const schemaCourse = {
+// Reuseable Fields
+const register_no = Joi.string()
+  .min(6)
+  .max(15)
+  .pattern(/^[0-9]{6,15}$/)
+  .messages({
+    'string.pattern.base': `{#key} can contain only numbers`,
+    'string.empty': `{#key} should not be empty`,
+    'string.min': `{#key} should have a minimum length of {#limit}`,
+    'string.max': `{#key} should have a maximum length of {#limit}`,
+  });
+const email = Joi.string().email().messages({
+  'string.email': `{#key} should be a valid email`,
+  'string.empty': `{#key} should not be empty`,
+});
+//? Possible pattern replacement for password:
+//? /^(?=.*[0-9])(?=.*[A-Z])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,16}$/
+//? /^(?=.*[0-9])(?=.*[A-Z])(?=.*[!@#\$%\^\&*\)\(\[\]\{\}+=._-]).{8,16}$/
+const password = Joi.string().alphanum().min(8).max(50).required().messages({
+  'any.required': `{#key} is a required field`,
+  'string.alphanum': `{#key} must contain only alpha-numeric characters`,
+  'string.empty': `{#key} should not be empty`,
+  'string.min': `{#key} should have a minimum length of {#limit}`,
+  'string.max': `{#key} should have a maximum length of {#limit}`,
+});
+
+// Schemas
+const courseSchema = {
   add: Joi.object().keys({
     degree: Joi.string().uppercase().valid('UG', 'PG').required(),
     type: Joi.string().uppercase().valid('R', 'SS'),
@@ -10,41 +37,26 @@ export const schemaCourse = {
   }),
 };
 
-export const schemaStudent = {
+const studentSchema = {
   register: Joi.object().keys({
-    register_no: Joi.string().min(6).required(),
+    register_no: register_no
+      .required()
+      .messages({ 'any.required': `{#key} is a required field` }),
     name: Joi.string().min(3).required(),
-    email: Joi.string().email().required(),
-    password: Joi.string().alphanum().min(8).max(50).required(),
-    confirm_password: Joi.ref('password'),
+    email: email
+      .required()
+      .messages({ 'any.required': `{#key} is a required field` }),
+    password,
+    confirm_password: Joi.any().valid(Joi.ref('password')).messages({
+      'any.only': `{#key} not match`,
+    }),
     course_id: Joi.string().max(15),
   }),
   login: Joi.object()
     .keys({
-      register_no: Joi.string()
-        .min(6)
-        .max(15)
-        .pattern(/^[0-9]/)
-        .messages({
-          'string.pattern.base': `{#key} can contain only numbers`,
-          'string.empty': `{#key} should not be empty`,
-          'string.min': `{#key} should have a minimum length of {#limit}`,
-          'string.max': `{#key} should have a maximum length of {#limit}`,
-        }),
-      email: Joi.string().email().messages({
-        'string.email': `{#key} should be a valid email`,
-        'string.empty': `{#key} should not be empty`,
-      }),
-      //? Possible pattern replacement for password:
-      //? /^(?=.*[0-9])(?=.*[A-Z])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,16}$/
-      //? /^(?=.*[0-9])(?=.*[A-Z])(?=.*[!@#\$%\^\&*\)\(\[\]\{\}+=._-]).{8,16}$/
-      password: Joi.string().alphanum().min(8).max(50).required().messages({
-        'any.required': `{#key} is a required field`,
-        'string.alphanum': `{#key} must contain only alpha-numeric characters`,
-        'string.empty': `{#key} should not be empty`,
-        'string.min': `{#key} should have a minimum length of {#limit}`,
-        'string.max': `{#key} should have a maximum length of {#limit}`,
-      }),
+      register_no,
+      email,
+      password,
     })
     .xor('register_no', 'email')
     .messages({
@@ -54,4 +66,7 @@ export const schemaStudent = {
     }),
 };
 
-// export default schema;
+export const schema = {
+  student: studentSchema,
+  course: courseSchema,
+};

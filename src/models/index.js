@@ -1,3 +1,3 @@
 export { default as Student } from './Student';
-export { schemaStudent, schemaCourse } from './schema';
+export { schema } from './schema';
 export { default as Course } from './Course';
