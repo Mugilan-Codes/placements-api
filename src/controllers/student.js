@@ -21,7 +21,13 @@ class StudentController {
 
   login = async (req, res, next) => {
     try {
-      res.json(req.body);
+      const student = await StudentService.login(req.body);
+
+      if (student.err_msg) {
+        return next(ApiError.unauthorized(student.err_msg));
+      }
+
+      res.json(student);
     } catch (err) {
       console.log(`${this.className} --> login`);
       next(err);

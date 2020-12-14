@@ -1,3 +1,4 @@
+import { user } from '../config/env';
 import { Course, Student } from '../models';
 import { bcryptPass, Role, token } from '../utils';
 
@@ -55,6 +56,35 @@ class StudentService {
       if (err.sqlMessage) {
         throw new Error(err.sqlMessage);
       }
+      throw new Error(err.message);
+    }
+  }
+
+  async login(student) {
+    const { register_no, email, password } = student;
+    try {
+      const user = await Student.findOne({ register_no, email });
+      if (!user) {
+        return { err_msg: 'Invalid Credentials' };
+      }
+
+      const { password: dbPass, ...withoutPass } = user;
+
+      const isMatch = await bcryptPass.compare(password, dbPass);
+      if (!isMatch) {
+        return { err_msg: 'Invalid Credentials' };
+      }
+
+      const payload = {
+        sub: user.register_no,
+        role: Role.Student,
+      };
+
+      const authToken = token.sign(payload);
+
+      return { student: withoutPass, token: authToken };
+    } catch (err) {
+      console.log(`${this.className} --> login`);
       throw new Error(err.message);
     }
   }
