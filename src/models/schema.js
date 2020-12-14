@@ -42,7 +42,11 @@ const studentSchema = {
     register_no: register_no
       .required()
       .messages({ 'any.required': `{#key} is a required field` }),
-    name: Joi.string().min(3).required(),
+    name: Joi.string().min(3).required().messages({
+      'any.required': `{#key} is a required field`,
+      'string.empty': `{#key} should not be empty`,
+      'string.min': `{#key} should have a minimum length of {#limit}`,
+    }),
     email: email
       .required()
       .messages({ 'any.required': `{#key} is a required field` }),
