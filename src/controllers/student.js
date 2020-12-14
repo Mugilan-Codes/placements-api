@@ -21,8 +21,10 @@ class StudentController {
 
   login = async (req, res, next) => {
     try {
+      res.json(req.body);
     } catch (err) {
       console.log(`${this.className} --> login`);
+      next(err);
     }
   };
 

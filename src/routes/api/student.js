@@ -7,6 +7,6 @@ router
   .get('/', authorize(Role.Student), Student.getAll)
   .get('/:register_no', Student.getOne)
   .post('/register', validate(schema.registerStudent), Student.register)
-  .post('/login', validate(schema.loginStudent));
+  .post('/login', validate(schema.loginStudent), Student.login);
 
 export default router;

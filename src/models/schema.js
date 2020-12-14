@@ -11,11 +11,31 @@ const schema = {
   }),
   loginStudent: Joi.object()
     .keys({
-      register_no: Joi.string().min(6),
-      email: Joi.string().email(),
-      password: Joi.string().alphanum().min(8).max(50).required(),
+      register_no: Joi.string()
+        .min(6)
+        .max(15)
+        .pattern(/^[0-9]/)
+        .messages({
+          'string.pattern.base': `{#key} can contain only numbers`,
+          'string.empty': `{#key} should not be empty`,
+          'string.min': `{#key} should have a minimum length of {#limit}`,
+          'string.max': `{#key} should have a maximum length of {#limit}`,
+        }),
+      email: Joi.string()
+        .email()
+        .messages({ 'string.email': `{#key} should be a valid email` }),
+      password: Joi.string()
+        .alphanum()
+        .min(8)
+        .max(50)
+        .required()
+        .messages({ 'any.required': `{#key} is absolutely required` }),
     })
-    .xor(register_no, email),
+    .xor('register_no', 'email')
+    .messages({
+      'object.xor': `Must contain only one of the fields: {#peers}`,
+      'object.missing': `One of the Fields is Required: {#peers}`,
+    }),
   addCourse: Joi.object().keys({
     degree: Joi.string().uppercase().valid('UG', 'PG').required(),
     type: Joi.string().uppercase().valid('R', 'SS'),
