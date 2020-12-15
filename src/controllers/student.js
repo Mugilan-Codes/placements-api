@@ -68,6 +68,15 @@ class StudentController {
       next(err);
     }
   };
+
+  addMarks = (req, res, next) => {
+    try {
+      res.json(req.body);
+    } catch (err) {
+      console.log(`${this.className} --> addMarks`);
+      next(err);
+    }
+  };
 }
 
 export default new StudentController();

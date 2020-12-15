@@ -25,6 +25,11 @@ const password = Joi.string().alphanum().min(8).max(50).required().messages({
   'string.min': `{#key} should have a minimum length of {#limit}`,
   'string.max': `{#key} should have a maximum length of {#limit}`,
 });
+const useNumber = Joi.number().min(0).messages({
+  'number.base': `{#key} should be a valid one`,
+  'number.min': `{#key} must be greater than or equal to {#limit}`,
+  'number.max': `{#key} must be less than or equal to {#limit}`,
+});
 
 // Schemas
 const courseSchema = {
@@ -71,7 +76,25 @@ const studentSchema = {
   registerParam: Joi.object().keys({ register_no }),
 };
 
+const marksShcema = {
+  add: Joi.object()
+    .keys({
+      register_no: register_no
+        .required()
+        .messages({ 'any.required': `{#key} is a required field` }),
+      // /^[0-9]{1,2}[.]{0,1}[0-9]{0,2}$/
+      cgpa: useNumber.max(10).required().messages({
+        'any.required': `{#key} is a required field`,
+        'number.max': `{#key} must be less than or equal to {#limit}`,
+      }),
+      active_backlog: useNumber,
+      backlog_history: useNumber,
+    })
+    .messages({ 'object.unknown': `{#key} is not a valid field` }),
+};
+
 export const schema = {
   student: studentSchema,
   course: courseSchema,
+  marks: marksShcema,
 };

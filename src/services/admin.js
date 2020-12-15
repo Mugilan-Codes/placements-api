@@ -3,6 +3,7 @@ import { Course } from '../models';
 export const addCourseService = async (course) => {
   const { degree, type, short_name, course_name, department } = course;
   try {
+    //! Change course_id to UUID instead of relying on correct entries for three fields
     let typeDefault = type || 'R';
     const course_id = `${degree}-${short_name}-${typeDefault}`.toLowerCase();
     console.log({ course_id });

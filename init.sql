@@ -42,15 +42,15 @@ CREATE TABLE IF NOT EXISTS marks (
 CREATE TABLE IF NOT EXISTS education (
   register_no VARCHAR(15) PRIMARY KEY,
   10th_board VARCHAR(30) NOT NULL,
-  10th_percentage NUMERIC(4, 2) NOT NULL 
+  10th_percentage NUMERIC(5, 2) NOT NULL 
     CHECK(`10th_percentage` >= 0 
       AND `10th_percentage` <= 100),
   12th_board VARCHAR(30) NOT NULL,
-  12th_percentage NUMERIC(4, 2) NOT NULL 
+  12th_percentage NUMERIC(5, 2) NOT NULL 
     CHECK(`12th_percentage` >= 0 
       AND `12th_percentage` <= 100),
   grad_course VARCHAR(30),
-  grad_percentage NUMERIC(4, 2) 
+  grad_percentage NUMERIC(5, 2) 
     CHECK(`grad_percentage` >= 0 
       AND `grad_percentage` <= 100),
   updated_on TIMESTAMP DEFAULT CURRENT_TIMESTAMP,

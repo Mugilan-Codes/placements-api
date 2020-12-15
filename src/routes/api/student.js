@@ -12,6 +12,7 @@ router
     Student.getOne
   )
   .post('/register', validate(schema.student.register), Student.register)
-  .post('/login', validate(schema.student.login), Student.login);
+  .post('/login', validate(schema.student.login), Student.login)
+  .post('/add/marks', validate(schema.marks.add), Student.addMarks);
 
 export default router;
