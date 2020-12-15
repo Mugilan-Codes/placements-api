@@ -23,4 +23,3 @@
 - Authorization for Admin and Student.
 - Find student's details (from tables student, course, marks, and education) using student's Register No and return as a single object.
 - Refresh Token
-- Params validation (req.params)

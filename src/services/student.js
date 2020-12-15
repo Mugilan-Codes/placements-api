@@ -111,6 +111,9 @@ class StudentService {
   async getOne(register_no) {
     try {
       const studentInfo = await Student.findById(register_no);
+      if (!studentInfo) {
+        return { err_msg: 'Student Not Found' };
+      }
 
       let { password, course_id, ...resultObj } = studentInfo;
 
@@ -123,6 +126,16 @@ class StudentService {
       return resultObj;
     } catch (err) {
       console.log(`${this.className} --> getOne`);
+      throw new Error(err.message);
+    }
+  }
+
+  async getAllCourses() {
+    try {
+      const courses = await Course.getAll();
+      return courses;
+    } catch (err) {
+      console.log(`${this.className} --> getAllCourses`);
       throw new Error(err.message);
     }
   }

@@ -68,6 +68,7 @@ const studentSchema = {
       'object.missing': `One of the Fields is Required: {#peers}`,
       'object.unknown': `{#key} is not a valid field`,
     }),
+  registerParam: Joi.object().keys({ register_no }),
 };
 
 export const schema = {

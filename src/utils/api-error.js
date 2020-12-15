@@ -18,8 +18,8 @@ export default class ApiError {
     return new ApiError(403, msg);
   }
 
-  static notFound() {
-    return new ApiError(404, 'Not Found');
+  static notFound(msg = 'Not Found') {
+    return new ApiError(404, msg);
   }
 
   static conflict(msg = 'Conflict') {

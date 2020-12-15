@@ -46,6 +46,10 @@ class Course {
 
     return course;
   };
+
+  getAll = async () => {
+    return await DB.select().table(this.tableName);
+  };
 }
 
 export default new Course();
