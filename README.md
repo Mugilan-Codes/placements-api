@@ -17,9 +17,10 @@
 #### ROUTES
 
 - Update or Delete a course (course_id): Access only by Admin
-- Register Student - register number, name, email, student email, dob, password, course_id - Confirmation email to student email and email for both verification. needs only one.
-- Login Student - using register number/student email with password
+- Register Student - Confirmation email to student email and email for both verification. needs only one.
 - student mark and education - register number, cgpa(avg till now), active backlog, backlog history, 10th & 12th Board and percentage, Grad course and percentage for PG students.
 - Students initially be unverified and will be verified by the admin.
 - Authorization for Admin and Student.
 - Find student's details (from tables student, course, marks, and education) using student's Register No and return as a single object.
+- Refresh Token
+- Params validation (req.params)
