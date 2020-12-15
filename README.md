@@ -23,3 +23,8 @@
 - Authorization for Admin and Student.
 - Find student's details (from tables student, course, marks, and education) using student's Register No and return as a single object.
 - Refresh Token
+
+#### DOCS
+
+- [Joi](https://joi.dev/api/?v=17.3.0)
+- [Knex](http://knexjs.org/)
