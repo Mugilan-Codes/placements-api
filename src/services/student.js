@@ -68,9 +68,7 @@ class StudentService {
         return { err_msg: 'Invalid Credentials' };
       }
 
-      const { password: dbPass, ...withoutPass } = user;
-
-      const isMatch = await bcryptPass.compare(password, dbPass);
+      const isMatch = await bcryptPass.compare(password, user.password);
       if (!isMatch) {
         return { err_msg: 'Invalid Credentials' };
       }
@@ -82,7 +80,7 @@ class StudentService {
 
       const authToken = token.sign(payload);
 
-      return { student: withoutPass, token: authToken };
+      return { token: authToken };
     } catch (err) {
       console.log(`${this.className} --> login`);
       throw new Error(err.message);
