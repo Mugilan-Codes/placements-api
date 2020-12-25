@@ -4,7 +4,7 @@ import { schema } from '../../models';
 import { Student } from '../../controllers';
 
 router
-  .get('/', Student.getAll)
+  .get('/', authorize(Role.Student), Student.getDetail)
   .get('/courses', authorize(Role.Student), Student.getAllCourses)
   .get(
     '/:register_no',

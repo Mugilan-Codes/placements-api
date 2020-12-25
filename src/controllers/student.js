@@ -77,6 +77,16 @@ class StudentController {
       next(err);
     }
   };
+
+  getDetail = async (req, res, next) => {
+    try {
+      const detail = await StudentService.getOne(req.user.sub);
+      res.json(detail);
+    } catch (err) {
+      console.log(`${this.className} --> getDetail`);
+      next(err);
+    }
+  };
 }
 
 export default new StudentController();
