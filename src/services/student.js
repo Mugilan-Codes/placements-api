@@ -48,9 +48,7 @@ class StudentService {
 
       const authToken = token.sign(payload);
 
-      const studentWithoutPassword = await this._returnWithoutPassword(user);
-
-      return { studentWithoutPassword, authToken };
+      return { token: authToken };
     } catch (err) {
       console.log(`${this.className} --> register`);
       if (err.sqlMessage) {
@@ -85,12 +83,6 @@ class StudentService {
       console.log(`${this.className} --> login`);
       throw new Error(err.message);
     }
-  }
-
-  // Helper Function to return values without password
-  async _returnWithoutPassword(user) {
-    const { password, ...userWithoutPassword } = user;
-    return userWithoutPassword;
   }
 
   async getAll() {
