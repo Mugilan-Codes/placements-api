@@ -7,7 +7,7 @@
 - Remove `console.log` in production because it is not async. Use loggers like `winston`
 - Docker Environment for Development and Testing
 - Handle Errors efficiently
-- Forgot Password, Verify Email, Resend Verification
+- Forgot Password, Verify Email, Resend Verification, Password reset.
 - Update or Delete a course (course_id): Access only by Admin
 - Register Student - Confirmation email to student email and email for both verification. needs only one.
 - student mark and education - register number, cgpa(avg till now), active backlog, backlog history, 10th & 12th Board and percentage, Grad course and percentage for PG students.
