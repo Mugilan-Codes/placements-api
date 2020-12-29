@@ -10,3 +10,4 @@ export const database = process.env.DB_NAME || process.env.USER;
 export const environment = process.env.NODE_ENV || 'development';
 
 export const jwt_secret = process.env.JWT_SECRET;
+export const jwt_refresh_secret = process.env.REFRESH_SECRET;
