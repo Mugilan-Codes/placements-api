@@ -1,4 +1,3 @@
-import { user } from '../config/env';
 import { Course, Student } from '../models';
 import { bcryptPass, Role, token } from '../utils';
 
