@@ -47,8 +47,9 @@ class StudentService {
       };
 
       const authToken = token.sign(payload);
+      const refreshToken = token.refresh.sign(payload);
 
-      return { token: authToken };
+      return { token: authToken, refreshToken };
     } catch (err) {
       console.log(`${this.className} --> register`);
       if (err.sqlMessage) {
@@ -77,8 +78,9 @@ class StudentService {
       };
 
       const authToken = token.sign(payload);
+      const refreshToken = token.refresh.sign(payload);
 
-      return { token: authToken };
+      return { token: authToken, refreshToken };
     } catch (err) {
       console.log(`${this.className} --> login`);
       throw new Error(err.message);

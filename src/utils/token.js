@@ -10,7 +10,7 @@ export const token = {
     return jwt.verify(token, jwt_secret.access);
   },
   refresh: {
-    sign: (payload, expiresIn = '1d') => {
+    sign: (payload, expiresIn = '7d') => {
       return jwt.sign(payload, jwt_secret.refresh, { expiresIn });
     },
     verify: (token) => {
