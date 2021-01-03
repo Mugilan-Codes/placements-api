@@ -115,12 +115,10 @@ const educationSchema = {
         'any.required': `{#key} is a required field`,
         'number.max': `{#key} must be less than or equal to {#limit}`,
       }),
-      grad_course: Joi.string().required().messages({
-        'any.required': `{#key} is a required field`,
+      grad_course: Joi.string().messages({
         'string.empty': `{#key} should not be empty`,
       }),
-      grad_percentage: useNumber.max(100).required().messages({
-        'any.required': `{#key} is a required field`,
+      grad_percentage: useNumber.max(100).messages({
         'number.max': `{#key} must be less than or equal to {#limit}`,
       }),
     })
