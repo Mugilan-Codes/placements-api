@@ -78,6 +78,15 @@ class StudentController {
     }
   };
 
+  addEducation = (req, res, next) => {
+    try {
+      res.json(req.body);
+    } catch (err) {
+      console.log(`${this.className} --> addEducation`);
+      next(err);
+    }
+  };
+
   getDetail = async (req, res, next) => {
     try {
       const detail = await StudentService.getOne(req.user.sub);
