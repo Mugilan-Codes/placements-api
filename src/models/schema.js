@@ -76,7 +76,7 @@ const studentSchema = {
   registerParam: Joi.object().keys({ register_no }),
 };
 
-const marksShcema = {
+const marksSchema = {
   add: Joi.object()
     .keys({
       register_no: register_no
@@ -93,8 +93,43 @@ const marksShcema = {
     .messages({ 'object.unknown': `{#key} is not a valid field` }),
 };
 
+const educationSchema = {
+  add: Joi.object()
+    .keys({
+      register_no: register_no
+        .required()
+        .messages({ 'any.required': `{#key} is a required field` }),
+      '10th_board': Joi.string().required().messages({
+        'any.required': `{#key} is a required field`,
+        'string.empty': `{#key} should not be empty`,
+      }),
+      '10th_percentage': useNumber.max(100).required().messages({
+        'any.required': `{#key} is a required field`,
+        'number.max': `{#key} must be less than or equal to {#limit}`,
+      }),
+      '12th_board': Joi.string().required().messages({
+        'any.required': `{#key} is a required field`,
+        'string.empty': `{#key} should not be empty`,
+      }),
+      '12th_percentage': useNumber.max(100).required().messages({
+        'any.required': `{#key} is a required field`,
+        'number.max': `{#key} must be less than or equal to {#limit}`,
+      }),
+      grad_course: Joi.string().required().messages({
+        'any.required': `{#key} is a required field`,
+        'string.empty': `{#key} should not be empty`,
+      }),
+      grad_percentage: useNumber.max(100).required().messages({
+        'any.required': `{#key} is a required field`,
+        'number.max': `{#key} must be less than or equal to {#limit}`,
+      }),
+    })
+    .messages({ 'object.unknown': `{#key} is not a valid field` }),
+};
+
 export const schema = {
   student: studentSchema,
   course: courseSchema,
-  marks: marksShcema,
+  marks: marksSchema,
+  education: educationSchema,
 };
