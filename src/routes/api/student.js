@@ -13,7 +13,15 @@ router
     validate(schema.student.registerParam, 'params'),
     Student.getOne
   )
-  .post('/add/marks', validate(schema.marks.add), Student.addMarks)
-  .post('/add/education', validate(schema.education.add), Student.addEducation);
+  .post(
+    '/add/marks',
+    [authorize(Role.Student), validate(schema.marks.add)],
+    Student.addMarks
+  )
+  .post(
+    '/add/education',
+    [authorize(Role.Student), validate(schema.education.add)],
+    Student.addEducation
+  );
 
 export default router;

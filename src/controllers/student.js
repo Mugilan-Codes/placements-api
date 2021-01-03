@@ -69,18 +69,22 @@ class StudentController {
     }
   };
 
-  addMarks = (req, res, next) => {
+  addMarks = async (req, res, next) => {
+    const { user, body } = req;
     try {
-      res.json(req.body);
+      const marks = await StudentService.addMarks({ user, body });
+      res.json(marks);
     } catch (err) {
       console.log(`${this.className} --> addMarks`);
       next(err);
     }
   };
 
-  addEducation = (req, res, next) => {
+  addEducation = async (req, res, next) => {
+    const { user, body } = req;
     try {
-      res.json(req.body);
+      const education = await StudentService.addEducation({ user, body });
+      res.json(education);
     } catch (err) {
       console.log(`${this.className} --> addEducation`);
       next(err);

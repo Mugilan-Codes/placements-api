@@ -130,6 +130,49 @@ class StudentService {
       throw new Error(err.message);
     }
   }
+
+  // Check if marks already exists for student, if exists already update it insted of adding
+  async addMarks({ user, body }) {
+    const { sub: register_no } = user;
+    const { cgpa, active_backlog, backlog_history } = body;
+    try {
+      return {
+        register_no,
+        cgpa,
+        active_backlog,
+        backlog_history,
+      };
+    } catch (err) {
+      console.log(`${this.className} --> addMarks`);
+      throw new Error(err.message);
+    }
+  }
+
+  async addEducation({ user, body }) {
+    const { sub: register_no } = user;
+    const {
+      board_10th,
+      percentage_10th,
+      board_12th,
+      percentage_12th,
+      grad_course,
+      grad_percentage,
+    } = body;
+    try {
+      return {
+        register_no,
+        board_10th,
+        percentage_10th,
+        board_12th,
+        percentage_12th,
+        grad_course,
+        grad_percentage,
+      };
+    } catch (err) {
+      console.log(`${this.className} --> addEducation`);
+      throw new Error(err.message);
+    }
+  }
 }
 
 export default new StudentService();

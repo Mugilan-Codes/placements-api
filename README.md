@@ -9,7 +9,7 @@
 - Handle Errors efficiently
 - Forgot Password, Verify Email, Resend Verification, Password reset.
 - Update or Delete a course (course_id): Access only by Admin
-- student mark and education - register number, cgpa(avg till now), active backlog, backlog history, 10th & 12th Board and percentage, Grad course and percentage for PG students. Complete this within Monday (04.01.2021).
+- student mark and education - register number, cgpa(avg till now), active backlog, backlog history, 10th & 12th Board and percentage, Grad course and percentage for PG students. Complete this within Monday (04.01.2021). Only Authorized Student can add or update their marks.
 - Students initially be unverified and will be verified by the admin.
 - Authorization for Admin and Student.
 

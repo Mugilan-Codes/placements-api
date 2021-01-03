@@ -26,7 +26,7 @@ const password = Joi.string().alphanum().min(8).max(50).required().messages({
   'string.max': `{#key} should have a maximum length of {#limit}`,
 });
 const useNumber = Joi.number().min(0).messages({
-  'number.base': `{#key} should be a valid one`,
+  'number.base': `{#key} should be a valid number`,
   'number.min': `{#key} must be greater than or equal to {#limit}`,
   'number.max': `{#key} must be less than or equal to {#limit}`,
 });
@@ -79,14 +79,12 @@ const studentSchema = {
 const marksSchema = {
   add: Joi.object()
     .keys({
-      register_no: register_no
-        .required()
-        .messages({ 'any.required': `{#key} is a required field` }),
       // /^[0-9]{1,2}[.]{0,1}[0-9]{0,2}$/
       cgpa: useNumber.max(10).required().messages({
         'any.required': `{#key} is a required field`,
         'number.max': `{#key} must be less than or equal to {#limit}`,
       }),
+      // Set default to 0 when not provided
       active_backlog: useNumber,
       backlog_history: useNumber,
     })
@@ -96,22 +94,19 @@ const marksSchema = {
 const educationSchema = {
   add: Joi.object()
     .keys({
-      register_no: register_no
-        .required()
-        .messages({ 'any.required': `{#key} is a required field` }),
-      '10th_board': Joi.string().required().messages({
+      board_10th: Joi.string().required().messages({
         'any.required': `{#key} is a required field`,
         'string.empty': `{#key} should not be empty`,
       }),
-      '10th_percentage': useNumber.max(100).required().messages({
+      percentage_10th: useNumber.max(100).required().messages({
         'any.required': `{#key} is a required field`,
         'number.max': `{#key} must be less than or equal to {#limit}`,
       }),
-      '12th_board': Joi.string().required().messages({
+      board_12th: Joi.string().required().messages({
         'any.required': `{#key} is a required field`,
         'string.empty': `{#key} should not be empty`,
       }),
-      '12th_percentage': useNumber.max(100).required().messages({
+      percentage_12th: useNumber.max(100).required().messages({
         'any.required': `{#key} is a required field`,
         'number.max': `{#key} must be less than or equal to {#limit}`,
       }),
