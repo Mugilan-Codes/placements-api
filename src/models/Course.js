@@ -1,4 +1,6 @@
 import { DB } from '../config';
+
+// todo: course_id to id
 class Course {
   tableName = 'course';
 

@@ -1,4 +1,4 @@
-import { Course, Student, Mark } from '../models';
+import { Course, Student, Mark, Education } from '../models';
 import { bcryptPass, Role, token } from '../utils';
 
 class StudentService {
@@ -117,6 +117,10 @@ class StudentService {
 
       resultObj['mark'] = markInfo;
 
+      const educatonInfo = await Education.findById(register_no);
+
+      resultObj['education'] = educatonInfo;
+
       return resultObj;
     } catch (err) {
       console.log(`${this.className} --> getOne`);
@@ -158,23 +162,26 @@ class StudentService {
   async addEducation({ user, body }) {
     const { sub: register_no } = user;
     const {
-      board_10th,
-      percentage_10th,
-      board_12th,
-      percentage_12th,
+      tenth_board,
+      tenth_percentage,
+      twelfth_board,
+      twelfth_percentage,
       grad_course,
       grad_percentage,
     } = body;
     try {
-      return {
+      // todo: Check for duplicate and update if exists
+      const education = await Education.addEducation({
         register_no,
-        board_10th,
-        percentage_10th,
-        board_12th,
-        percentage_12th,
+        tenth_board,
+        tenth_percentage,
+        twelfth_board,
+        twelfth_percentage,
         grad_course,
         grad_percentage,
-      };
+        updated_on: new Date(),
+      });
+      return education;
     } catch (err) {
       console.log(`${this.className} --> addEducation`);
       throw new Error(err.message);

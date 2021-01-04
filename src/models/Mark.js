@@ -26,9 +26,9 @@ class Mark {
     }
   };
 
-  // returns without register_no
   findById = async (register_no) => {
     // const result = await DB(this.tableName).where({ register_no });
+    // returns without register_no
     const result = await DB.select(
       'cgpa',
       'active_backlog',

@@ -62,7 +62,7 @@ CREATE TABLE IF NOT EXISTS education (
 ) ENGINE=INNODB;
 
 INSERT INTO course 
-  (course_id, degree, type, short_name, course_name, department) 
+  (id, degree, type, short_name, course_name, department) 
 VALUES 
   ('pg-mca-r', 'PG', 'R', 'MCA', 'Master of Computer Applications - Regular', 'Information Science & Technology'),
   ('pg-mca-ss', 'PG', 'SS', 'MCA', 'Master of Computer Applications - Self Supporting', 'Information Science & Technology'),
