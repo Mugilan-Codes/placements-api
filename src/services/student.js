@@ -139,6 +139,8 @@ class StudentService {
     const { sub: register_no } = user;
     const { cgpa, active_backlog, backlog_history } = body;
     try {
+      //todo: check for duplicates in marks table, update if exists
+
       const marks = await Mark.addMarks({
         register_no,
         cgpa,
