@@ -25,6 +25,21 @@ class Mark {
       return { err_msg: 'error occured' };
     }
   };
+
+  // returns without register_no
+  findById = async (register_no) => {
+    // const result = await DB(this.tableName).where({ register_no });
+    const result = await DB.select(
+      'cgpa',
+      'active_backlog',
+      'backlog_history',
+      'updated_on'
+    )
+      .where({ register_no })
+      .from(this.tableName);
+
+    return result[0];
+  };
 }
 
 export default new Mark();

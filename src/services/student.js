@@ -1,4 +1,4 @@
-import { Course, Student } from '../models';
+import { Course, Student, Mark } from '../models';
 import { bcryptPass, Role, token } from '../utils';
 
 class StudentService {
@@ -113,6 +113,9 @@ class StudentService {
       resultObj['course'] = courseInfo;
 
       // Retrieve Mark & Education in similar way
+      const markInfo = await Mark.findById(register_no);
+
+      resultObj['mark'] = markInfo;
 
       return resultObj;
     } catch (err) {
@@ -136,12 +139,14 @@ class StudentService {
     const { sub: register_no } = user;
     const { cgpa, active_backlog, backlog_history } = body;
     try {
-      return {
+      const marks = await Mark.addMarks({
         register_no,
         cgpa,
         active_backlog,
         backlog_history,
-      };
+        updated_on: new Date(),
+      });
+      return marks;
     } catch (err) {
       console.log(`${this.className} --> addMarks`);
       throw new Error(err.message);
