@@ -13,7 +13,7 @@ class Course {
     department,
   }) => {
     await DB.insert({
-      course_id,
+      id: course_id,
       degree,
       type,
       short_name,
@@ -26,7 +26,7 @@ class Course {
   };
 
   findById = async (course_id) => {
-    const result = await DB(this.tableName).where({ course_id });
+    const result = await DB(this.tableName).where({ id: course_id });
 
     return result[0];
   };

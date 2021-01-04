@@ -5,9 +5,9 @@ import { Student } from '../../controllers';
 
 router
   .get('/courses', Student.getAllCourses)
-  .get('/', authorize(Role.Student), Student.getDetail)
   .post('/register', validate(schema.student.register), Student.register)
   .post('/login', validate(schema.student.login), Student.login)
+  .get('/', authorize(Role.Student), Student.getDetail)
   .get(
     '/:register_no',
     validate(schema.student.registerParam, 'params'),

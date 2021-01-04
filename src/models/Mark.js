@@ -19,11 +19,25 @@ class Mark {
         updated_on,
       }).into(this.tableName);
 
-      return { register_no };
+      return { register_no, msg: 'Added' };
     } catch (err) {
       console.log(err);
       return { err_msg: 'error occured' };
     }
+  };
+
+  update = async ({
+    register_no,
+    cgpa,
+    active_backlog,
+    backlog_history,
+    updated_on,
+  }) => {
+    await DB(this.tableName)
+      .where({ register_no })
+      .update({ cgpa, active_backlog, backlog_history, updated_on });
+
+    return { register_no, msg: 'Updated' };
   };
 
   findById = async (register_no) => {

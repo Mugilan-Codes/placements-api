@@ -108,9 +108,12 @@ class StudentService {
 
       let { password, course_id, ...resultObj } = studentInfo;
 
-      const courseInfo = await Course.findById(course_id);
-
-      resultObj['course'] = courseInfo;
+      if (course_id !== null) {
+        const courseInfo = await Course.findById(course_id);
+        if (courseInfo) {
+          resultObj['course'] = courseInfo;
+        }
+      }
 
       // Retrieve Mark & Education in similar way
       const markInfo = await Mark.findById(register_no);
@@ -138,20 +141,29 @@ class StudentService {
     }
   }
 
-  // Check if marks already exists for student, if exists already update it insted of adding
   async addMarks({ user, body }) {
     const { sub: register_no } = user;
     const { cgpa, active_backlog, backlog_history } = body;
     try {
       //todo: check for duplicates in marks table, update if exists
-
-      const marks = await Mark.addMarks({
-        register_no,
-        cgpa,
-        active_backlog,
-        backlog_history,
-        updated_on: new Date(),
-      });
+      let marks = await Mark.findById(register_no);
+      if (!marks) {
+        marks = await Mark.addMarks({
+          register_no,
+          cgpa,
+          active_backlog,
+          backlog_history,
+          updated_on: new Date(),
+        });
+      } else {
+        marks = await Mark.update({
+          register_no,
+          cgpa,
+          active_backlog,
+          backlog_history,
+          updated_on: new Date(),
+        });
+      }
       return marks;
     } catch (err) {
       console.log(`${this.className} --> addMarks`);
