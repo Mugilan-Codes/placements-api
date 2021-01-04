@@ -145,24 +145,19 @@ class StudentService {
     const { sub: register_no } = user;
     const { cgpa, active_backlog, backlog_history } = body;
     try {
-      //todo: check for duplicates in marks table, update if exists
+      // todo: Update only if there is a difference
+      const newMarks = {
+        register_no,
+        cgpa,
+        active_backlog,
+        backlog_history,
+        updated_on: new Date(),
+      };
       let marks = await Mark.findById(register_no);
       if (!marks) {
-        marks = await Mark.addMarks({
-          register_no,
-          cgpa,
-          active_backlog,
-          backlog_history,
-          updated_on: new Date(),
-        });
+        marks = await Mark.add(newMarks);
       } else {
-        marks = await Mark.update({
-          register_no,
-          cgpa,
-          active_backlog,
-          backlog_history,
-          updated_on: new Date(),
-        });
+        marks = await Mark.update(newMarks);
       }
       return marks;
     } catch (err) {
@@ -182,8 +177,8 @@ class StudentService {
       grad_percentage,
     } = body;
     try {
-      // todo: Check for duplicate and update if exists
-      const education = await Education.addEducation({
+      // todo: Update only if there is a difference
+      const newEducation = {
         register_no,
         tenth_board,
         tenth_percentage,
@@ -192,7 +187,13 @@ class StudentService {
         grad_course,
         grad_percentage,
         updated_on: new Date(),
-      });
+      };
+      let education = await Education.findById(register_no);
+      if (!education) {
+        education = await Education.add(newEducation);
+      } else {
+        education = await Education.update(newEducation);
+      }
       return education;
     } catch (err) {
       console.log(`${this.className} --> addEducation`);

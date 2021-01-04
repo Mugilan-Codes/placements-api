@@ -3,7 +3,7 @@ import { DB } from '../config';
 class Mark {
   tableName = 'marks';
 
-  addMarks = async ({
+  add = async ({
     register_no,
     cgpa,
     active_backlog,

@@ -3,7 +3,7 @@ import { DB } from '../config';
 class Education {
   tableName = 'education';
 
-  addEducation = async ({
+  add = async ({
     register_no,
     tenth_board,
     tenth_percentage,
@@ -12,7 +12,43 @@ class Education {
     grad_course,
     grad_percentage,
     updated_on,
-  }) => {};
+  }) => {
+    await DB.insert({
+      register_no,
+      tenth_board,
+      tenth_percentage,
+      twelfth_board,
+      twelfth_percentage,
+      grad_course,
+      grad_percentage,
+      updated_on,
+    }).into(this.tableName);
+
+    return { register_no, msg: 'Added' };
+  };
+
+  update = async ({
+    register_no,
+    tenth_board,
+    tenth_percentage,
+    twelfth_board,
+    twelfth_percentage,
+    grad_course,
+    grad_percentage,
+    updated_on,
+  }) => {
+    await DB(this.tableName).where({ register_no }).update({
+      tenth_board,
+      tenth_percentage,
+      twelfth_board,
+      twelfth_percentage,
+      grad_course,
+      grad_percentage,
+      updated_on,
+    });
+
+    return { register_no, msg: 'Updated' };
+  };
 
   findById = async (register_no) => {
     const result = await DB.select(
