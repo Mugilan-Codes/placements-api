@@ -94,19 +94,19 @@ const marksSchema = {
 const educationSchema = {
   add: Joi.object()
     .keys({
-      board_10th: Joi.string().required().messages({
+      tenth_board: Joi.string().required().messages({
         'any.required': `{#key} is a required field`,
         'string.empty': `{#key} should not be empty`,
       }),
-      percentage_10th: useNumber.max(100).required().messages({
+      tenth_percentage: useNumber.max(100).required().messages({
         'any.required': `{#key} is a required field`,
         'number.max': `{#key} must be less than or equal to {#limit}`,
       }),
-      board_12th: Joi.string().required().messages({
+      twelfth_board: Joi.string().required().messages({
         'any.required': `{#key} is a required field`,
         'string.empty': `{#key} should not be empty`,
       }),
-      percentage_12th: useNumber.max(100).required().messages({
+      twelfth_percentage: useNumber.max(100).required().messages({
         'any.required': `{#key} is a required field`,
         'number.max': `{#key} must be less than or equal to {#limit}`,
       }),
