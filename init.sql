@@ -4,7 +4,6 @@ CREATE DATABASE IF NOT EXISTS `placement_db`;
 
 USE `placement_db`;
 
--- todo: course_id to id . Modify accordingly
 CREATE TABLE IF NOT EXISTS course (
   id VARCHAR(15) PRIMARY KEY,
   degree ENUM('UG', 'PG') NOT NULL,
@@ -40,17 +39,16 @@ CREATE TABLE IF NOT EXISTS marks (
     ON DELETE CASCADE
 ) ENGINE=INNODB;
 
--- todo: removed numbers from names. Modify accordingly 
 CREATE TABLE IF NOT EXISTS education (
   register_no VARCHAR(15) PRIMARY KEY,
   tenth_board VARCHAR(30) NOT NULL,
   tenth_percentage NUMERIC(5, 2) NOT NULL 
-    CHECK(`10th_percentage` >= 0 
-      AND `10th_percentage` <= 100),
+    CHECK(`tenth_percentage` >= 0 
+      AND `tenth_percentage` <= 100),
   twelfth_board VARCHAR(30) NOT NULL,
   twelfth_percentage NUMERIC(5, 2) NOT NULL 
-    CHECK(`12th_percentage` >= 0 
-      AND `12th_percentage` <= 100),
+    CHECK(`twelfth_percentage` >= 0 
+      AND `twelfth_percentage` <= 100),
   grad_course VARCHAR(30),
   grad_percentage NUMERIC(5, 2) 
     CHECK(`grad_percentage` >= 0 
