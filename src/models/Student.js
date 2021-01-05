@@ -25,6 +25,14 @@ class Student {
     return this.findById(register_no);
   };
 
+  updateTest = async ({ register_no, userFields }) => {
+    const res = await DB(this.tableName)
+      .where({ register_no })
+      .update(userFields);
+    console.log({ res });
+    return this.findById(register_no);
+  };
+
   findById = async (register_no) => {
     const result = (await DB(this.tableName).where({ register_no }))[0];
 

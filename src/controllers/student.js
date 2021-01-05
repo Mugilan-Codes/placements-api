@@ -102,8 +102,10 @@ class StudentController {
   };
 
   updateDetail = async (req, res, next) => {
+    const { user, body } = req;
     try {
-      res.json({ msg: 'done' });
+      const student = await StudentService.updateStudent({ user, body });
+      res.json(student);
     } catch (err) {
       console.log(`${this.className} --> updateDetail`);
       next(err);

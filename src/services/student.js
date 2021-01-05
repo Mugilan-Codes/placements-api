@@ -1,5 +1,5 @@
 import { Course, Student, Mark, Education } from '../models';
-import { bcryptPass, Role, token } from '../utils';
+import { bcryptPass, Role, token, isDifferent } from '../utils';
 
 // todo: Add provision to add course separately (i.e. update a user)
 class StudentService {
@@ -207,12 +207,28 @@ class StudentService {
     }
   }
 
+  // todo: separate change password
   async updateStudent({ user, body }) {
     const { sub: register_no } = user;
-    const {} = body;
+    const { name, email, password, course_id } = body;
     try {
+      // Check and get the student
+      // name, email, password, course_id, created_on, updated_on
+      // check if the new values are different to the old one
+      let testing = isDifferent(course_id, 'pg') ? course_id : 'pg';
+      // todo: Only update that which is different
+      const updated_on = new Date();
+      return {
+        register_no,
+        name,
+        email,
+        password,
+        course_id: testing,
+        updated_on,
+      };
     } catch (err) {
-      
+      console.log(`${this.className} --> updateStudent`);
+      throw new Error(err.message);
     }
   }
 }
