@@ -11,6 +11,8 @@
 - Update or Delete a course (course_id): Access only by Admin
 - Students initially be unverified and will be verified by the admin.
 - Authorization for Admin.
+- Company Postings
+- Eligibilty criteria
 
 ### Create Tables
 

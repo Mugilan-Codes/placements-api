@@ -37,11 +37,6 @@ class StudentController {
   getAll = async (req, res, next) => {
     try {
       const students = await StudentService.getAll();
-      // const studentRegisterNumbers = students.map((item) => item.register_no);
-
-      // const studentWithDetails = await Promise.all(
-      //   studentRegisterNumbers.map(StudentService.getOne)
-      // );
 
       res.json(students);
     } catch (err) {
