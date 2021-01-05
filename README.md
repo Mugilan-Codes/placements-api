@@ -13,6 +13,8 @@
 - Authorization for Admin.
 - Company Postings
 - Eligibilty criteria
+- Refactor
+- Decide whether to use PUT or PATCH for updating.
 
 ### Create Tables
 
