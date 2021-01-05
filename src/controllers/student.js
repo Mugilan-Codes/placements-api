@@ -100,6 +100,15 @@ class StudentController {
       next(err);
     }
   };
+
+  updateDetail = async (req, res, next) => {
+    try {
+      res.json({ msg: 'done' });
+    } catch (err) {
+      console.log(`${this.className} --> updateDetail`);
+      next(err);
+    }
+  };
 }
 
 export default new StudentController();

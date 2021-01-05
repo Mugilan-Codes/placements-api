@@ -206,6 +206,15 @@ class StudentService {
       throw new Error(err.message);
     }
   }
+
+  async updateStudent({ user, body }) {
+    const { sub: register_no } = user;
+    const {} = body;
+    try {
+    } catch (err) {
+      
+    }
+  }
 }
 
 export default new StudentService();
