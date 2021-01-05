@@ -1,6 +1,7 @@
 import { Course, Student, Mark, Education } from '../models';
 import { bcryptPass, Role, token } from '../utils';
 
+// todo: Add provision to add course separately (i.e. update a user)
 class StudentService {
   className = 'StudentService';
 
@@ -86,13 +87,18 @@ class StudentService {
     }
   }
 
+  //? is this necessary ?
   async getAll() {
     try {
       const students = await Student.find();
 
-      //todo: Also retrieve course details
+      const studentRegisterNumbers = students.map((item) => item.register_no);
 
-      return students;
+      const studentWithDetails = await Promise.all(
+        studentRegisterNumbers.map(this.getOne)
+      );
+
+      return studentWithDetails;
     } catch (err) {
       console.log(`${this.className} --> getAll`);
       throw new Error(err.message);

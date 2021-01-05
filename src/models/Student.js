@@ -46,7 +46,7 @@ class Student {
   };
 
   find = async () => {
-    return await DB.select().from(this.tableName);
+    return await DB.select('register_no').from(this.tableName);
   };
 }
 

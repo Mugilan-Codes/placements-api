@@ -4,6 +4,7 @@ import { schema } from '../../models';
 import { Student } from '../../controllers';
 
 router
+  .get('/all', Student.getAll)
   .get('/courses', Student.getAllCourses)
   .post('/register', validate(schema.student.register), Student.register)
   .post('/login', validate(schema.student.login), Student.login)
