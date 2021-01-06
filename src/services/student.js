@@ -210,22 +210,28 @@ class StudentService {
   // todo: separate change password
   async updateStudent({ user, body }) {
     const { sub: register_no } = user;
-    const { name, email, password, course_id } = body;
+    const { name, email, course_id } = body;
     try {
+      const student = await Student.findById(register_no);
       // Check and get the student
-      // name, email, password, course_id, created_on, updated_on
+      // name, email, course_id, created_on, updated_on
       // check if the new values are different to the old one
-      let testing = isDifferent(course_id, 'pg') ? course_id : 'pg';
-      // todo: Only update that which is different
-      const updated_on = new Date();
-      return {
-        register_no,
-        name,
-        email,
-        password,
-        course_id: testing,
-        updated_on,
+      // let testing = isDifferent(course_id, 'pg') ? course_id : 'pg';
+      // Check for valid course_id
+
+      let userFields = {
+        name: isDifferent(name, student.name) ? name : student.name,
+        email: isDifferent(email, student.email) ? email : student.email,
+        course_id: isDifferent(course_id, student.course_id)
+          ? course_id
+          : student.course_id,
+        updated_on: new Date(),
       };
+      // todo: Only update that which is different
+
+      const updateStud = await Student.update(register_no, userFields);
+
+      return updateStud;
     } catch (err) {
       console.log(`${this.className} --> updateStudent`);
       throw new Error(err.message);
