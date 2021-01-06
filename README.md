@@ -14,7 +14,6 @@
 - Company Postings, Get Postings by Student.
 - Eligibilty criteria
 - Refactor
-- Decide whether to use PUT or PATCH for updating.
 
 ### Create Tables
 
