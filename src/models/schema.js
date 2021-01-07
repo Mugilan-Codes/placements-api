@@ -74,6 +74,22 @@ const studentSchema = {
       'object.unknown': `{#key} is not a valid field`,
     }),
   registerParam: Joi.object().keys({ register_no }),
+  update: Joi.object()
+    .keys({
+      name: Joi.string().min(3).messages({
+        'string.empty': `{#key} should not be empty`,
+        'string.min': `{#key} should have a minimum length of {#limit}`,
+      }),
+      email,
+      course_id: Joi.string().max(15).messages({
+        'string.max': `{#key} should have a maximum length of {#limit}`,
+      }),
+    })
+    .or('name', 'email', 'course_id')
+    .messages({
+      'object.missing': `One of the Fields is Required: {#peers}`,
+      'object.unknown': `{#key} is not a valid field`,
+    }),
 };
 
 const marksSchema = {

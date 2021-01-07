@@ -9,7 +9,11 @@ router
   .post('/register', validate(schema.student.register), Student.register)
   .post('/login', validate(schema.student.login), Student.login)
   .get('/', authorize(Role.Student), Student.getDetail)
-  .put('/', authorize(Role.Student), Student.updateDetail)
+  .put(
+    '/',
+    [authorize(Role.Student), validate(schema.student.update)],
+    Student.updateDetail
+  )
   .get(
     '/:register_no',
     validate(schema.student.registerParam, 'params'),
