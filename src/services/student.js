@@ -216,13 +216,18 @@ class StudentService {
     try {
       const student = await Student.findById(register_no);
 
-      // todo: Check for valid course_id
-
       let userFields = {
         name,
         email,
         course_id,
       };
+
+      const course = await Course.findById(course_id);
+
+      // todo: Check for valid course_id
+      if (!course) {
+        userFields['course_id'] = undefined; // or null or ''
+      }
 
       // todo: Refactor this
       Object.keys(userFields).forEach((key) => {
