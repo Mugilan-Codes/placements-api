@@ -222,9 +222,7 @@ class StudentService {
         course_id,
       };
 
-      const course = await Course.findById(course_id);
-
-      // todo: Check for valid course_id
+      const course = course_id && (await Course.findById(course_id));
       if (!course) {
         userFields['course_id'] = undefined; // or null or ''
       }
