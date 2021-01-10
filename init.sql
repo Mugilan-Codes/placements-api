@@ -59,6 +59,13 @@ CREATE TABLE IF NOT EXISTS education (
     ON DELETE CASCADE
 ) ENGINE=INNODB;
 
+-- Set Triggers to enforce uniqueness across tables
+-- CREATE TABLE IF NOT EXISTS admin (
+--   id VARCHAR(20) PRIMARY KEY,
+--   name VARCHAR(30) NOT NULL,
+--   email VARCHAR(100) NOT NULL UNIQUE,
+-- )
+
 INSERT INTO course 
   (id, degree, type, short_name, course_name, department) 
 VALUES 

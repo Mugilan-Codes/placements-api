@@ -17,8 +17,8 @@
 - Admin
   [ ] Register
   [ ] Login
-  [ ] Get One Student
-  [ ] Get All Students
+  [X] Get One Student
+  [X] Get All Students
   [X] Add Course
   [ ] Update Course
   [ ] Get One Course
@@ -34,7 +34,7 @@
   [ ] Update Education
   [ ] Get Listings
 - Common
-  [ ] Get All Courses
+  [X] Get All Courses
 
 ### Create Tables
 
