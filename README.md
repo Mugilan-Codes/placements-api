@@ -14,6 +14,12 @@
 - Company Postings, Get Postings by Student.
 - Eligibilty criteria
 - Refactor
+- Admin
+  - Register, Login, Get One Student, Get All Students, Add Course, Update Course, Get One Course, Add Listing
+- Student
+  - Register, Login, Get Student Detail, Update Student, Add Marks, Update Marks, Add Education, Update Education, Get Listings
+- Common
+  - Get All Courses
 
 ### Create Tables
 
