@@ -15,11 +15,26 @@
 - Eligibilty criteria
 - Refactor
 - Admin
-  - Register, Login, Get One Student, Get All Students, Add Course, Update Course, Get One Course, Add Listing
+  [ ] Register
+  [ ] Login
+  [ ] Get One Student
+  [ ] Get All Students
+  [X] Add Course
+  [ ] Update Course
+  [ ] Get One Course
+  [ ] Add Listing
 - Student
-  - Register, Login, Get Student Detail, Update Student, Add Marks, Update Marks, Add Education, Update Education, Get Listings
+  [X] Register
+  [X] Login
+  [X] Get Student Detail
+  [X] Update Student
+  [X] Add Marks
+  [ ] Update Marks
+  [X] Add Education
+  [ ] Update Education
+  [ ] Get Listings
 - Common
-  - Get All Courses
+  [ ] Get All Courses
 
 ### Create Tables
 
