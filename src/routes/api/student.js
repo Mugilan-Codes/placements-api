@@ -7,7 +7,7 @@ import { Student } from '../../controllers';
 const router = express.Router();
 
 router
-  .get('/all', Student.getAll)
+  .get('/all', authorize(Role.Admin), Student.getAll)
   .get('/courses', Student.getAllCourses)
   .post('/register', validate(schema.student.register), Student.register)
   .post('/login', validate(schema.student.login), Student.login)
@@ -19,7 +19,7 @@ router
   )
   .get(
     '/:register_no',
-    validate(schema.student.registerParam, 'params'),
+    [authorize(Role.Admin), validate(schema.student.registerParam, 'params')],
     Student.getOne
   )
   .post(

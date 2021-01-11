@@ -124,6 +124,20 @@ class AdminService {
       throw new Error(err.message);
     }
   };
+
+  getOneCourse = async (course_id) => {
+    try {
+      const course = await Course.findById(course_id);
+      if (!course) {
+        return { err_msg: 'Course Not Found' };
+      }
+
+      return course;
+    } catch (err) {
+      console.log(`${this.className} --> getOneCourse`);
+      throw new Error(err.message);
+    }
+  };
 }
 
 export default new AdminService();

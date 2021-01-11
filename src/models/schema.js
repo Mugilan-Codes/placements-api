@@ -44,6 +44,13 @@ const courseSchema = {
     course_name: Joi.string().max(75).required(),
     department: Joi.string().max(75).required(),
   }),
+  idParam: Joi.object().keys({
+    course_id: Joi.string()
+      .max(15)
+      .messages({
+        'string.max': `{#key} should have a maximum length of {#limit}`,
+      }),
+  }),
 };
 
 const adminSchema = {

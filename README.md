@@ -21,7 +21,7 @@
   [X] Get All Students
   [X] Add Course
   [ ] Update Course
-  [ ] Get One Course
+  [X] Get One Course
   [ ] Add Listing
 - Student
   [X] Register
@@ -29,9 +29,9 @@
   [X] Get Student Detail
   [X] Update Student
   [X] Add Marks
-  [ ] Update Marks
+  [X] Update Marks
   [X] Add Education
-  [ ] Update Education
+  [X] Update Education
   [ ] Get Listings
 - Common
   [X] Get All Courses

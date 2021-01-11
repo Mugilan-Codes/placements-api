@@ -86,7 +86,6 @@ class StudentService {
     }
   }
 
-  //? is this necessary ?
   async getAll() {
     try {
       const students = await Student.find();

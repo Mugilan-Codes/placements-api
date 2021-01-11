@@ -10,6 +10,11 @@ router
   .post('/register', validate(schema.admin.register), Admin.register)
   .post('/login', validate(schema.admin.login), Admin.login)
   .get('/', authorize(Role.Admin), Admin.getDetail)
+  .get(
+    '/course/:course_id',
+    [authorize(Role.Admin), validate(schema.course.idParam, 'params')],
+    Admin.getOneCourse
+  )
   .post(
     '/course',
     [authorize(Role.Admin), validate(schema.course.add)],

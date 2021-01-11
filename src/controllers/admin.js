@@ -58,6 +58,22 @@ class AdminController {
       next(err);
     }
   };
+
+  getOneCourse = async (req, res, next) => {
+    const { course_id } = req.params;
+    try {
+      const course = await AdminService.getOneCourse(course_id);
+
+      if (course.err_msg) {
+        return next(ApiError.notFound(course.err_msg));
+      }
+
+      res.json(course);
+    } catch (err) {
+      console.log(`${this.className} --> getOneCourse`);
+      next(err);
+    }
+  };
 }
 
 export default new AdminController();
