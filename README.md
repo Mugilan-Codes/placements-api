@@ -23,6 +23,9 @@
   [ ] Update Course
   [X] Get One Course
   [ ] Add Listing
+  [ ] Update Listing
+  [ ] Get All Listings
+  [ ] Delete Listings
 - Student
   [X] Register
   [X] Login
@@ -32,7 +35,7 @@
   [X] Update Marks
   [X] Add Education
   [X] Update Education
-  [ ] Get Listings
+  [ ] Get All Listings with Eligibilty
 - Common
   [X] Get All Courses
 

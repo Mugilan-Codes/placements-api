@@ -70,6 +70,16 @@ CREATE TABLE IF NOT EXISTS education (
     ON DELETE CASCADE
 ) ENGINE=INNODB;
 
+CREATE TABLE IF NOT EXISTS listings (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  title VARCHAR(50) NOT NULL,
+  description VARCHAR(255) NOT NULL,
+  name VARCHAR(50) NOT NULL,
+  criteria JSON,
+  created_on TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  updated_on TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+) ENGINE=INNODB;
+
 -- todo: Separate table to hold active refresh tokens
 
 INSERT INTO course 
