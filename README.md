@@ -15,8 +15,8 @@
 - Eligibilty criteria
 - Refactor
 - Admin
-  [ ] Register
-  [ ] Login
+  [X] Register
+  [X] Login
   [X] Get One Student
   [X] Get All Students
   [X] Add Course

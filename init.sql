@@ -4,6 +4,17 @@ CREATE DATABASE IF NOT EXISTS `placement_db`;
 
 USE `placement_db`;
 
+-- todo: Set Triggers to enforce uniqueness across tables
+CREATE TABLE IF NOT EXISTS admin (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  name VARCHAR(30) NOT NULL,
+  email VARCHAR(50) NOT NULL UNIQUE,
+  password VARCHAR(100) NOT NULL,
+  created_on TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  updated_on TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+) ENGINE=INNODB;
+
+-- todo: Add created_by & updated_by admin details for each course
 CREATE TABLE IF NOT EXISTS course (
   id VARCHAR(15) PRIMARY KEY,
   degree ENUM('UG', 'PG') NOT NULL,
@@ -57,16 +68,6 @@ CREATE TABLE IF NOT EXISTS education (
   FOREIGN KEY (`register_no`)
     REFERENCES `student`(`register_no`)
     ON DELETE CASCADE
-) ENGINE=INNODB;
-
--- todo: Set Triggers to enforce uniqueness across tables
-CREATE TABLE IF NOT EXISTS admin (
-  id INT AUTO_INCREMENT PRIMARY KEY,
-  name VARCHAR(30) NOT NULL,
-  email VARCHAR(50) NOT NULL UNIQUE,
-  password VARCHAR(100) NOT NULL,
-  created_on TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  updated_on TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=INNODB;
 
 -- todo: Separate table to hold active refresh tokens
