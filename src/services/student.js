@@ -1,7 +1,6 @@
 import { Course, Student, Mark, Education } from '../models';
 import { bcryptPass, Role, token, isDifferent, isEmptyObject } from '../utils';
 
-// todo: Add provision to add course separately (i.e. update a user)
 class StudentService {
   className = 'StudentService';
 

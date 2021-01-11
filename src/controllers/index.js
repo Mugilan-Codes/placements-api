@@ -1,2 +1,2 @@
 export { default as Student } from './student';
-export { addCourseController } from './admin';
+export { default as Admin } from './admin';
