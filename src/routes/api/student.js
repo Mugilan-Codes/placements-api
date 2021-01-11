@@ -23,12 +23,12 @@ router
     Student.getOne
   )
   .post(
-    '/add/marks',
+    '/marks',
     [authorize(Role.Student), validate(schema.marks.add)],
     Student.addMarks
   )
   .post(
-    '/add/education',
+    '/education',
     [authorize(Role.Student), validate(schema.education.add)],
     Student.addEducation
   );
