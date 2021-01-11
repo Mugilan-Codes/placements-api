@@ -36,7 +36,7 @@ class AdminService {
   login = async (admin) => {
     const { email, password } = admin;
     try {
-      let user = await Admin.findIdByEmail({ email });
+      let user = await Admin.findIdByEmail(email);
       if (!user) {
         return { err_msg: 'Invalid Credentials' };
       }
@@ -75,7 +75,7 @@ class AdminService {
 
       const { password, ...result } = admin;
 
-      return { result };
+      return result;
     } catch (err) {
       console.log(`${this.className} --> getOne`);
       if (err.sqlMessage) {

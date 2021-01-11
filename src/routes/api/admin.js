@@ -1,7 +1,10 @@
-import { Role, router } from '../../utils';
+import express from 'express';
+import { Role } from '../../utils';
 import { Admin } from '../../controllers';
 import { authorize, validate } from '../../middleware';
 import { schema } from '../../models';
+
+const router = express.Router();
 
 router
   .post('/register', validate(schema.admin.register), Admin.register)

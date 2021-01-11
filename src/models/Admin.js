@@ -5,11 +5,11 @@ class Admin {
 
   add = async ({ name, email, password }) => {
     await DB.insert({ name, email, password }).into(this.tableName);
-    return await this.findIdByEmail(email);
+    return this.findIdByEmail(email);
   };
 
   findIdByEmail = async (email) => {
-    const result = await DB(this.tableName).where({ email }).select('id');
+    const result = (await DB(this.tableName).where({ email }).select('id'))[0];
 
     return result;
   };

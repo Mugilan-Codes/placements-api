@@ -67,7 +67,7 @@ CREATE TABLE IF NOT EXISTS admin (
   password VARCHAR(100) NOT NULL,
   created_on TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   updated_on TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-)
+) ENGINE=INNODB;
 
 -- todo: Separate table to hold active refresh tokens
 

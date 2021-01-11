@@ -1,7 +1,10 @@
-import { Role, router } from '../../utils';
+import express from 'express';
+import { Role } from '../../utils';
 import { authorize, validate } from '../../middleware';
 import { schema } from '../../models';
 import { Student } from '../../controllers';
+
+const router = express.Router();
 
 router
   .get('/all', Student.getAll)
