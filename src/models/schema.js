@@ -30,6 +30,10 @@ const useNumber = Joi.number().min(0).messages({
   'number.min': `{#key} must be greater than or equal to {#limit}`,
   'number.max': `{#key} must be less than or equal to {#limit}`,
 });
+const name = Joi.string().min(3).messages({
+  'string.empty': `{#key} should not be empty`,
+  'string.min': `{#key} should have a minimum length of {#limit}`,
+});
 
 // Schemas
 const courseSchema = {
@@ -42,16 +46,39 @@ const courseSchema = {
   }),
 };
 
+const adminSchema = {
+  register: Joi.object()
+    .keys({
+      name: name
+        .required()
+        .messages({ 'any.required': `{#key} is a required field` }),
+      email: email
+        .required()
+        .messages({ 'any.required': `{#key} is a required field` }),
+      password,
+      confirm_password: Joi.any().valid(Joi.ref('password')).messages({
+        'any.only': `{#key} not match`,
+      }),
+    })
+    .messages({ 'object.unknown': `{#key} is not a valid field` }),
+  login: Joi.object()
+    .keys({
+      email: email
+        .required()
+        .messages({ 'any.required': `{#key} is a required field` }),
+      password,
+    })
+    .messages({ 'object.unknown': `{#key} is not a valid field` }),
+};
+
 const studentSchema = {
   register: Joi.object().keys({
     register_no: register_no
       .required()
       .messages({ 'any.required': `{#key} is a required field` }),
-    name: Joi.string().min(3).required().messages({
-      'any.required': `{#key} is a required field`,
-      'string.empty': `{#key} should not be empty`,
-      'string.min': `{#key} should have a minimum length of {#limit}`,
-    }),
+    name: name
+      .required()
+      .messages({ 'any.required': `{#key} is a required field` }),
     email: email
       .required()
       .messages({ 'any.required': `{#key} is a required field` }),
@@ -137,6 +164,7 @@ const educationSchema = {
 };
 
 export const schema = {
+  admin: adminSchema,
   student: studentSchema,
   course: courseSchema,
   marks: marksSchema,
