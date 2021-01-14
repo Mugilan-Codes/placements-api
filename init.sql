@@ -71,13 +71,14 @@ CREATE TABLE IF NOT EXISTS education (
 ) ENGINE=INNODB;
 
 -- todo: Add Course degree, type, & name as a criteria
+-- todo: Add time of starting
+-- todo: Add created_by & updated_by admins
 CREATE TABLE IF NOT EXISTS listings (
   id INT AUTO_INCREMENT PRIMARY KEY,
   title VARCHAR(50) NOT NULL,
   description VARCHAR(255) NOT NULL,
   name VARCHAR(50) NOT NULL,
-  start_date DATE,
-  start_date_2 DATETIME,
+  start_date DATE NOT NULL, -- SELECT DATE_FORMAT(CURDATE(), '%D %b, %Y (%W)') today; // Date Format
   tenth_percentage NUMERIC(5, 2)
     CHECK(`tenth_percentage` >= 0 
       AND `tenth_percentage` <= 100),
