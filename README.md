@@ -8,12 +8,8 @@
 - Docker Environment for Development and Testing
 - Handle Errors efficiently
 - Forgot/Reset Password, Verify Email, Resend Verification
-- Update or Delete a course (course_id): Access only by Admin
 - Students initially be unverified and will be verified by the admin.
-- Authorization for Admin.
-- Company Postings, Get Postings by Student.
-- Eligibilty criteria
-- Refactor
+- Refactoring
 - Admin
   [X] Register
   [X] Login
@@ -21,6 +17,7 @@
   [X] Get All Students
   [X] Add Course
   [ ] Update Course
+  [ ] Delete Course
   [X] Get One Course
   [ ] Add Listing
   [ ] Update Listing
