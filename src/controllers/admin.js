@@ -74,6 +74,15 @@ class AdminController {
       next(err);
     }
   };
+
+  addListing = async (req, res, next) => {
+    try {
+      res.json(req.body);
+    } catch (err) {
+      console.log(`${this.className} --> addListing`);
+      next(err);
+    }
+  };
 }
 
 export default new AdminController();

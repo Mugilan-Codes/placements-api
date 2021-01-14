@@ -6,24 +6,24 @@ class Listing {
   add = async ({
     title,
     description,
-    name,
+    company_name,
     start_date,
     tenth_percentage,
     twelfth_percentage,
     grad_percentage,
-    cgpa,
+    current_cgpa,
     active_backlog,
     backlog_history,
   }) => {
     await DB.insert({
       title,
       description,
-      name,
+      company_name,
       start_date,
       tenth_percentage,
       twelfth_percentage,
       grad_percentage,
-      cgpa,
+      current_cgpa,
       active_backlog,
       backlog_history,
     }).into(this.tableName);
