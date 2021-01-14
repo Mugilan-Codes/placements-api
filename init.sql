@@ -77,7 +77,7 @@ CREATE TABLE IF NOT EXISTS listings (
   id INT AUTO_INCREMENT PRIMARY KEY,
   title VARCHAR(50) NOT NULL,
   description VARCHAR(255) NOT NULL,
-  name VARCHAR(50) NOT NULL,
+  company_name VARCHAR(50) NOT NULL,
   start_date DATE NOT NULL, -- SELECT DATE_FORMAT(CURDATE(), '%D %b, %Y (%W)') today; // Date Format
   tenth_percentage NUMERIC(5, 2)
     CHECK(`tenth_percentage` >= 0 
@@ -88,7 +88,7 @@ CREATE TABLE IF NOT EXISTS listings (
   grad_percentage NUMERIC(5, 2) 
     CHECK(`grad_percentage` >= 0 
       AND `grad_percentage` <= 100),
-  cgpa NUMERIC(4,2) 
+  current_cgpa NUMERIC(4,2) 
     CHECK(`cgpa` >= 0 
       AND `cgpa` <= 10),
   active_backlog INT,

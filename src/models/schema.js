@@ -34,6 +34,13 @@ const name = Joi.string().min(3).messages({
   'string.empty': `{#key} should not be empty`,
   'string.min': `{#key} should have a minimum length of {#limit}`,
 });
+// /^[0-9]{1,2}[.]{0,1}[0-9]{0,2}$/
+const cgpa = useNumber.max(10).messages({
+  'number.max': `{#key} must be less than or equal to {#limit}`,
+});
+const percentage = useNumber.max(100).messages({
+  'number.max': `{#key} must be less than or equal to {#limit}`,
+});
 
 // Schemas
 const courseSchema = {
@@ -45,11 +52,9 @@ const courseSchema = {
     department: Joi.string().max(75).required(),
   }),
   idParam: Joi.object().keys({
-    course_id: Joi.string()
-      .max(15)
-      .messages({
-        'string.max': `{#key} should have a maximum length of {#limit}`,
-      }),
+    course_id: Joi.string().max(15).messages({
+      'string.max': `{#key} should have a maximum length of {#limit}`,
+    }),
   }),
 };
 
@@ -129,10 +134,8 @@ const studentSchema = {
 const marksSchema = {
   add: Joi.object()
     .keys({
-      // /^[0-9]{1,2}[.]{0,1}[0-9]{0,2}$/
-      cgpa: useNumber.max(10).required().messages({
+      cgpa: cgpa.required().messages({
         'any.required': `{#key} is a required field`,
-        'number.max': `{#key} must be less than or equal to {#limit}`,
       }),
       // Set default to 0 when not provided
       active_backlog: useNumber,
@@ -148,26 +151,66 @@ const educationSchema = {
         'any.required': `{#key} is a required field`,
         'string.empty': `{#key} should not be empty`,
       }),
-      tenth_percentage: useNumber.max(100).required().messages({
+      tenth_percentage: percentage.required().messages({
         'any.required': `{#key} is a required field`,
-        'number.max': `{#key} must be less than or equal to {#limit}`,
       }),
       twelfth_board: Joi.string().required().messages({
         'any.required': `{#key} is a required field`,
         'string.empty': `{#key} should not be empty`,
       }),
-      twelfth_percentage: useNumber.max(100).required().messages({
+      twelfth_percentage: percentage.required().messages({
         'any.required': `{#key} is a required field`,
-        'number.max': `{#key} must be less than or equal to {#limit}`,
       }),
       grad_course: Joi.string().messages({
         'string.empty': `{#key} should not be empty`,
       }),
-      grad_percentage: useNumber.max(100).messages({
-        'number.max': `{#key} must be less than or equal to {#limit}`,
-      }),
+      grad_percentage: percentage,
     })
     .messages({ 'object.unknown': `{#key} is not a valid field` }),
+};
+
+const listingSchema = {
+  add: Joi.object()
+    .keys({
+      title: Joi.string().max(50).required().messages({
+        'any.required': `{#key} is a required field`,
+        'string.empty': `{#key} should not be empty`,
+        'string.max': `{#key} should have a maximum length of {#limit}`,
+      }),
+      description: Joi.string().max(255).required().messages({
+        'any.required': `{#key} is a required field`,
+        'string.empty': `{#key} should not be empty`,
+        'string.max': `{#key} should have a maximum length of {#limit}`,
+      }),
+      company_name: Joi.string().max(50).required().messages({
+        'any.required': `{#key} is a required field`,
+        'string.empty': `{#key} should not be empty`,
+        'string.max': `{#key} should have a maximum length of {#limit}`,
+      }),
+      start_date: Joi.date().greater('now').iso().required().messages({
+        'date.base': `{#key} should be a valid date`,
+        'date.format': `Does not match date format "{#format}"`,
+        'date.greater': `{#limit} should be the minimum`,
+      }),
+      tenth_percentage: percentage,
+      twelfth_percentage: percentage,
+      grad_percentage: percentage,
+      current_cgpa: cgpa,
+      active_backlog: useNumber,
+      backlog_history: useNumber,
+    })
+    .or(
+      'tenth_percentage',
+      'twelfth_percentage',
+      'grad_percentage',
+      'current_cgpa',
+      'active_backlog',
+      'backlog_history'
+    )
+    .messages({
+      'object.missing': `{#peersWithLabels} One of the Fields is Required: {#peers}`,
+      'object.unknown': `{#key} is not a valid field`,
+    }),
 };
 
 export const schema = {
@@ -176,4 +219,5 @@ export const schema = {
   course: courseSchema,
   marks: marksSchema,
   education: educationSchema,
+  listing: listingSchema,
 };
