@@ -70,26 +70,28 @@ CREATE TABLE IF NOT EXISTS education (
     ON DELETE CASCADE
 ) ENGINE=INNODB;
 
--- ! Eligibility is mentioned as separate attributes
+-- todo: Add Course degree, type, & name as a criteria
 CREATE TABLE IF NOT EXISTS listings (
   id INT AUTO_INCREMENT PRIMARY KEY,
   title VARCHAR(50) NOT NULL,
   description VARCHAR(255) NOT NULL,
   name VARCHAR(50) NOT NULL,
-  cgpa NUMERIC(4,2) NOT NULL 
-    CHECK(`cgpa` >= 0 
-      AND `cgpa` <= 10),
-  active_backlog INT DEFAULT 0,
-  backlog_history INT DEFAULT 0,
-  tenth_percentage NUMERIC(5, 2) NOT NULL 
+  start_date DATE,
+  start_date_2 DATETIME,
+  tenth_percentage NUMERIC(5, 2)
     CHECK(`tenth_percentage` >= 0 
       AND `tenth_percentage` <= 100),
-  twelfth_percentage NUMERIC(5, 2) NOT NULL 
+  twelfth_percentage NUMERIC(5, 2)
     CHECK(`twelfth_percentage` >= 0 
       AND `twelfth_percentage` <= 100),
   grad_percentage NUMERIC(5, 2) 
     CHECK(`grad_percentage` >= 0 
       AND `grad_percentage` <= 100),
+  cgpa NUMERIC(4,2) 
+    CHECK(`cgpa` >= 0 
+      AND `cgpa` <= 10),
+  active_backlog INT,
+  backlog_history INT,
   created_on TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   updated_on TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 ) ENGINE=INNODB;
