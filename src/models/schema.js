@@ -139,7 +139,7 @@ const marksSchema = {
       }),
       // Set default to 0 when not provided
       active_backlog: useNumber,
-      backlog_history: useNumber,
+      backlog_history: useNumber.min(Joi.ref('active_backlog')),
     })
     .messages({ 'object.unknown': `{#key} is not a valid field` }),
 };
@@ -188,8 +188,9 @@ const listingSchema = {
         'string.max': `{#key} should have a maximum length of {#limit}`,
       }),
       start_date: Joi.date().greater('now').iso().required().messages({
+        'any.required': `{#key} is a required field`,
         'date.base': `{#key} should be a valid date`,
-        'date.format': `Does not match date format "{#format}"`,
+        'date.format': `Does not match date format {#format}`,
         'date.greater': `{#limit} should be the minimum`,
       }),
       tenth_percentage: percentage,
@@ -197,7 +198,7 @@ const listingSchema = {
       grad_percentage: percentage,
       current_cgpa: cgpa,
       active_backlog: useNumber,
-      backlog_history: useNumber,
+      backlog_history: useNumber.min(Joi.ref('active_backlog')),
     })
     .or(
       'tenth_percentage',
@@ -208,7 +209,7 @@ const listingSchema = {
       'backlog_history'
     )
     .messages({
-      'object.missing': `{#peersWithLabels} One of the Fields is Required: {#peers}`,
+      'object.missing': `One of the Fields is Required: {#peers}`,
       'object.unknown': `{#key} is not a valid field`,
     }),
 };
