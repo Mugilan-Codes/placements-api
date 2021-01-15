@@ -138,6 +138,27 @@ class AdminService {
       throw new Error(err.message);
     }
   };
+
+  addListing = async ({ user, body }) => {
+    const { sub } = user; // todo: add a created_by attribute to the table
+    const {
+      title,
+      description,
+      company_name,
+      start_date,
+      tenth_percentage,
+      twelfth_percentage,
+      grad_percentage,
+      current_cgpa,
+      active_backlog,
+      backlog_history,
+    } = body;
+    try {
+    } catch (err) {
+      console.log(`${this.className} --> addListing`);
+      throw new Error(err.message);
+    }
+  };
 }
 
 export default new AdminService();

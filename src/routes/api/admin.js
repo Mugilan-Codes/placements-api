@@ -20,6 +20,10 @@ router
     [authorize(Role.Admin), validate(schema.course.add)],
     Admin.addCourse
   )
-  .post('/listing', validate(schema.listing.add), Admin.addListing);
+  .post(
+    '/listing',
+    [authorize(Role.Admin), validate(schema.listing.add)],
+    Admin.addListing
+  );
 
 export default router;

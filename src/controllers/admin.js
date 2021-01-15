@@ -76,8 +76,11 @@ class AdminController {
   };
 
   addListing = async (req, res, next) => {
+    const { user, body } = req;
     try {
-      res.json(req.body);
+      const listing = await AdminService.addListing({ user, body });
+
+      res.json(listing);
     } catch (err) {
       console.log(`${this.className} --> addListing`);
       next(err);
