@@ -15,6 +15,7 @@
   [X] Login
   [X] Get One Student
   [X] Get All Students
+  [ ] Verify Students
   [X] Add Course
   [ ] Update Course
   [ ] Delete Course
