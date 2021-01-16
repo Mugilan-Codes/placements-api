@@ -247,6 +247,81 @@ class StudentService {
     }
   }
 
+  // todo: refactor this
+  getOneListing = async (register_no, list_id) => {
+    try {
+      //! Using the service existing in the same class
+      const student = await this.getOne(register_no);
+      if (student.err_msg) {
+        return student.err_msg;
+      }
+      const listing = await Listing.findById(list_id);
+      if (!listing) {
+        return { err_msg: 'Listing Not Found' };
+      }
+
+      const studentProps = {
+        tenth_percentage: student.education.tenth_percentage,
+        twelfth_percentage: student.education.twelfth_percentage,
+        grad_percentage: student.education.grad_percentage,
+        cgpa: student.mark.cgpa,
+        active_backlog: student.mark.active_backlog,
+        backlog_history: student.mark.backlog_history,
+      };
+      const listingProps = {
+        tenth_percentage: listing.tenth_percentage,
+        twelfth_percentage: listing.twelfth_percentage,
+        grad_percentage: listing.grad_percentage,
+        cgpa: listing.cgpa,
+        active_backlog: listing.active_backlog,
+        backlog_history: listing.backlog_history,
+      };
+
+      Object.keys(listingProps).forEach((key) => {
+        if (listingProps[key] === undefined || listingProps[key] === null) {
+          delete listingProps[key];
+        }
+      });
+      Object.keys(studentProps).forEach((key) => {
+        if (
+          studentProps[key] == undefined ||
+          studentProps[key] === null ||
+          !listingProps.hasOwnProperty(key)
+        ) {
+          delete studentProps[key];
+        }
+      });
+
+      const eligibility = {
+        tenth_percentage:
+          studentProps.tenth_percentage >= listingProps.tenth_percentage,
+        twelfth_percentage:
+          studentProps.twelfth_percentage >= listingProps.twelfth_percentage,
+        grad_percentage:
+          studentProps.grad_percentage >= listingProps.grad_percentage,
+        cgpa: studentProps.cgpa >= listingProps.cgpa,
+        active_backlog:
+          studentProps.active_backlog <= listingProps.active_backlog,
+        backlog_history:
+          studentProps.backlog_history <= listingProps.backlog_history,
+      };
+      Object.keys(eligibility).forEach((key) => {
+        if (!listingProps.hasOwnProperty(key)) {
+          delete eligibility[key];
+        }
+      });
+
+      eligibility['eligible'] = Object.values(eligibility).every(
+        (item) => item
+      );
+
+      return eligibility;
+    } catch (err) {
+      console.log(`${this.className} --> getOneListing`);
+      throw new Error(err.message);
+    }
+  };
+
   getListings = async (user) => {
     const { sub: register_no } = user;
     try {

@@ -123,6 +123,21 @@ class StudentController {
       next(err);
     }
   };
+
+  getOneListing = async (req, res, next) => {
+    const {
+      user: { sub },
+      params: { list_id },
+    } = req;
+    try {
+      const listing = await StudentService.getOneListing(sub, list_id);
+
+      res.json(listing);
+    } catch (err) {
+      console.log(`${this.className} --> getOneListing`);
+      next(err);
+    }
+  };
 }
 
 export default new StudentController();
