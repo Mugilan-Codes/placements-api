@@ -16,7 +16,7 @@
 - Create MySQL user and move into it.
 - source the init.sql file by using `source init.sql`.
 
-#### Routes ( /api )
+### Routes ( /api )
 
 - **_POST_ /admin/course** - Creates Course (Admin Only)
   
@@ -70,7 +70,7 @@
 
 - [X] Get All Courses
 
-#### DOCS
+### DOCS
 
 - [Joi](https://joi.dev/api/?v=17.3.0)
 - [Knex](http://knexjs.org/)
