@@ -25,6 +25,7 @@ router
     [authorize(Role.Admin), validate(schema.listing.add)],
     Admin.addListing
   )
-  .get('/listing', authorize(Role.Admin), Admin.getAllListings);
+  .get('/listing', authorize(Role.Admin), Admin.getAllListings)
+  .get('/listing/:list_id', authorize(Role.Admin), Admin.getOneListing);
 
 export default router;

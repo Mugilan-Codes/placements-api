@@ -37,7 +37,7 @@
 
 `Admin`
 
-- [ ] Register
+- [X] Register
 - [X] Login
 - [X] Get One Student
 - [X] Get All Students

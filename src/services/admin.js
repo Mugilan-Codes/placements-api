@@ -184,6 +184,20 @@ class AdminService {
       throw new Error(err.message);
     }
   };
+
+  getOneListing = async (list_id) => {
+    try {
+      const listing = await Listing.findById(list_id);
+      if (!listing) {
+        return { err_msg: 'Listing not found' };
+      }
+
+      return listing;
+    } catch (err) {
+      console.log(`${this.className} --> getOneListing`);
+      throw new Error(err.message);
+    }
+  };
 }
 
 export default new AdminService();

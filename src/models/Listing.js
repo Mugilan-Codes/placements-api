@@ -45,14 +45,19 @@ class Listing {
     return listing;
   };
 
-  //! Without eligibility and created_on attributes
+  //! Without description and created_on attributes
   findAll = async () => {
     const listings = await DB.select(
       'id',
       'title',
-      'description',
       'company_name',
       'start_date',
+      'tenth_percentage',
+      'twelfth_percentage',
+      'grad_percentage',
+      'current_cgpa',
+      'active_backlog',
+      'backlog_history',
       'updated_on'
     ).from(this.tableName);
 

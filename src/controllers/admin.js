@@ -104,6 +104,22 @@ class AdminController {
       next(err);
     }
   };
+
+  getOneListing = async (req, res, next) => {
+    const { list_id } = req.params;
+    try {
+      const listing = await AdminService.getOneListing(list_id);
+
+      if (listing.err_msg) {
+        return next(ApiError.notFound(listing.err_msg));
+      }
+
+      res.json(listing);
+    } catch (err) {
+      console.log(`${this.className} --> getOneListing`);
+      next(err);
+    }
+  };
 }
 
 export default new AdminController();
