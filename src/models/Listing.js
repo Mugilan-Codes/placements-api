@@ -44,6 +44,20 @@ class Listing {
 
     return listing;
   };
+
+  //! Without eligibility and created_on attributes
+  findAll = async () => {
+    const listings = await DB.select(
+      'id',
+      'title',
+      'description',
+      'company_name',
+      'start_date',
+      'updated_on'
+    ).from(this.tableName);
+
+    return listings;
+  };
 }
 
 export default new Listing();

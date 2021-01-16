@@ -7,7 +7,6 @@
 - Remove `console.log` in production because it is not async. Use loggers like `winston`
 - Docker Environment for Development and Testing
 - Handle Errors efficiently
-- Forgot/Reset Password, Verify Email, Resend Verification
 - Students initially be unverified and will be verified by the admin.
 - Refactoring
 - Admin
@@ -20,12 +19,14 @@
   [ ] Update Course
   [ ] Delete Course
   [X] Get One Course
-  [ ] Add Listing
+  [x] Add Listing
   [ ] Update Listing
-  [ ] Get All Listings
-  [ ] Delete Listings
+  [X] Get All Listings
+  [ ] Get One Listing
+  [ ] Delete One Listing
 - Student
   [X] Register
+  [ ] Verify Email
   [X] Login
   [X] Get Student Detail
   [X] Update Student
@@ -33,6 +34,7 @@
   [X] Update Marks
   [X] Add Education
   [X] Update Education
+  [ ] Forgot/Reset Password
   [ ] Get All Listings with Eligibilty
 - Common
   [X] Get All Courses

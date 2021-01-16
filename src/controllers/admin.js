@@ -89,6 +89,21 @@ class AdminController {
       next(err);
     }
   };
+
+  getAllListings = async (req, res, next) => {
+    try {
+      const listings = await AdminService.getAllListings();
+
+      if (listings.err_msg) {
+        return next(ApiError.notFound(listings.err_msg));
+      }
+
+      res.json(listings);
+    } catch (err) {
+      console.log(`${this.className} --> getAllListings`);
+      next(err);
+    }
+  };
 }
 
 export default new AdminController();

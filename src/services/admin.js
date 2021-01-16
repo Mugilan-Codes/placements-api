@@ -169,6 +169,21 @@ class AdminService {
       throw new Error(err.message);
     }
   };
+
+  getAllListings = async () => {
+    try {
+      const listings = await Listing.findAll();
+
+      if (listings.length < 1) {
+        return { err_msg: 'No Listings Available' };
+      }
+
+      return listings;
+    } catch (err) {
+      console.log(`${this.className} --> getAllListings`);
+      throw new Error(err.message);
+    }
+  };
 }
 
 export default new AdminService();

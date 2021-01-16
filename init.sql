@@ -74,8 +74,8 @@ CREATE TABLE IF NOT EXISTS education (
 ) ENGINE=INNODB;
 
 -- todo: Add Course degree, type, & name as a criteria
--- todo: Add time of starting
--- todo: Add created_by & updated_by admins
+-- todo: start_time & end_date
+-- todo: created_by & updated_by admins
 --? SELECT DATE_FORMAT(CURDATE(), '%D %b, %Y (%W)') today; // Date Format
 CREATE TABLE IF NOT EXISTS listings (
   id INT AUTO_INCREMENT PRIMARY KEY,
