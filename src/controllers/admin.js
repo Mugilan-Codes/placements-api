@@ -76,9 +76,12 @@ class AdminController {
   };
 
   addListing = async (req, res, next) => {
-    const { user, body } = req;
     try {
-      const listing = await AdminService.addListing({ user, body });
+      const listing = await AdminService.addListing(req.body);
+
+      if (listing.err_msg) {
+        return next(ApiError.conflict(listing.err_msg));
+      }
 
       res.json(listing);
     } catch (err) {

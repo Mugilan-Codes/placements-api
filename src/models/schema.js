@@ -187,12 +187,18 @@ const listingSchema = {
         'string.empty': `{#key} should not be empty`,
         'string.max': `{#key} should have a maximum length of {#limit}`,
       }),
-      start_date: Joi.date().greater('now').iso().required().messages({
-        'any.required': `{#key} is a required field`,
-        'date.base': `{#key} should be a valid date`,
-        'date.format': `Does not match date format {#format}`,
-        'date.greater': `{#limit} should be the minimum`,
-      }),
+      start_date: Joi.date()
+        .greater('now')
+        .iso()
+        .required()
+        .messages({
+          'any.required': `{#key} is a required field`,
+          'date.base': `{#key} should be a valid date`,
+          'date.format': `Does not match date format {#format}`,
+          'date.greater': `${new Date()
+            .toISOString()
+            .slice(0, 10)} should be the minimum date`,
+        }),
       tenth_percentage: percentage,
       twelfth_percentage: percentage,
       grad_percentage: percentage,

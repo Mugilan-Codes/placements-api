@@ -1,4 +1,4 @@
-import { Admin, Course } from '../models';
+import { Admin, Course, Listing } from '../models';
 import { bcryptPass, Role, token } from '../utils';
 
 class AdminService {
@@ -139,21 +139,30 @@ class AdminService {
     }
   };
 
-  addListing = async ({ user, body }) => {
-    const { sub } = user; // todo: add a created_by attribute to the table
-    const {
-      title,
-      description,
-      company_name,
-      start_date,
-      tenth_percentage,
-      twelfth_percentage,
-      grad_percentage,
-      current_cgpa,
-      active_backlog,
-      backlog_history,
-    } = body;
+  addListing = async (listing) => {
+    // const {
+    //   title,
+    //   description,
+    //   company_name,
+    //   start_date,
+    //   tenth_percentage,
+    //   twelfth_percentage,
+    //   grad_percentage,
+    //   current_cgpa,
+    //   active_backlog,
+    //   backlog_history,
+    // } = listing;
     try {
+      const titleExists = await Listing.findIdByTitle(listing.title);
+      if (titleExists) {
+        return { err_msg: 'Listing Title already exists' };
+      }
+
+      const listing = await Listing.add(listing);
+
+      // retrieve listing details using title and id
+
+      return listing;
     } catch (err) {
       console.log(`${this.className} --> addListing`);
       throw new Error(err.message);

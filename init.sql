@@ -73,12 +73,13 @@ CREATE TABLE IF NOT EXISTS education (
 -- todo: Add Course degree, type, & name as a criteria
 -- todo: Add time of starting
 -- todo: Add created_by & updated_by admins
+-- SELECT DATE_FORMAT(CURDATE(), '%D %b, %Y (%W)') today; // Date Format
 CREATE TABLE IF NOT EXISTS listings (
   id INT AUTO_INCREMENT PRIMARY KEY,
-  title VARCHAR(50) NOT NULL,
+  title VARCHAR(50) UNIQUE NOT NULL,
   description VARCHAR(255) NOT NULL,
   company_name VARCHAR(50) NOT NULL,
-  start_date DATE NOT NULL, -- SELECT DATE_FORMAT(CURDATE(), '%D %b, %Y (%W)') today; // Date Format
+  start_date DATE NOT NULL,
   tenth_percentage NUMERIC(5, 2)
     CHECK(`tenth_percentage` >= 0 
       AND `tenth_percentage` <= 100),
@@ -89,12 +90,12 @@ CREATE TABLE IF NOT EXISTS listings (
     CHECK(`grad_percentage` >= 0 
       AND `grad_percentage` <= 100),
   current_cgpa NUMERIC(4,2) 
-    CHECK(`cgpa` >= 0 
-      AND `cgpa` <= 10),
+    CHECK(`current_cgpa` >= 0 
+      AND `current_cgpa` <= 10),
   active_backlog INT,
   backlog_history INT,
   created_on TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  updated_on TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  updated_on TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=INNODB;
 
 -- todo: Separate table to hold active refresh tokens
