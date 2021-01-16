@@ -27,6 +27,7 @@ CREATE TABLE IF NOT EXISTS course (
   UNIQUE(short_name, type)
 ) ENGINE=INNODB;
 
+-- todo: email_verified by student and admin_verified values to be added
 CREATE TABLE IF NOT EXISTS student (
   register_no VARCHAR(15) PRIMARY KEY,
   name VARCHAR(50) NOT NULL,
@@ -75,7 +76,7 @@ CREATE TABLE IF NOT EXISTS education (
 -- todo: Add Course degree, type, & name as a criteria
 -- todo: Add time of starting
 -- todo: Add created_by & updated_by admins
--- SELECT DATE_FORMAT(CURDATE(), '%D %b, %Y (%W)') today; // Date Format
+--? SELECT DATE_FORMAT(CURDATE(), '%D %b, %Y (%W)') today; // Date Format
 CREATE TABLE IF NOT EXISTS listings (
   id INT AUTO_INCREMENT PRIMARY KEY,
   title VARCHAR(50) UNIQUE NOT NULL,
