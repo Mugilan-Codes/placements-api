@@ -1,5 +1,7 @@
 import Joi from 'joi';
 
+const today = new Date().toISOString().slice(0, 10);
+
 // Reuseable Fields
 const register_no = Joi.string()
   .min(6)
@@ -188,16 +190,14 @@ const listingSchema = {
         'string.max': `{#key} should have a maximum length of {#limit}`,
       }),
       start_date: Joi.date()
-        .greater('now')
+        .min(today)
         .iso()
         .required()
         .messages({
           'any.required': `{#key} is a required field`,
           'date.base': `{#key} should be a valid date`,
-          'date.format': `Does not match date format {#format}`,
-          'date.greater': `${new Date()
-            .toISOString()
-            .slice(0, 10)} should be the minimum date`,
+          'date.format': `{#key} does not match date format {#format}`,
+          'date.min': `{#key} should not be less than today (${today}||{#limit})`,
         }),
       tenth_percentage: percentage,
       twelfth_percentage: percentage,

@@ -139,6 +139,7 @@ class AdminService {
     }
   };
 
+  // todo: backlog_history automatically adjusted as active_backlog. it must not be less
   addListing = async (listing) => {
     // const {
     //   title,
@@ -158,11 +159,11 @@ class AdminService {
         return { err_msg: 'Listing Title already exists' };
       }
 
-      const listing = await Listing.add(listing);
+      const newListing = await Listing.add(listing);
 
       // retrieve listing details using title and id
 
-      return listing;
+      return newListing;
     } catch (err) {
       console.log(`${this.className} --> addListing`);
       throw new Error(err.message);

@@ -4,6 +4,8 @@ CREATE DATABASE IF NOT EXISTS `placement_db`;
 
 USE `placement_db`;
 
+-- todo: Change id of each table to UUID like values 
+
 -- todo: Set Triggers to enforce uniqueness across tables
 CREATE TABLE IF NOT EXISTS admin (
   id INT AUTO_INCREMENT PRIMARY KEY,
