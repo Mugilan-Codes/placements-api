@@ -1,4 +1,4 @@
-import { Course, Student, Mark, Education } from '../models';
+import { Course, Student, Mark, Education, Listing } from '../models';
 import { bcryptPass, Role, token, isDifferent, isEmptyObject } from '../utils';
 
 class StudentService {
@@ -247,10 +247,27 @@ class StudentService {
     }
   }
 
-  getListings = (user) => {
+  getListings = async (user) => {
     const { sub: register_no } = user;
     try {
-      return register_no;
+      //! Using the service existing in the same class
+      const student = await this.getOne(register_no);
+      if (student.err_msg) {
+        return student.err_msg;
+      }
+
+      const listings = await Listing.find();
+      if (listings.length < 1) {
+        return { err_msg: 'No Listings Available' };
+      }
+
+      // todo: Compare each Listing eligibilty criteria against student
+
+      // todo: Add a eligible attribute if student satisfies the eligibility criteria of a particular listing
+
+      // todo: Return the modified listings with eligible
+
+      return { student, listings };
     } catch (err) {
       console.log(`${this.className} --> getListings`);
       throw new Error(err.message);

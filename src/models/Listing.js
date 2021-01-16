@@ -63,6 +63,11 @@ class Listing {
 
     return listings;
   };
+
+  //! Used by Student
+  find = async () => {
+    return await DB.select().from(this.tableName);
+  };
 }
 
 export default new Listing();

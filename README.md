@@ -10,6 +10,7 @@
 - Students initially be unverified and will be verified by the admin.
 - Refactoring
 - [Routes TODO](#routes-todo)
+- Clear Arrangement of Routes error
 
 ### Create Tables
 
