@@ -149,7 +149,7 @@ class AdminService {
     //   tenth_percentage,
     //   twelfth_percentage,
     //   grad_percentage,
-    //   current_cgpa,
+    //   cgpa,
     //   active_backlog,
     //   backlog_history,
     // } = listing;

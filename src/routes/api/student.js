@@ -13,6 +13,7 @@ router
   .post('/login', validate(schema.student.login), Student.login)
   .get('/', authorize(Role.Student), Student.getDetail)
   .get('/listing', authorize(Role.Student), Student.getListings)
+  .get('/listing/:list_id', authorize(Role.Student), Student.getOneListing)
   .put(
     '/',
     [authorize(Role.Student), validate(schema.student.update)],

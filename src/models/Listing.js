@@ -11,7 +11,7 @@ class Listing {
     tenth_percentage,
     twelfth_percentage,
     grad_percentage,
-    current_cgpa,
+    cgpa,
     active_backlog,
     backlog_history,
   }) => {
@@ -23,7 +23,7 @@ class Listing {
       tenth_percentage,
       twelfth_percentage,
       grad_percentage,
-      current_cgpa,
+      cgpa,
       active_backlog,
       backlog_history,
     }).into(this.tableName);
@@ -55,7 +55,7 @@ class Listing {
       'tenth_percentage',
       'twelfth_percentage',
       'grad_percentage',
-      'current_cgpa',
+      'cgpa',
       'active_backlog',
       'backlog_history',
       'updated_on'

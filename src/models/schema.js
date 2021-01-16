@@ -133,6 +133,7 @@ const studentSchema = {
     }),
 };
 
+// todo: object.with for active_backlog & backlog_history
 const marksSchema = {
   add: Joi.object()
     .keys({
@@ -202,7 +203,7 @@ const listingSchema = {
       tenth_percentage: percentage,
       twelfth_percentage: percentage,
       grad_percentage: percentage,
-      current_cgpa: cgpa,
+      cgpa,
       active_backlog: useNumber,
       backlog_history: useNumber.min(Joi.ref('active_backlog')),
     })
@@ -210,7 +211,7 @@ const listingSchema = {
       'tenth_percentage',
       'twelfth_percentage',
       'grad_percentage',
-      'current_cgpa',
+      'cgpa',
       'active_backlog',
       'backlog_history'
     )

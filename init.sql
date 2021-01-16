@@ -76,7 +76,7 @@ CREATE TABLE IF NOT EXISTS education (
 -- todo: Add Course degree, type, & name as a criteria
 -- todo: start_time & end_date
 -- todo: created_by & updated_by admins
---? SELECT DATE_FORMAT(CURDATE(), '%D %b, %Y (%W)') today; // Date Format
+-- SELECT DATE_FORMAT(CURDATE(), '%D %b, %Y (%W)') today; // Date Format
 CREATE TABLE IF NOT EXISTS listings (
   id INT AUTO_INCREMENT PRIMARY KEY,
   title VARCHAR(50) UNIQUE NOT NULL,
@@ -92,9 +92,9 @@ CREATE TABLE IF NOT EXISTS listings (
   grad_percentage NUMERIC(5, 2) 
     CHECK(`grad_percentage` >= 0 
       AND `grad_percentage` <= 100),
-  current_cgpa NUMERIC(4,2) 
-    CHECK(`current_cgpa` >= 0 
-      AND `current_cgpa` <= 10),
+  cgpa NUMERIC(4,2) 
+    CHECK(`cgpa` >= 0 
+      AND `cgpa` <= 10),
   active_backlog INT,
   backlog_history INT,
   created_on TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
