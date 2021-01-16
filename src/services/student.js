@@ -247,7 +247,7 @@ class StudentService {
     }
   }
 
-  // todo: refactor this
+  // todo: refactor this and separate listing with eligibilty as a shared service
   getOneListing = async (register_no, list_id) => {
     try {
       //! Using the service existing in the same class
@@ -311,11 +311,12 @@ class StudentService {
         }
       });
 
-      eligibility['eligible'] = Object.values(eligibility).every(
-        (item) => item
-      );
+      const newListing = {
+        ...listing,
+        eligible: Object.values(eligibility).every((item) => item),
+      };
 
-      return eligibility;
+      return newListing;
     } catch (err) {
       console.log(`${this.className} --> getOneListing`);
       throw new Error(err.message);
@@ -331,14 +332,13 @@ class StudentService {
         return student.err_msg;
       }
 
+      // todo: Get Only list ID
       const listings = await Listing.find();
       if (listings.length < 1) {
         return { err_msg: 'No Listings Available' };
       }
 
-      // todo: Compare each Listing eligibilty criteria against student
-
-      // todo: Add a eligible attribute if student satisfies the eligibility criteria of a particular listing
+      // todo: iterate over listings and getOneListing(register_no, list_id) to get the all the details
 
       // todo: Return the modified listings with eligible
 
