@@ -49,7 +49,7 @@
 - [x] Add Listing
 - [ ] Update Listing
 - [X] Get All Listings
-- [ ] Get One Listing
+- [X] Get One Listing
 - [ ] Delete One Listing
 
 `Student`
