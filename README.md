@@ -9,35 +9,7 @@
 - Handle Errors efficiently
 - Students initially be unverified and will be verified by the admin.
 - Refactoring
-- Admin
-  [X] Register
-  [X] Login
-  [X] Get One Student
-  [X] Get All Students
-  [ ] Verify Students
-  [X] Add Course
-  [ ] Update Course
-  [ ] Delete Course
-  [X] Get One Course
-  [x] Add Listing
-  [ ] Update Listing
-  [X] Get All Listings
-  [ ] Get One Listing
-  [ ] Delete One Listing
-- Student
-  [X] Register
-  [ ] Verify Email
-  [X] Login
-  [X] Get Student Detail
-  [X] Update Student
-  [X] Add Marks
-  [X] Update Marks
-  [X] Add Education
-  [X] Update Education
-  [ ] Forgot/Reset Password
-  [ ] Get All Listings with Eligibilty
-- Common
-  [X] Get All Courses
+- [Routes TODO](#routes-todo)
 
 ### Create Tables
 
@@ -60,6 +32,43 @@
 
 - **_GET_ /student** - returns all registered students
 - **_GET_ /student/courses** - returns all courses
+
+### Routes TODO
+
+`Admin`
+
+- [ ] Register
+- [X] Login
+- [X] Get One Student
+- [X] Get All Students
+- [ ] Verify Students
+- [X] Add Course
+- [ ] Update Course
+- [ ] Delete Course
+- [X] Get One Course
+- [x] Add Listing
+- [ ] Update Listing
+- [X] Get All Listings
+- [ ] Get One Listing
+- [ ] Delete One Listing
+
+`Student`
+
+- [X] Register
+- [ ] Verify Email
+- [X] Login
+- [X] Get Student Detail
+- [X] Update Student
+- [X] Add Marks
+- [X] Update Marks
+- [X] Add Education
+- [X] Update Education
+- [ ] Forgot/Reset Password
+- [ ] Get All Listings with Eligibilty
+
+`Common`
+
+- [X] Get All Courses
 
 #### DOCS
 
