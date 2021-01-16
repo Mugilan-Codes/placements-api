@@ -111,6 +111,18 @@ class StudentController {
       next(err);
     }
   };
+
+  // todo: Needs to be email_verified and admin_verified to check the listings with eligibility
+  getListings = async (req, res, next) => {
+    try {
+      const listings = await StudentService.getListings(req.user);
+
+      res.json(listings);
+    } catch (err) {
+      console.log(`${this.className} --> getListings`);
+      next(err);
+    }
+  };
 }
 
 export default new StudentController();

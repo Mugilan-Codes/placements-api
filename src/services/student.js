@@ -246,6 +246,16 @@ class StudentService {
       throw new Error(err.message);
     }
   }
+
+  getListings = (user) => {
+    const { sub: register_no } = user;
+    try {
+      return register_no;
+    } catch (err) {
+      console.log(`${this.className} --> getListings`);
+      throw new Error(err.message);
+    }
+  };
 }
 
 export default new StudentService();
