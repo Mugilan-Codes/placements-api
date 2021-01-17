@@ -114,8 +114,12 @@ class StudentController {
 
   // todo: Needs to be email_verified and admin_verified to check the listings with eligibility
   getListings = async (req, res, next) => {
+    const { sub: register_no } = req.user;
     try {
-      const listings = await StudentService.getListings(req.user);
+      const listings = await StudentService.getListings(register_no);
+      if (listings.err_msg) {
+        return next(ApiError.notFound(listings.err_msg));
+      }
 
       res.json(listings);
     } catch (err) {
@@ -126,11 +130,14 @@ class StudentController {
 
   getOneListing = async (req, res, next) => {
     const {
-      user: { sub },
+      user: { sub: register_no },
       params: { list_id },
     } = req;
     try {
-      const listing = await StudentService.getOneListing(sub, list_id);
+      const listing = await StudentService.getOneListing(register_no, list_id);
+      if (listing.err_msg) {
+        return next(ApiError.notFound(listing.err_msg));
+      }
 
       res.json(listing);
     } catch (err) {

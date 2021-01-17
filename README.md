@@ -65,8 +65,8 @@
 - [X] Add Education
 - [X] Update Education
 - [ ] Forgot/Reset Password
-- [ ] Get All Listings with Eligibilty
-- [ ] Get One Listing with Eligibilty
+- [X] Get All Listings with Eligibilty
+- [X] Get One Listing with Eligibilty
 
 `Common`
 

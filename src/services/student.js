@@ -247,10 +247,8 @@ class StudentService {
     }
   }
 
-  //? Reducing API Calls
+  //? Reducing DB Calls
   _getListingWithEligibility = (student, listing) => {
-    console.log({ student, listing });
-
     const studentProps = {
       tenth_percentage: student.education.tenth_percentage,
       twelfth_percentage: student.education.twelfth_percentage,
@@ -310,7 +308,6 @@ class StudentService {
     return newListing;
   };
 
-  // todo: refactor this and separate listing with eligibilty as a shared service
   getOneListing = async (register_no, list_id) => {
     try {
       //! Using the service existing in the same class
@@ -323,67 +320,7 @@ class StudentService {
         return { err_msg: 'Listing Not Found' };
       }
 
-      // const studentProps = {
-      //   tenth_percentage: student.education.tenth_percentage,
-      //   twelfth_percentage: student.education.twelfth_percentage,
-      //   grad_percentage: student.education.grad_percentage,
-      //   cgpa: student.mark.cgpa,
-      //   active_backlog: student.mark.active_backlog,
-      //   backlog_history: student.mark.backlog_history,
-      // };
-      // const listingProps = {
-      //   tenth_percentage: listing.tenth_percentage,
-      //   twelfth_percentage: listing.twelfth_percentage,
-      //   grad_percentage: listing.grad_percentage,
-      //   cgpa: listing.cgpa,
-      //   active_backlog: listing.active_backlog,
-      //   backlog_history: listing.backlog_history,
-      // };
-
-      // Object.keys(listingProps).forEach((key) => {
-      //   if (listingProps[key] === undefined || listingProps[key] === null) {
-      //     delete listingProps[key];
-      //   }
-      // });
-      // Object.keys(studentProps).forEach((key) => {
-      //   if (
-      //     studentProps[key] == undefined ||
-      //     studentProps[key] === null ||
-      //     !listingProps.hasOwnProperty(key)
-      //   ) {
-      //     delete studentProps[key];
-      //   }
-      // });
-
-      // const eligibility = {
-      //   tenth_percentage:
-      //     studentProps.tenth_percentage >= listingProps.tenth_percentage,
-      //   twelfth_percentage:
-      //     studentProps.twelfth_percentage >= listingProps.twelfth_percentage,
-      //   grad_percentage:
-      //     studentProps.grad_percentage >= listingProps.grad_percentage,
-      //   cgpa: studentProps.cgpa >= listingProps.cgpa,
-      //   active_backlog:
-      //     studentProps.active_backlog <= listingProps.active_backlog,
-      //   backlog_history:
-      //     studentProps.backlog_history <= listingProps.backlog_history,
-      // };
-      // Object.keys(eligibility).forEach((key) => {
-      //   if (!listingProps.hasOwnProperty(key)) {
-      //     delete eligibility[key];
-      //   }
-      // });
-
-      // const newListing = {
-      //   ...listing,
-      //   eligible: Object.values(eligibility).every((item) => item),
-      // };
-
-      //! Testing
-      const newListing = await this._getListingWithEligibility(
-        student,
-        listing
-      );
+      const newListing = this._getListingWithEligibility(student, listing);
 
       return newListing;
     } catch (err) {
@@ -392,8 +329,7 @@ class StudentService {
     }
   };
 
-  getListings = async (user) => {
-    const { sub: register_no } = user;
+  getListings = async (register_no) => {
     try {
       //! Using the service existing in the same class
       const student = await this.getOne(register_no);
@@ -406,12 +342,11 @@ class StudentService {
       if (listings.length < 1) {
         return { err_msg: 'No Listings Available' };
       }
+      const newListings = listings.map((listing) =>
+        this._getListingWithEligibility(student, listing)
+      );
 
-      // todo: iterate over listings and getOneListing(register_no, list_id) to get the all the details
-
-      // todo: Return the modified listings with eligible
-
-      return { student, listings };
+      return newListings;
     } catch (err) {
       console.log(`${this.className} --> getListings`);
       throw new Error(err.message);
