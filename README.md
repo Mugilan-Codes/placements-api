@@ -43,6 +43,7 @@
 - [X] Get One Student
 - [X] Get All Students
 - [ ] Verify Students
+- [ ] Delete Student
 - [X] Add Course
 - [ ] Update Course
 - [ ] Delete Course
