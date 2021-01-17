@@ -45,10 +45,10 @@ class StudentService {
         role: Role.Student,
       };
 
-      const authToken = token.sign(payload);
+      const accessToken = token.sign(payload);
       const refreshToken = token.refresh.sign(payload);
 
-      return { token: authToken, refreshToken };
+      return { accessToken, refreshToken };
     } catch (err) {
       console.log(`${this.className} --> register`);
       if (err.sqlMessage) {
@@ -76,10 +76,10 @@ class StudentService {
         role: Role.Student,
       };
 
-      const authToken = token.sign(payload);
+      const accessToken = token.sign(payload);
       const refreshToken = token.refresh.sign(payload);
 
-      return { token: authToken, refreshToken };
+      return { accessToken, refreshToken };
     } catch (err) {
       console.log(`${this.className} --> login`);
       throw new Error(err.message);
