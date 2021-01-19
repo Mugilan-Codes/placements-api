@@ -11,6 +11,7 @@
 - Refactoring
 - [Routes TODO](#routes-todo)
 - Clear Arrangement of Routes error
+- Use nodemailer to send emails for verification to user
 
 ### Create Tables
 
