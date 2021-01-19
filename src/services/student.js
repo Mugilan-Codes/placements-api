@@ -329,6 +329,7 @@ class StudentService {
     }
   };
 
+  // todo: Display a message if the student has no marks or education mentioned
   getListings = async (register_no) => {
     try {
       //! Using the service existing in the same class
