@@ -308,6 +308,7 @@ class StudentService {
     return newListing;
   };
 
+  // todo: Send Every detail about a listing
   getOneListing = async (register_no, list_id) => {
     try {
       //! Using the service existing in the same class
@@ -330,6 +331,7 @@ class StudentService {
   };
 
   // todo: Display a message if the student has no marks or education mentioned
+  // todo: Send only required details about a listing
   getListings = async (register_no) => {
     try {
       //! Using the service existing in the same class
