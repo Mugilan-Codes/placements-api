@@ -12,6 +12,8 @@
 - [Routes TODO](#routes-todo)
 - Clear Arrangement of Routes error
 - Use nodemailer to send emails for verification to user
+- Modify Get All Listings to send only necessary stuffs to reduce the FlatList usage in Frontend.
+- Modify GetOneListing to provide entire detail of a listing.
 
 ### Create Tables
 
