@@ -249,13 +249,14 @@ class StudentService {
 
   //? Reducing DB Calls
   _getListingWithEligibility = (student, listing) => {
+    // ! Modified to Check for education and mark is present or not
     const studentProps = {
-      tenth_percentage: student.education.tenth_percentage,
-      twelfth_percentage: student.education.twelfth_percentage,
-      grad_percentage: student.education.grad_percentage,
-      cgpa: student.mark.cgpa,
-      active_backlog: student.mark.active_backlog,
-      backlog_history: student.mark.backlog_history,
+      tenth_percentage: student?.education?.tenth_percentage,
+      twelfth_percentage: student?.education?.twelfth_percentage,
+      grad_percentage: student?.education?.grad_percentage,
+      cgpa: student?.mark?.cgpa,
+      active_backlog: student?.mark?.active_backlog,
+      backlog_history: student?.mark?.backlog_history,
     };
     const listingProps = {
       tenth_percentage: listing.tenth_percentage,
@@ -339,6 +340,9 @@ class StudentService {
       if (student.err_msg) {
         return student.err_msg;
       }
+
+      console.log(student?.marks);
+      console.log(student?.education);
 
       // todo: Get Only list ID
       const listings = await Listing.find();
