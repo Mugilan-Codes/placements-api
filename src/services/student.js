@@ -341,9 +341,6 @@ class StudentService {
         return student.err_msg;
       }
 
-      console.log(student?.marks);
-      console.log(student?.education);
-
       // todo: Get Only list ID
       const listings = await Listing.find();
       if (listings.length < 1) {
