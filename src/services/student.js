@@ -4,6 +4,7 @@ import { bcryptPass, Role, token, isDifferent, isEmptyObject } from '../utils';
 class StudentService {
   className = 'StudentService';
 
+  // ? future idea: Use only email, password, & confirm_password for register and update all other details in UpdateStudent
   async register(student) {
     const { register_no, name, email, password, course_id } = student;
     try {
