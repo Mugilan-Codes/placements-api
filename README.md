@@ -10,7 +10,8 @@
 - Students initially be unverified and will be verified by the admin.
 - Refactoring
 - [Routes TODO](#routes-todo)
-- Use nodemailer to send emails for verification to user.
+- Use nodemailer to send emails for verification to user
+- Complete the Backend and Deploy within March.
 
 ### Create Tables
 
