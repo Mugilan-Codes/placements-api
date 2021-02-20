@@ -11,7 +11,7 @@
 - Refactoring
 - [Routes TODO](#routes-todo)
 - Use nodemailer to send emails for verification to user
-- Complete the Backend and Deploy within March.
+- Complete the Backend and Deploy within 26th of Feb.
 
 ### Create Tables
 
