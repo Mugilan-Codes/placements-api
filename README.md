@@ -8,7 +8,6 @@
 - Docker Environment for Development and Testing
 - Handle Errors efficiently
 - Students initially be unverified and will be verified by the admin.
-- Refactoring
 - [Routes TODO](#routes-todo)
 - Use nodemailer to send emails for verification to user
 - Complete the Backend and Deploy within 26th of Feb.
