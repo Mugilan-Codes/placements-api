@@ -12,6 +12,7 @@
 - Use nodemailer to send emails for verification to user
 - Complete the Backend and Deploy within 26th of Feb.
 - Modify the database to have emailVerified and adminVerified to the students.
+- Check for Valid date before adding listing.
 
 ### Create Tables
 
