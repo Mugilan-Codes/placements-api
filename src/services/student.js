@@ -248,7 +248,6 @@ class StudentService {
     }
   }
 
-  //? Reducing DB Calls
   _getListingWithEligibility = (student, listing) => {
     // ! Modified to Check for education and mark is present or not
     const studentProps = {
