@@ -15,6 +15,7 @@
   - [Sending emails in NodeJs with Nodemailer](https://dev.to/alakazam03/sending-emails-in-nodejs-with-nodemailer-1jn1)
 - Modify the database to have emailVerified and adminVerified to the students.
 - Check for Valid date before adding listing.
+- Complete within 14th of March.
 
 ### Create Tables
 
