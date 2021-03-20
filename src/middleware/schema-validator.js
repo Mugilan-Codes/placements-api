@@ -11,7 +11,18 @@ const validator = (schema, property = 'body') => {
       next();
     } else {
       const { details } = error;
-      const message = await details.map((i) => i.message);
+      // console.log(
+      //   details.map((i) => {
+      //     const pathName = i.path[0];
+      //     const message = i.message;
+      //     return { pathName, message };
+      //   })
+      // );
+      const message = await details.map((i) => {
+        const pathName = i.path[0];
+        const message = i.message;
+        return { pathName, message };
+      });
 
       res.status(422).json({ error: message });
     }
