@@ -1,23 +1,18 @@
 const validator = (schema, property = 'body') => {
   return async (req, res, next) => {
     const { error, value } = schema.validate(req[property], {
-      abortEarly: false,
+      abortEarly: false, // include all errors
+      // allowUnknown: true, // ignore unknown props
+      // stripUnknown: true, // remove unknown props
     });
 
     const isValid = error == null;
 
     if (isValid) {
-      // console.log({ value });
+      console.log(`req[${property}] value =`, value);
       next();
     } else {
       const { details } = error;
-      // console.log(
-      //   details.map((i) => {
-      //     const pathName = i.path[0];
-      //     const message = i.message;
-      //     return { pathName, message };
-      //   })
-      // );
       const message = await details.map((i) => {
         const pathName = i.path[0];
         const message = i.message;

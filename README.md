@@ -17,6 +17,7 @@
 - verify Email and reset password.
 - Check for Valid date before adding listing.
 - Send proper errors to frontend. Including Joi Validation and Database errors.
+- [Node.js + MySQL - Boilerplate API with Email Sign Up, Verification, Authentication & Forgot Password](https://jasonwatmore.com/post/2020/09/08/nodejs-mysql-boilerplate-api-with-email-sign-up-verification-authentication-forgot-password)
 
 ### Create Tables
 
