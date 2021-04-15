@@ -67,6 +67,7 @@
 - [X] Register
 - [ ] Verify Email
 - [X] Login
+- [ ] Logout
 - [X] Get Student Detail
 - [X] Update Student
 - [X] Add Marks
