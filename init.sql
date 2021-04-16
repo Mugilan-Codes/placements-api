@@ -4,9 +4,9 @@ CREATE DATABASE IF NOT EXISTS `placement_db`;
 
 USE `placement_db`;
 
--- todo: Change id of each table to UUID like values 
+-- TODO: Change id of each table to UUID like values 
 
--- todo: Set Triggers to enforce uniqueness across tables
+-- TODO: Set Triggers to enforce uniqueness across tables
 CREATE TABLE IF NOT EXISTS admin (
   id INT AUTO_INCREMENT PRIMARY KEY,
   name VARCHAR(30) NOT NULL,
@@ -16,18 +16,19 @@ CREATE TABLE IF NOT EXISTS admin (
   updated_on TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=INNODB;
 
--- todo: Add created_by & updated_by admin details for each course
+-- TODO: Add created_by & updated_by admin details for each course
+-- TODO: Set Default value for degree and not null condition for type (Joi will not allow to send empty values)
 CREATE TABLE IF NOT EXISTS course (
   id VARCHAR(15) PRIMARY KEY,
-  degree ENUM('UG', 'PG') NOT NULL,
-  type ENUM('R', 'SS') DEFAULT 'R',
+  degree ENUM('UG', 'PG') NOT NULL DEFAULT 'UG',
+  type ENUM('R', 'SS') NOT NULL DEFAULT 'R',
   short_name VARCHAR(25) NOT NULL,
   course_name VARCHAR(75) NOT NULL UNIQUE,
   department VARCHAR(75) NOT NULL,
   UNIQUE(short_name, type)
 ) ENGINE=INNODB;
 
--- todo: email_verified by student and admin_verified values to be added
+-- ? https://www.javatpoint.com/mysql-boolean
 CREATE TABLE IF NOT EXISTS student (
   register_no VARCHAR(15) PRIMARY KEY,
   name VARCHAR(50) NOT NULL,
@@ -36,6 +37,8 @@ CREATE TABLE IF NOT EXISTS student (
   course_id VARCHAR(15),
   created_on TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   updated_on TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  email_verified BOOLEAN DEFAULT false,
+  admin_verified BOOLEAN DEFAULT false,
   FOREIGN KEY (`course_id`) 
     REFERENCES `course`(`id`)
 ) ENGINE=INNODB;
@@ -73,9 +76,9 @@ CREATE TABLE IF NOT EXISTS education (
     ON DELETE CASCADE
 ) ENGINE=INNODB;
 
--- todo: Add Course degree, type, & name as a criteria
--- todo: start_time & end_date
--- todo: created_by & updated_by admins
+-- TODO: Add Course degree, type, & name as a criteria
+-- TODO: start_time & end_date
+-- TODO: created_by & updated_by admins
 -- SELECT DATE_FORMAT(CURDATE(), '%D %b, %Y (%W)') today; // Date Format
 CREATE TABLE IF NOT EXISTS listings (
   id INT AUTO_INCREMENT PRIMARY KEY,
@@ -95,13 +98,13 @@ CREATE TABLE IF NOT EXISTS listings (
   cgpa NUMERIC(4,2) 
     CHECK(`cgpa` >= 0 
       AND `cgpa` <= 10),
-  active_backlog INT,
-  backlog_history INT,
+  active_backlog INT NOT NULL DEFAULT 0,
+  backlog_history INT NOT NULL DEFAULT 0,
   created_on TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   updated_on TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=INNODB;
 
--- todo: Separate table to hold active refresh tokens
+-- TODO: Separate table to hold active refresh tokens
 
 INSERT INTO course 
   (id, degree, type, short_name, course_name, department) 
