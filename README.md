@@ -15,10 +15,13 @@
   - [Sending emails in NodeJs with Nodemailer](https://dev.to/alakazam03/sending-emails-in-nodejs-with-nodemailer-1jn1)
 - Modify the database to have emailVerified and adminVerified to the students.
 - verify Email and reset password.
+- Knex for Schema Building and Table Creations and Migrations
 - Check for Valid date before adding listing.
 - Send proper errors to frontend. Including Joi Validation and Database errors.
 - [Node.js + MySQL - Boilerplate API with Email Sign Up, Verification, Authentication & Forgot Password](https://jasonwatmore.com/post/2020/09/08/nodejs-mysql-boilerplate-api-with-email-sign-up-verification-authentication-forgot-password)
 - use date-fns package
+- Migrate to [Sequelize](https://sequelize.org/)
+- Add RefreshToken for Admin.
 
 ### Create Tables
 
@@ -31,8 +34,8 @@
   
   ```js
   {
-    degree: "<UG/PG>",
-    type: "<R/SS>", // (optional)
+    degree: "<UG/PG>", // (optional = UG) 
+    type: "<R/SS>", // (optional = R) 
     short_name: "",
     course_name: "",
     department: "",
@@ -48,6 +51,7 @@
 
 - [X] Register
 - [X] Login
+- [ ] Logout
 - [X] Get One Student
 - [X] Get All Students
 - [ ] Verify Students
