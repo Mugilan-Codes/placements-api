@@ -13,6 +13,7 @@
   - [How to send email with Node.js?](https://netcorecloud.com/tutorials/how-to-send-email-with-node-js/)
   - [Node.js - Send Emails via SMTP with Nodemailer](https://jasonwatmore.com/post/2020/07/20/nodejs-send-emails-via-smtp-with-nodemailer)
   - [Sending emails in NodeJs with Nodemailer](https://dev.to/alakazam03/sending-emails-in-nodejs-with-nodemailer-1jn1)
+  - use mailgun
 - Modify the database to have emailVerified and adminVerified to the students.
 - verify Email and reset password.
 - Knex for Schema Building and Table Creations and Migrations
