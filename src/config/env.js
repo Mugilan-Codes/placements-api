@@ -13,3 +13,14 @@ export const jwt_secret = {
   access: process.env.ACCESS_TOKEN_SECRET,
   refresh: process.env.REFRESH_TOKEN_SECRET,
 };
+
+export const email_from = process.env.EMAIL_FROM;
+
+export const smtp_options = {
+  host: process.env.SMTP_HOST,
+  port: process.env.SMTP_PORT,
+  auth: {
+    user: process.env.SMTP_AUTH_USER,
+    pass: process.env.SMTP_AUTH_PASSWORD,
+  },
+};

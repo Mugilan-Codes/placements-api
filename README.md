@@ -91,3 +91,4 @@
 
 - [Joi](https://joi.dev/api/?v=17.3.0)
 - [Knex](http://knexjs.org/)
+- [Nodemailer](https://nodemailer.com/about/)
