@@ -2,8 +2,8 @@ const validator = (schema, property = 'body') => {
   return async (req, res, next) => {
     const { error, value } = schema.validate(req[property], {
       abortEarly: false, // include all errors
-      // allowUnknown: true, // ignore unknown props
-      // stripUnknown: true, // remove unknown props
+      allowUnknown: true, // ignore unknown props
+      stripUnknown: true, // remove unknown props
     });
 
     const isValid = error == null;
