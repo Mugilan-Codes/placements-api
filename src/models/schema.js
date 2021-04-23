@@ -133,7 +133,7 @@ const studentSchema = {
     }),
 };
 
-// todo: object.with for active_backlog & backlog_history
+// TODO: object.with for active_backlog & backlog_history
 const marksSchema = {
   add: Joi.object()
     .keys({

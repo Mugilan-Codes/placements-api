@@ -1,6 +1,6 @@
 import knex from './db';
 
-// https://gist.github.com/NigelEarle/70db130cc040cc2868555b29a0278261 - Migrations & Seeding
+// REF: https://gist.github.com/NigelEarle/70db130cc040cc2868555b29a0278261 - Migrations & Seeding
 knex.schema.hasTable('admin').then((exists) => {
   if (!exists) {
     return knex.schema.createTable('admin', (table) => {
@@ -66,7 +66,7 @@ knex.schema.hasTable('marks').then((exists) => {
   }
 });
 
-// https://gist.github.com/tukkajukka/45317518687d9fb20b86ccfe6a170614 - How to use check constraints with Knex.js and Postgres
+// REF: https://gist.github.com/tukkajukka/45317518687d9fb20b86ccfe6a170614 - How to use check constraints with Knex.js and Postgres
 knex.schema.raw(`
   ALTER TABLE
     marks

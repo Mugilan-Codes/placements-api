@@ -112,7 +112,7 @@ class StudentController {
     }
   };
 
-  // todo: Needs to be email_verified and admin_verified to check the listings with eligibility
+  // TODO: Needs to be email_verified and admin_verified to check the listings with eligibility
   getListings = async (req, res, next) => {
     const { sub: register_no } = req.user;
     try {

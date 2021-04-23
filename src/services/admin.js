@@ -139,7 +139,7 @@ class AdminService {
     }
   };
 
-  // todo: backlog_history automatically adjusted as active_backlog. it must not be less
+  // TODO: backlog_history automatically adjusted as active_backlog. it must not be less
   addListing = async (listing) => {
     // const {
     //   title,

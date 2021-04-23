@@ -4,7 +4,7 @@ import { bcryptPass, Role, token, isDifferent, isEmptyObject } from '../utils';
 class StudentService {
   className = 'StudentService';
 
-  // ? future idea: Use only email, password, & confirm_password for register and update all other details in UpdateStudent
+  // TODO: Use only email, password, & confirm_password for register and update all other details in UpdateStudent
   async register(student) {
     const { register_no, name, email, password, course_id } = student;
     try {
@@ -206,8 +206,8 @@ class StudentService {
     }
   }
 
-  // todo: Change Password
-  // todo: Reset/Forgot Password
+  // TODO: Change Password
+  // TODO: Reset/Forgot Password
 
   async updateStudent({ user, body }) {
     const { sub: register_no } = user;
@@ -226,7 +226,7 @@ class StudentService {
         userFields['course_id'] = undefined; // or null or ''
       }
 
-      // todo: Refactor this
+      // TODO: Refactor this
       Object.keys(userFields).forEach((key) => {
         if (!isDifferent(userFields[key], student[key])) {
           delete userFields[key];
@@ -249,7 +249,7 @@ class StudentService {
   }
 
   _getListingWithEligibility = (student, listing) => {
-    // ! Modified to Check for education and mark is present or not
+    // Modified to Check for education and mark is present or not
     const studentProps = {
       tenth_percentage: student?.education?.tenth_percentage,
       twelfth_percentage: student?.education?.twelfth_percentage,
@@ -331,8 +331,8 @@ class StudentService {
     }
   };
 
-  // todo: Display a message if the student has no marks or education mentioned
-  // todo: Send only required details about a listing
+  // TODO: Display a message if the student has no marks or education mentioned
+  // TODO: Send only required details about a listing
   getListings = async (register_no) => {
     try {
       //! Using the service existing in the same class
@@ -341,7 +341,7 @@ class StudentService {
         return student.err_msg;
       }
 
-      // todo: Get Only list ID
+      // TODO: Get Only list ID
       const listings = await Listing.find();
       if (listings.length < 1) {
         return { err_msg: 'No Listings Available' };
