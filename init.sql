@@ -17,7 +17,6 @@ CREATE TABLE IF NOT EXISTS admin (
 ) ENGINE=INNODB;
 
 -- TODO: Add created_by & updated_by admin details for each course
--- TODO: Set Default value for degree and not null condition for type (Joi will not allow to send empty values)
 CREATE TABLE IF NOT EXISTS course (
   id VARCHAR(15) PRIMARY KEY,
   degree ENUM('UG', 'PG') NOT NULL DEFAULT 'UG',

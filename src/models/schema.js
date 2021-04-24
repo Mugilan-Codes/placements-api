@@ -133,7 +133,6 @@ const studentSchema = {
     }),
 };
 
-// TODO: object.with for active_backlog & backlog_history
 const marksSchema = {
   add: Joi.object()
     .keys({
@@ -144,7 +143,11 @@ const marksSchema = {
       active_backlog: useNumber,
       backlog_history: useNumber.min(Joi.ref('active_backlog')),
     })
-    .messages({ 'object.unknown': `{#key} is not a valid field` }),
+    .with('active_backlog', 'backlog_history')
+    .messages({
+      'object.unknown': `{#key} is not a valid field`,
+      'object.with': `{#peer} is missing`,
+    }),
 };
 
 const educationSchema = {
