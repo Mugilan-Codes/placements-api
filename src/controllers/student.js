@@ -37,6 +37,9 @@ class StudentController {
   getAll = async (req, res, next) => {
     try {
       const students = await StudentService.getAll();
+      if (students.err_msg) {
+        return next(ApiError.notFound(students.err_msg));
+      }
 
       res.json(students);
     } catch (err) {

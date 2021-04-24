@@ -96,8 +96,13 @@ class StudentService {
       const studentWithDetails = await Promise.all(
         studentRegisterNumbers.map(this.getOne)
       );
+      const total = studentWithDetails.length;
 
-      return studentWithDetails;
+      if (!total) {
+        return { err_msg: 'There are no students' };
+      }
+
+      return { total, students: studentWithDetails };
     } catch (err) {
       console.log(`${this.className} --> getAll`);
       throw new Error(err.message);
