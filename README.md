@@ -32,6 +32,7 @@
   - start_time & end_date to listings
   - created_by & updated_by admins to listings
   - Separate table to hold active refresh tokens
+- [How to get the full URL in Express?](https://stackoverflow.com/a/10185427/12381908)
 
 ### Create Tables
 
@@ -104,7 +105,7 @@
 - [ ] Update Course
 - [ ] Delete Course
 - [X] Get One Course
-- [x] Add Listing
+- [X] Add Listing
 - [ ] Update Listing
 - [X] Get All Listings
 - [X] Get One Listing
