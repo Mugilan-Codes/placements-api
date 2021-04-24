@@ -40,6 +40,27 @@
   
     ```sh
      knex migrate:make --cwd ./src create_admin_table
+     knex migrate:make --cwd ./src create_course_table
+     knex migrate:make --cwd ./src create_student_table
+     knex migrate:make --cwd ./src create_marks_table
+     knex migrate:make --cwd ./src add_check_to_marks_table
+     knex migrate:make --cwd ./src create_education_table
+     knex migrate:make --cwd ./src add_check_to_education_table
+     knex migrate:make --cwd ./src create_listings_table
+     knex migrate:make --cwd ./src add_check_to_listings_table
+    ```
+
+  - Seed
+
+    ```sh
+    knex seed:make --cwd ./src 01_courses
+    ```
+
+  - Make the Migrations and Seed the database
+
+    ```sh
+    knex migrate:latest --knexfile ./src/knexfile.js
+    knex seed:run --knexfile ./src/knexfile.js
     ```
 
 ### Routes ( /api )
