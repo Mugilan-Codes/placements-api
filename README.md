@@ -28,6 +28,19 @@
 
 - Create MySQL user and move into it.
 - source the init.sql file by using `source init.sql`.
+- Knex Config
+
+  - Init
+
+    ```sh
+    knex init --cwd ./src
+    ```
+
+  - Create
+  
+    ```sh
+     knex migrate:make --cwd ./src create_admin_table
+    ```
 
 ### Routes ( /api )
 

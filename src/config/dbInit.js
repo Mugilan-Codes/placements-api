@@ -1,5 +1,7 @@
 import knex from './db';
 
+// TODO: Put this inside knex/migrations
+
 // REF: https://gist.github.com/NigelEarle/70db130cc040cc2868555b29a0278261 - Migrations & Seeding
 knex.schema.hasTable('admin').then((exists) => {
   if (!exists) {
