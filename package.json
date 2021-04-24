@@ -4,6 +4,8 @@
   "description": "Placements API for Anna University - CUIC",
   "main": "src/server.js",
   "scripts": {
+    "migrate": "knex migrate:latest --knexfile ./src/knexfile.js",
+    "seed": "knex seed:run --knexfile ./src/knexfile.js",
     "dev": "nodemon --exec babel-node ./src/server.js",
     "clean": "rm -rf ./dist",
     "build": "npm run clean && babel ./src -d dist",
@@ -33,6 +35,17 @@
     "@babel/plugin-transform-runtime": "^7.12.1",
     "@babel/preset-env": "^7.12.1",
     "@types/jsonwebtoken": "^8.5.0",
-    "nodemon": "^2.0.6"
+    "nodemon": "^2.0.6",
+    "ntl": "^5.1.0"
+  },
+  "ntl": {
+    "descriptions": {
+      "migrate": "Make the Migrations to create tables",
+      "seed": "Seed the database with initial values",
+      "dev": "Start the development environment",
+      "clean": "Clean the Distribution Folder",
+      "build": "Clean and Build the distirbution folder",
+      "start": "Clean, Build, & Start from the distibution folder"
+    }
   }
 }
