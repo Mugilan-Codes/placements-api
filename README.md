@@ -5,7 +5,7 @@
 ### TODO
 
 - Remove `console.log` in production because it is not async. Use loggers like `winston`
-- Docker Environment for Development and Testing
+- Docker Environments for testing and deploypment
 - Handle Errors efficiently
 - Students initially be unverified and will be verified by the admin.
 - [Routes TODO](#routes-todo)
@@ -23,6 +23,15 @@
 - use date-fns package
 - Migrate to [Sequelize](https://sequelize.org/)
 - Add RefreshToken for Admin.
+- Rename knex folder to db and export db instance from there instead of config
+- Migration TODO's
+  - Change id of each table to UUID like values
+  - Set Triggers to enforce uniqueness across tables
+  - Add created_by & updated_by admin details for each course
+  - Add Course degree, type, & name as a criteria to listings
+  - start_time & end_date to listings
+  - created_by & updated_by admins to listings
+  - Separate table to hold active refresh tokens
 
 ### Create Tables
 
