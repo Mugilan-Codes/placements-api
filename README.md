@@ -7,22 +7,19 @@
 - Remove `console.log` in production because it is not async. Use loggers like `winston`
 - Docker Environments for testing and deploypment
 - Handle Errors efficiently
-- Students initially be unverified and will be verified by the admin.
 - [Routes TODO](#routes-todo)
 - Use [nodemailer](https://nodemailer.com/about/) to send emails for verification to user
   - [How to send email with Node.js?](https://netcorecloud.com/tutorials/how-to-send-email-with-node-js/)
   - [Node.js - Send Emails via SMTP with Nodemailer](https://jasonwatmore.com/post/2020/07/20/nodejs-send-emails-via-smtp-with-nodemailer)
   - [Sending emails in NodeJs with Nodemailer](https://dev.to/alakazam03/sending-emails-in-nodejs-with-nodemailer-1jn1)
   - use mailgun
-- Modify the database to have emailVerified and adminVerified to the students.
 - verify Email and reset password.
-- Knex for Schema Building and Table Creations and Migrations
 - Check for Valid date before adding listing.
 - Send proper errors to frontend. Including Joi Validation and Database errors.
 - [Node.js + MySQL - Boilerplate API with Email Sign Up, Verification, Authentication & Forgot Password](https://jasonwatmore.com/post/2020/09/08/nodejs-mysql-boilerplate-api-with-email-sign-up-verification-authentication-forgot-password)
 - use date-fns package
-- Migrate to [Sequelize](https://sequelize.org/)
-- Add RefreshToken for Admin.
+- Use [Objection.js](https://vincit.github.io/objection.js/) as ORM
+- Add RefreshToken for Student. Do Admin Later
 - Rename knex folder to db and export db instance from there instead of config
 - Migration TODO's
   - Change id of each table to UUID like values
@@ -33,6 +30,7 @@
   - created_by & updated_by admins to listings
   - Separate table to hold active refresh tokens
 - [How to get the full URL in Express?](https://stackoverflow.com/a/10185427/12381908)
+- Create Token Table to store the tokens for verification and reference the student id.
 
 ### Create Tables
 
@@ -99,6 +97,7 @@
 - [ ] Logout
 - [X] Get One Student
 - [X] Get All Students
+- [ ] Get All Students (separated by emailUnverifed and adminVerified & adminUnVerified)
 - [ ] Verify Students
 - [ ] Delete Student
 - [X] Add Course
