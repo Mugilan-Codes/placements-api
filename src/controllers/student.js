@@ -1,12 +1,22 @@
 import { StudentService } from '../services';
 import { ApiError } from '../utils';
 
+const getFullUrl = (req) => {
+  const fullUrl = req.protocol + '://' + req.get('host') + req.originalUrl;
+  return fullUrl;
+};
+
+const getBaseUrl = (req) => {
+  const baseUrl = req.protocol + '://' + req.get('host');
+  return baseUrl;
+};
+
 class StudentController {
   className = 'StudentController';
 
   register = async (req, res, next) => {
     try {
-      const student = await StudentService.register(req.body);
+      const student = await StudentService.register(req.body, getBaseUrl(req));
 
       if (student.err_msg) {
         return next(ApiError.conflict(student.err_msg));

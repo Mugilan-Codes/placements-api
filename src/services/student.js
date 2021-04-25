@@ -1,11 +1,18 @@
+import crypto from 'crypto';
+
 import { Course, Student, Mark, Education, Listing } from '../models';
 import { bcryptPass, Role, token, isDifferent, isEmptyObject } from '../utils';
+import { sendVerificationEmail } from '../utils/send-email';
 
+// Used for setting verificationToken
+const randomTokenString = () => {
+  return crypto.randomBytes(40).toString('hex');
+};
 class StudentService {
   className = 'StudentService';
 
   // TODO: Use only email, password, & confirm_password for register and update all other details in UpdateStudent
-  async register(student) {
+  async register(student, origin) {
     const { register_no, name, email, password, course_id } = student;
     try {
       let student = await Student.findOne({ register_no });
@@ -48,6 +55,14 @@ class StudentService {
 
       const accessToken = token.sign(payload);
       const refreshToken = token.refresh.sign(payload);
+
+      await sendVerificationEmail(
+        {
+          email,
+          verificationToken: randomTokenString(),
+        },
+        origin
+      );
 
       return { accessToken, refreshToken };
     } catch (err) {
