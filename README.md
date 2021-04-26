@@ -71,23 +71,6 @@
     knex seed:run --knexfile ./src/knexfile.js
     ```
 
-### Routes ( /api )
-
-- **_POST_ /admin/course** - Creates Course (Admin Only)
-  
-  ```js
-  {
-    degree: "<UG/PG>", // (optional = UG) 
-    type: "<R/SS>", // (optional = R) 
-    short_name: "",
-    course_name: "",
-    department: "",
-  }
-  ```
-
-- **_GET_ /student** - returns all registered students
-- **_GET_ /student/courses** - returns all courses
-
 ### Routes TODO
 
 `Admin`
