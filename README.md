@@ -81,7 +81,7 @@
 - [ ] Logout
 - [X] Get One Student
 - [X] Get All Students
-- [ ] Get All Students (separated by emailUnverifed and adminVerified & adminUnVerified)
+- [X] Get All Students (separated by emailUnverifed and adminVerified & adminUnVerified)
 - [ ] Verify Students
 - [ ] Delete Student
 - [X] Add Course

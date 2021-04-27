@@ -8,6 +8,7 @@ const router = express.Router();
 
 router
   .get('/all', authorize(Role.Admin), Student.getAll)
+  .get('/all_status', authorize(Role.Admin), Student.getAllStatus)
   .get('/courses', Student.getAllCourses)
   .post('/register', validate(schema.student.register), Student.register)
   .post('/login', validate(schema.student.login), Student.login)

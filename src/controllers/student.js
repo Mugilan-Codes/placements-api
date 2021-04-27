@@ -58,6 +58,20 @@ class StudentController {
     }
   };
 
+  getAllStatus = async (req, res, next) => {
+    try {
+      const students = await StudentService.getAllStatus();
+      if (students.err_msg) {
+        return next(ApiError.notFound(students.err_msg));
+      }
+
+      res.json(students);
+    } catch (err) {
+      console.log(`${this.className} --> getAllStatus`);
+      next(err);
+    }
+  };
+
   getOne = async (req, res, next) => {
     const { register_no } = req.params;
     try {

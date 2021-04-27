@@ -124,6 +124,54 @@ class StudentService {
     }
   }
 
+  async getAllStatus() {
+    try {
+      const students = await Student.find();
+      const studentRegisterNumbers = students.map((item) => item.register_no);
+      const studentWithDetails = await Promise.all(
+        studentRegisterNumbers.map(this.getOne)
+      );
+
+      const total = studentWithDetails.length;
+      if (!total) {
+        return { err_msg: 'There are no students' };
+      }
+
+      // Email Not Verified Students and their total
+      const emailUnverified = studentWithDetails.filter((item) => {
+        return !item.emailVerified;
+      });
+
+      // Email Verified but Admin Unverified Students and their total
+      const adminUnVerified = studentWithDetails.filter((item) => {
+        return item.emailVerified && !item.adminVerified;
+      });
+
+      // Admin Verified Students and their total
+      const adminVerified = studentWithDetails.filter((item) => {
+        return item.emailVerified && item.adminVerified;
+      });
+
+      console.log({ emailUnverified, adminUnVerified, adminVerified });
+
+      return {
+        total,
+        unverifiedEmail: {
+          total: emailUnverified.length,
+          students: emailUnverified,
+        },
+        pendingVerification: {
+          total: adminUnVerified.length,
+          students: adminUnVerified,
+        },
+        verified: { total: adminVerified.length, students: adminVerified },
+      };
+    } catch (err) {
+      console.log(`${this.className} --> getAllStatus`);
+      throw new Error(err.message);
+    }
+  }
+
   async getOne(register_no) {
     try {
       const studentInfo = await Student.findById(register_no);
