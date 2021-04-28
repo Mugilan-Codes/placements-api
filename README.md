@@ -72,6 +72,12 @@
     knex seed:run --knexfile ./src/knexfile.js
     ```
 
+### How to Deploy
+
+1. Move to production branch if it exists
+2. commit changes and push it to heroku
+3. add config vars and add db as add on
+
 ### Routes TODO
 
 `Admin`
