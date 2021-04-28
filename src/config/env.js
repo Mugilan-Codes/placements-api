@@ -25,6 +25,8 @@ export const smtp_options = {
   },
 };
 
+// Turn Less Secure App Access On
+// REF: https://support.google.com/accounts/answer/6010255#zippy=%2Cif-less-secure-app-access-is-on-for-your-account
 export const gmail_options = {
   service: 'gmail',
   auth: {
@@ -33,6 +35,7 @@ export const gmail_options = {
   },
 };
 
+// Setup OAuth2 Client
 export const gmail_oauth2_options = {
   service: 'gmail',
   auth: {
