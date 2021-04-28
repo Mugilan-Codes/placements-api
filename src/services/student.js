@@ -142,6 +142,13 @@ class StudentService {
         return !item.emailVerified;
       });
 
+      console.log({
+        unverifiedEmail: {
+          total: emailUnverified.length,
+          students: emailUnverified,
+        },
+      });
+
       // Email Verified but Admin Unverified Students and their total
       const adminUnVerified = studentWithDetails.filter((item) => {
         return item.emailVerified && !item.adminVerified;
@@ -152,14 +159,12 @@ class StudentService {
         return item.emailVerified && item.adminVerified;
       });
 
-      console.log({ emailUnverified, adminUnVerified, adminVerified });
-
       return {
         total,
-        unverifiedEmail: {
-          total: emailUnverified.length,
-          students: emailUnverified,
-        },
+        // unverifiedEmail: {
+        //   total: emailUnverified.length,
+        //   students: emailUnverified,
+        // },
         pendingVerification: {
           total: adminUnVerified.length,
           students: adminUnVerified,
