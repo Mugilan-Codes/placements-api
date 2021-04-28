@@ -4,12 +4,21 @@
   "description": "Placements API for Anna University - CUIC",
   "main": "src/server.js",
   "scripts": {
+    "rollback": "knex migrate:rollback --knexfile ./src/knexfile.js",
     "migrate": "knex migrate:latest --knexfile ./src/knexfile.js",
     "seed": "knex seed:run --knexfile ./src/knexfile.js",
+    "knex:dev": "npm run migrate && npm run seed",
     "dev": "nodemon --exec babel-node ./src/server.js",
+    "dev:start": "npm run knex:dev && npm run dev",
     "clean": "rm -rf ./dist",
-    "build": "npm run clean && babel ./src -d dist",
-    "start": "npm run build && node ./dist/server.js"
+    "build": "babel ./src -d dist",
+    "start": "node ./dist/server.js",
+    "rollback:prod": "knex migrate:rollback --knexfile ./dist/knexfile.js",
+    "migrate:prod": "knex migrate:latest --knexfile ./dist/knexfile.js",
+    "seed:prod": "knex seed:run --knexfile ./dist/knexfile.js",
+    "knex:prod": "npm run migrate:prod && npm run seed:prod",
+    "build:start": "npm run clean && npm run build && npm run knex:prod && npm run start",
+    "heroku-postbuild": "npm run build && npm run knex:prod"
   },
   "author": "Mugilan <mugilancodes@gmail.com>",
   "license": "ISC",
@@ -37,15 +46,5 @@
     "@types/jsonwebtoken": "^8.5.0",
     "nodemon": "^2.0.6",
     "ntl": "^5.1.0"
-  },
-  "ntl": {
-    "descriptions": {
-      "migrate": "Make the Migrations to create tables",
-      "seed": "Seed the database with initial values",
-      "dev": "Start the development environment",
-      "clean": "Clean the Distribution Folder",
-      "build": "Clean and Build the distirbution folder",
-      "start": "Clean, Build, & Start from the distibution folder"
-    }
   }
 }

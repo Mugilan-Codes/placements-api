@@ -18,35 +18,35 @@ module.exports = {
     },
   },
 
-  staging: {
-    client: 'postgresql',
-    connection: {
-      database: 'my_db',
-      user: 'username',
-      password: 'password',
-    },
-    pool: {
-      min: 2,
-      max: 10,
-    },
-    migrations: {
-      tableName: 'knex_migrations',
-    },
-  },
+  // staging: {
+  //   client: 'postgresql',
+  //   connection: {
+  //     database: 'my_db',
+  //     user: 'username',
+  //     password: 'password',
+  //   },
+  //   pool: {
+  //     min: 2,
+  //     max: 10,
+  //   },
+  //   migrations: {
+  //     tableName: 'knex_migrations',
+  //   },
+  // },
 
   production: {
-    client: 'postgresql',
-    connection: {
-      database: 'my_db',
-      user: 'username',
-      password: 'password',
-    },
+    client: 'mysql2',
+    connection: process.env.JAWSDB_URL,
     pool: {
       min: 2,
       max: 10,
     },
     migrations: {
+      directory: __dirname + '/knex/migrations',
       tableName: 'knex_migrations',
+    },
+    seeds: {
+      directory: __dirname + '/knex/seeds',
     },
   },
 };
