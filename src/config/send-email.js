@@ -1,13 +1,23 @@
 import { createTransport } from 'nodemailer';
 
-import { email_from, smtp_options } from '../config';
+import { email_from, gmail_oauth2_options } from './env';
 
-const sendEmail = async ({ to, subject, html, from = email_from }) => {
-  const transport = createTransport(smtp_options);
-  await transport.sendMail({ from, to, subject, html });
+const transport = createTransport(gmail_oauth2_options);
+
+const sendEmail = async ({ from = email_from, to, subject, html }) => {
+  const mailOptions = {
+    from,
+    to,
+    subject,
+    html,
+  };
+  const sentMailRes = await transport.sendMail(mailOptions);
+  console.log({ sentMailRes });
 };
 
-export const sendVerificationEmail = async (account, origin) => {
+// TODO: Modify the Message part of each function
+
+export const verification = async (account, origin) => {
   let message;
   if (origin) {
     const verifyUrl = `${origin}/account/verify-email?token=${account.verificationToken}`;
@@ -27,7 +37,7 @@ export const sendVerificationEmail = async (account, origin) => {
   });
 };
 
-export const sendAlreadyRegisteredEmail = async (email, origin) => {
+export const alreadyRegistered = async (email, origin) => {
   let message;
   if (origin) {
     message = `<p>If you don't know your password please visit the <a href="${origin}/account/forgot-password">forgot password</a> page.</p>`;
@@ -44,7 +54,7 @@ export const sendAlreadyRegisteredEmail = async (email, origin) => {
   });
 };
 
-export const sendPasswordResetEmail = async (account, origin) => {
+export const passwordReset = async (account, origin) => {
   let message;
   if (origin) {
     const resetUrl = `${origin}/account/reset-password?token=${account.resetToken}`;

@@ -24,3 +24,15 @@ export const smtp_options = {
     pass: process.env.SMTP_AUTH_PASSWORD,
   },
 };
+
+export const gmail_oauth2_options = {
+  service: 'gmail',
+  auth: {
+    type: 'OAuth2',
+    user: process.env.MAIL_USERNAME,
+    pass: process.env.MAIL_PASSWORD,
+    clientId: process.env.OAUTH_CLIENTID,
+    clientSecret: process.env.OAUTH_CLIENT_SECRET,
+    refreshToken: process.env.OAUTH_REFRESH_TOKEN,
+  },
+};

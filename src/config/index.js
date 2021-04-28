@@ -1,2 +1,6 @@
-export { api_port, jwt_secret, email_from, smtp_options } from './env.js';
+import * as SendEmail from './send-email';
+
+export { SendEmail };
+
+export { api_port, jwt_secret } from './env.js';
 export { default as DB } from './db';

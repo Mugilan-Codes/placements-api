@@ -2,7 +2,7 @@ import crypto from 'crypto';
 
 import { Course, Student, Mark, Education, Listing } from '../models';
 import { bcryptPass, Role, token, isDifferent, isEmptyObject } from '../utils';
-import { sendVerificationEmail } from '../utils/send-email';
+import { SendEmail } from '../config';
 
 // Used for setting verificationToken
 const randomTokenString = () => {
@@ -56,7 +56,7 @@ class StudentService {
       const accessToken = token.sign(payload);
       const refreshToken = token.refresh.sign(payload);
 
-      await sendVerificationEmail(
+      await SendEmail.verification(
         {
           email,
           verificationToken: randomTokenString(),
