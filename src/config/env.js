@@ -25,6 +25,14 @@ export const smtp_options = {
   },
 };
 
+export const gmail_options = {
+  service: 'gmail',
+  auth: {
+    user: process.env.MAIL_USERNAME,
+    pass: process.env.MAIL_PASSWORD,
+  },
+};
+
 export const gmail_oauth2_options = {
   service: 'gmail',
   auth: {

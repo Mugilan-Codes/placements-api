@@ -9,11 +9,6 @@
 - Docker Environments for testing and deploypment
 - Handle Errors efficiently
 - [Routes TODO](#routes-todo)
-- Use [nodemailer](https://nodemailer.com/about/) to send emails for verification to user
-  - [How to send email with Node.js?](https://netcorecloud.com/tutorials/how-to-send-email-with-node-js/)
-  - [Node.js - Send Emails via SMTP with Nodemailer](https://jasonwatmore.com/post/2020/07/20/nodejs-send-emails-via-smtp-with-nodemailer)
-  - [Sending emails in NodeJs with Nodemailer](https://dev.to/alakazam03/sending-emails-in-nodejs-with-nodemailer-1jn1)
-  - use mailgun
 - verify Email and reset password.
 - Check for Valid date before adding listing.
 - Send proper errors to frontend. Including Joi Validation and Database errors.
@@ -32,6 +27,11 @@
   - Separate table to hold active refresh tokens
 - [How to get the full URL in Express?](https://stackoverflow.com/a/10185427/12381908)
 - Create Token Table to store the tokens for verification and reference the student id.
+
+### Sources
+
+- [How to Use Nodemailer to Send Emails from Your Node.js Server](https://www.freecodecamp.org/news/use-nodemailer-to-send-emails-from-your-node-js-server/)
+- [How to send email with Node.js?](https://netcorecloud.com/tutorials/how-to-send-email-with-node-js/)
 
 ### Create Tables
 
