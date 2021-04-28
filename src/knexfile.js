@@ -1,15 +1,12 @@
 // Update with your config settings.
-// TODO: Import connections env variables from config
 
+const { local_connection } = require('./config/env');
+
+// TODO: Import connections env variables from config
 module.exports = {
   development: {
     client: 'mysql2',
-    connection: {
-      host: '127.0.0.1',
-      user: 'mugil',
-      password: 'Mugilan@23',
-      database: 'placement_db',
-    },
+    connection: local_connection,
     migrations: {
       directory: __dirname + '/knex/migrations',
     },
