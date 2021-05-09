@@ -2,6 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import compression from 'compression';
 import helmet from 'helmet';
+import path from 'path';
 
 import { api_port } from './config';
 import { errorHandler, logger } from './middleware';
@@ -9,6 +10,11 @@ import { ApiError } from './utils';
 import mountRoutes from './routes';
 
 const app = express();
+
+// REF: https://youtu.be/yXEesONd_54
+// Register View Engine
+app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'views'));
 
 app.use(helmet());
 app.use(cors());
@@ -20,7 +26,8 @@ app.use(logger);
 mountRoutes(app);
 
 app.get('/', (req, res, next) => {
-  res.send('API Running...');
+  // res.send('API Running...');
+  res.render('index');
 });
 
 app.use((req, res, next) => {
