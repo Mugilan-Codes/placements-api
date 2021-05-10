@@ -1,10 +1,12 @@
 // REF: https://stackoverflow.com/a/41337102/12381908
 
 import { createTransport } from 'nodemailer';
+import ejs from 'ejs';
+import path from 'path';
 
-import { email_from, gmail_oauth2_options } from './env';
+import { email_from, gmail_oauth2_options, gmail_options } from './env';
 
-const transport = createTransport(gmail_oauth2_options);
+const transport = createTransport(gmail_options);
 
 const sendEmail = async ({ from = email_from, to, subject, html }) => {
   const mailOptions = {
@@ -17,60 +19,50 @@ const sendEmail = async ({ from = email_from, to, subject, html }) => {
   console.log({ sentMailRes });
 };
 
-// TODO: Modify the Message part of each function
-
-export const verification = async (account, origin) => {
-  let message;
-  if (origin) {
-    const verifyUrl = `${origin}/account/verify-email?token=${account.verificationToken}`;
-    message = `<p>Please click the below link to verify your email address:</p>
-                   <p><a href="${verifyUrl}">${verifyUrl}</a></p>`;
-  } else {
-    message = `<p>Please use the below token to verify your email address with the <code>/account/verify-email</code> api route:</p>
-                   <p><code>${account.verificationToken}</code></p>`;
-  }
+export const verification = async (email, token, origin) => {
+  const data = await ejs.renderFile(
+    path.join(__dirname, '..', 'views', 'templates', 'email', 'verify.ejs'),
+    {
+      origin,
+      token,
+    }
+  );
 
   await sendEmail({
-    to: account.email,
+    to: email,
     subject: 'Sign-up Verification API - Verify Email',
-    html: `<h4>Verify Email</h4>
-               <p>Thanks for registering!</p>
-               ${message}`,
+    html: data,
   });
 };
 
 export const alreadyRegistered = async (email, origin) => {
-  let message;
-  if (origin) {
-    message = `<p>If you don't know your password please visit the <a href="${origin}/account/forgot-password">forgot password</a> page.</p>`;
-  } else {
-    message = `<p>If you don't know your password you can reset it via the <code>/account/forgot-password</code> api route.</p>`;
-  }
+  const data = await ejs.renderFile(
+    path.join(__dirname, '..', 'views', 'templates', 'email', 'exist.ejs'),
+    {
+      email,
+      origin,
+    }
+  );
 
   await sendEmail({
     to: email,
     subject: 'Sign-up Verification API - Email Already Registered',
-    html: `<h4>Email Already Registered</h4>
-               <p>Your email <strong>${email}</strong> is already registered.</p>
-               ${message}`,
+    html: data,
   });
 };
 
-export const passwordReset = async (account, origin) => {
-  let message;
-  if (origin) {
-    const resetUrl = `${origin}/account/reset-password?token=${account.resetToken}`;
-    message = `<p>Please click the below link to reset your password, the link will be valid for 1 day:</p>
-                   <p><a href="${resetUrl}">${resetUrl}</a></p>`;
-  } else {
-    message = `<p>Please use the below token to reset your password with the <code>/account/reset-password</code> api route:</p>
-                   <p><code>${account.resetToken}</code></p>`;
-  }
+export const passwordReset = async (email, token, origin) => {
+  const data = await ejs.renderFile(
+    path.join(__dirname, '..', 'views', 'templates', 'email', 'reset.ejs'),
+    {
+      origin,
+      token,
+    }
+  );
 
   await sendEmail({
-    to: account.email,
+    to: email,
     subject: 'Sign-up Verification API - Reset Password',
-    html: `<h4>Reset Password Email</h4>
-               ${message}`,
+    html: data,
   });
 };
