@@ -1,3 +1,5 @@
+// REF: https://stackoverflow.com/a/41337102/12381908
+
 import { createTransport } from 'nodemailer';
 
 import { email_from, gmail_oauth2_options } from './env';
