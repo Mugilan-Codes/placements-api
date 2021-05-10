@@ -103,7 +103,7 @@
 `Student`
 
 - [X] Register
-- [ ] Verify Email
+- [X] Verify Email
 - [X] Login
 - [ ] Logout
 - [X] Get Student Detail
