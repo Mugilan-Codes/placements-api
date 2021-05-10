@@ -1,6 +1,13 @@
 // Update with your config settings.
 
-const { local_connection } = require('./config/env');
+// const { local_connection } = require('./config');
+
+const local_connection = {
+  host: 'localhost',
+  user: 'mugil',
+  password: 'Mugilan@23',
+  database: 'placement_db',
+};
 
 // TODO: Import connections env variables from config
 module.exports = {
