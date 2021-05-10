@@ -11,6 +11,7 @@ class Student {
     course_id,
     created_on,
     updated_on,
+    verification_token,
   }) => {
     await DB.insert({
       register_no,
@@ -20,6 +21,7 @@ class Student {
       course_id,
       created_on,
       updated_on,
+      verification_token,
     }).into(this.tableName);
 
     return this.findById(register_no);
@@ -37,7 +39,7 @@ class Student {
     return result;
   };
 
-  findOne = async ({ register_no, email } = {}) => {
+  findOne = async ({ register_no, email, token } = {}) => {
     let student;
 
     if (register_no) {
@@ -46,6 +48,14 @@ class Student {
 
     if (email) {
       student = (await DB(this.tableName).where({ email }))[0];
+    }
+
+    if (token) {
+      student = (
+        await DB(this.tableName).where({
+          verification_token: token,
+        })
+      )[0];
     }
 
     return student;

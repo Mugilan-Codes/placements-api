@@ -115,6 +115,9 @@ const studentSchema = {
       'object.unknown': `{#key} is not a valid field`,
     }),
   registerParam: Joi.object().keys({ register_no }),
+  verficationToken: Joi.object().keys({
+    token: Joi.string().required(),
+  }),
   update: Joi.object()
     .keys({
       name: Joi.string().min(3).messages({

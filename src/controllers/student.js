@@ -2,11 +2,13 @@ import { StudentService } from '../services';
 import { ApiError } from '../utils';
 
 const getFullUrl = (req) => {
+  // http://localhost:5000/api/student/register
   const fullUrl = req.protocol + '://' + req.get('host') + req.originalUrl;
   return fullUrl;
 };
 
 const getBaseUrl = (req) => {
+  // http://localhost:5000
   const baseUrl = req.protocol + '://' + req.get('host');
   return baseUrl;
 };
@@ -25,6 +27,19 @@ class StudentController {
       res.json(student);
     } catch (err) {
       console.log(`${this.className} --> register`);
+      next(err);
+    }
+  };
+
+  verify = async (req, res, next) => {
+    const { token } = req.query;
+    try {
+      const emailVerification = await StudentService.verifyEmail(token);
+
+      // TODO: Render a Successfull Email Verification Page if email is verified
+      res.json(emailVerification);
+    } catch (err) {
+      console.log(`${this.className} --> verify`);
       next(err);
     }
   };

@@ -22,6 +22,7 @@ class StudentService {
 
       student = await Student.findOne({ email });
       if (student) {
+        await SendEmail.alreadyRegistered(email, origin);
         return { err_msg: 'Email ID already exists!' };
       }
 
@@ -38,6 +39,8 @@ class StudentService {
       const created_on = new Date();
       const updated_on = new Date();
 
+      const verificationToken = randomTokenString();
+
       const user = await Student.add({
         register_no,
         name,
@@ -46,6 +49,7 @@ class StudentService {
         course_id,
         created_on,
         updated_on,
+        verification_token: verificationToken,
       });
 
       const payload = {
@@ -56,13 +60,7 @@ class StudentService {
       const accessToken = token.sign(payload);
       const refreshToken = token.refresh.sign(payload);
 
-      await SendEmail.verification(
-        {
-          email,
-          verificationToken: randomTokenString(),
-        },
-        origin
-      );
+      await SendEmail.verification(email, user.verification_token, origin);
 
       return { accessToken, refreshToken };
     } catch (err) {
@@ -70,6 +68,32 @@ class StudentService {
       if (err.sqlMessage) {
         throw new Error(err.sqlMessage);
       }
+      throw new Error(err.message);
+    }
+  }
+
+  async verifyEmail(token) {
+    try {
+      const account = await Student.findOne({ token });
+      if (!account) {
+        throw Error('Verification Failed');
+      }
+
+      // Mark it Verified
+      const userFields = {
+        updated_on: new Date(),
+        email_verified: true,
+        verification_token: null,
+      };
+
+      const verifiedStudent = await Student.update(
+        account.register_no,
+        userFields
+      );
+
+      return verifiedStudent;
+    } catch (err) {
+      console.log(`${this.className} --> verifyEmail`);
       throw new Error(err.message);
     }
   }

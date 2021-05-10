@@ -11,6 +11,11 @@ router
   .get('/all_status', authorize(Role.Admin), Student.getAllStatus)
   .get('/courses', Student.getAllCourses)
   .post('/register', validate(schema.student.register), Student.register)
+  .get(
+    '/verify-email',
+    validate(schema.student.verficationToken, 'query'),
+    Student.verify
+  )
   .post('/login', validate(schema.student.login), Student.login)
   .get('/', authorize(Role.Student), Student.getDetail)
   .get('/listing', authorize(Role.Student), Student.getListings)
