@@ -16,6 +16,8 @@ const app = express();
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
+app.use(express.static(path.join(__dirname, 'public')));
+
 app.use(helmet());
 app.use(cors());
 app.use(compression());
@@ -26,8 +28,7 @@ app.use(logger);
 mountRoutes(app);
 
 app.get('/', (req, res, next) => {
-  // res.send('API Running...');
-  res.render('index');
+  res.render('pages/home');
 });
 
 app.use((req, res, next) => {
