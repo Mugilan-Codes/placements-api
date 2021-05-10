@@ -4,7 +4,7 @@
 
 ### TODO
 
-- Deploy in heroku for testing Api
+- Deploy using AWS EC2 container and use Amazon SES with it
 - Remove `console.log` in production because it is not async. Use loggers like `winston`
 - Docker Environments for testing and deploypment
 - Handle Errors efficiently
