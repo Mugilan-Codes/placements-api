@@ -11,7 +11,7 @@
     "dev": "nodemon --exec babel-node ./src/server.js",
     "dev:start": "npm run knex:dev && npm run dev",
     "clean": "rm -rf ./dist",
-    "build": "babel ./src -d dist",
+    "build": "babel ./src -d dist --copy-files",
     "start": "node ./dist/server.js",
     "rollback:prod": "knex migrate:rollback --knexfile ./dist/knexfile.js",
     "migrate:prod": "knex migrate:latest --knexfile ./dist/knexfile.js",
