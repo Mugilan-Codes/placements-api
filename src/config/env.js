@@ -23,34 +23,9 @@ export const jwt_secret = {
 
 export const email_from = process.env.EMAIL_FROM;
 
-export const smtp_options = {
-  host: process.env.SMTP_HOST,
-  port: process.env.SMTP_PORT,
-  auth: {
-    user: process.env.SMTP_AUTH_USER,
-    pass: process.env.SMTP_AUTH_PASSWORD,
-  },
-};
-
-// Turn Less Secure App Access On
-// REF: https://support.google.com/accounts/answer/6010255#zippy=%2Cif-less-secure-app-access-is-on-for-your-account
-export const gmail_options = {
-  service: 'gmail',
-  auth: {
-    user: process.env.MAIL_USERNAME,
-    pass: process.env.MAIL_PASSWORD,
-  },
-};
-
-// Setup OAuth2 Client
-export const gmail_oauth2_options = {
-  service: 'gmail',
-  auth: {
-    type: 'OAuth2',
-    user: process.env.MAIL_USERNAME,
-    pass: process.env.MAIL_PASSWORD,
-    clientId: process.env.OAUTH_CLIENTID,
-    clientSecret: process.env.OAUTH_CLIENT_SECRET,
-    refreshToken: process.env.OAUTH_REFRESH_TOKEN,
-  },
+export const oauth2 = {
+  clientId: process.env.OAUTH_CLIENTID,
+  clientSecret: process.env.OAUTH_CLIENT_SECRET,
+  refreshToken: process.env.OAUTH_REFRESH_TOKEN,
+  email: process.env.MAIL_USERNAME,
 };
