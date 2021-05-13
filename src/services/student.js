@@ -163,7 +163,7 @@ class StudentService {
 
       // Email Not Verified Students and their total
       const emailUnverified = studentWithDetails.filter((item) => {
-        return !item.emailVerified;
+        return !item.email_verified;
       });
 
       console.log({
@@ -175,12 +175,12 @@ class StudentService {
 
       // Email Verified but Admin Unverified Students and their total
       const adminUnVerified = studentWithDetails.filter((item) => {
-        return item.emailVerified && !item.adminVerified;
+        return item.email_verified && !item.admin_verified;
       });
 
       // Admin Verified Students and their total
       const adminVerified = studentWithDetails.filter((item) => {
-        return item.emailVerified && item.adminVerified;
+        return item.email_verified && item.admin_verified;
       });
 
       return {
@@ -247,7 +247,7 @@ class StudentService {
     const { sub: register_no } = user;
     const { cgpa, active_backlog, backlog_history } = body;
     try {
-      // todo: Update only if there is a difference
+      // TODO: Update only if there is a difference
       const newMarks = {
         register_no,
         cgpa,
@@ -279,7 +279,7 @@ class StudentService {
       grad_percentage,
     } = body;
     try {
-      // todo: Update only if there is a difference
+      // TODO: Update only if there is a difference
       const newEducation = {
         register_no,
         tenth_board,
@@ -406,7 +406,7 @@ class StudentService {
     return newListing;
   };
 
-  // todo: Send Every detail about a listing
+  // TODO: Send Every detail about a listing
   getOneListing = async (register_no, list_id) => {
     try {
       //! Using the service existing in the same class
