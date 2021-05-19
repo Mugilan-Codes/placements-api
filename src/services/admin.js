@@ -198,6 +198,21 @@ class AdminService {
       throw new Error(err.message);
     }
   };
+
+  deleteOneListing = async (list_id) => {
+    try {
+      const listing = await Listing.findById(list_id);
+      if (!listing) {
+        return { err_msg: 'Listing not found' };
+      }
+      const deleteListing = await Listing.deleteById(list_id);
+
+      return deleteListing;
+    } catch (err) {
+      console.log(`${this.className} --> deleteOneListing`);
+      throw new Error(err.message);
+    }
+  };
 }
 
 export default new AdminService();

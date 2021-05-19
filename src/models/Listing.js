@@ -46,9 +46,9 @@ class Listing {
   };
 
   deleteById = async (id) => {
-    const deleted = (await DB.where({ id }).del().from(this.tableName))[0];
-    console.log({ deleted });
-    return 'Deleted';
+    const deleted = await DB.where({ id }).del().from(this.tableName);
+
+    return deleted;
   };
 
   //! Without description and created_on attributes

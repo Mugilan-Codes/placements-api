@@ -26,6 +26,7 @@ router
     Admin.addListing
   )
   .get('/listing', authorize(Role.Admin), Admin.getAllListings)
-  .get('/listing/:list_id', authorize(Role.Admin), Admin.getOneListing);
+  .get('/listing/:list_id', authorize(Role.Admin), Admin.getOneListing)
+  .delete('/listing/:list_id', authorize(Role.Admin), Admin.deleteOneListing);
 
 export default router;
