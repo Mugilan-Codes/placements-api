@@ -5,10 +5,8 @@
 ### TODO
 
 - Deploy using AWS EC2 container and use Amazon SES with it
-- Remove `console.log` in production because it is not async. Use loggers like `winston`
-- Docker Environments for testing and deploypment
-- Handle Errors efficiently
-- [Routes TODO](#routes-todo)
+- Create Docker Environents. Refer [this](https://github.com/Mugilan-Codes/objection-knex-demo)
+- Handle Errors efficiently. Use loggers like `winston`
 - verify Email and reset password.
 - Check for Valid date before adding listing.
 - Send proper errors to frontend. Including Joi Validation and Database errors.
