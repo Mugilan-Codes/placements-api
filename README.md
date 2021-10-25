@@ -4,6 +4,7 @@
 
 ### TODO
 
+- Create website for admin
 - Deploy using AWS EC2 container and use Amazon SES with it
 - Create Docker Environents. Refer [this](https://github.com/Mugilan-Codes/objection-knex-demo)
 - Handle Errors efficiently. Use loggers like `winston`
