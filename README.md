@@ -4,6 +4,7 @@
 
 ### TODO
 
+- Use [Objection.js](https://vincit.github.io/objection.js/) as ORM
 - Create website for admin
 - Deploy using AWS EC2 container and use Amazon SES with it
 - Create Docker Environents. Refer [this](https://github.com/Mugilan-Codes/objection-knex-demo)
@@ -13,7 +14,6 @@
 - Send proper errors to frontend. Including Joi Validation and Database errors.
 - [Node.js + MySQL - Boilerplate API with Email Sign Up, Verification, Authentication & Forgot Password](https://jasonwatmore.com/post/2020/09/08/nodejs-mysql-boilerplate-api-with-email-sign-up-verification-authentication-forgot-password)
 - use date-fns package
-- Use [Objection.js](https://vincit.github.io/objection.js/) as ORM
 - Add RefreshToken for Student. Do Admin Later
 - Rename knex folder to db and export db instance from there instead of config
 - Migration TODO's
