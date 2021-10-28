@@ -1,0 +1,31 @@
+version: '3.9'
+
+services:
+  nginx:
+    ports:
+      - '80:80'
+
+  node-app:
+    deploy:
+      replicas: 8
+      restart_policy:
+        condition: any
+      update_config:
+        parallelism: 2
+        delay: 15s
+    build:
+      target: prod
+    # image: mugilancodes/objection-knex-node-app
+    environment:
+      - DB_USER=${MYSQL_USER}
+      - DB_PASSWORD=${MYSQL_PASSWORD}
+      - DB_NAME=${MYSQL_DATABASE}
+      - SESSION_SECRET=${SESSION_SECRET}
+    command: ./wait-for.sh mysql:3306 -- npm run start:prod
+
+  mysql:
+    environment:
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}

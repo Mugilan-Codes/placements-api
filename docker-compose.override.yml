@@ -1,0 +1,28 @@
+version: '3.9'
+
+services:
+  nginx:
+    ports:
+      - '3000:80'
+
+  node-app:
+    build:
+      target: dev
+    volumes:
+      - ./:/app
+      - /app/node_modules
+    environment:
+      - DB_USER=mugil
+      - DB_PASSWORD=password
+      - DB_NAME=dev_db
+      - SESSION_SECRET=secret
+    command: ./wait-for.sh mysql:3306 -- npm run dev
+
+  mysql:
+    environment:
+      - MYSQL_ROOT_PASSWORD=mypassword
+      - MYSQL_DATABASE=dev_db
+      - MYSQL_USER=mugil
+      - MYSQL_PASSWORD=password
+    ports:
+      - '3306:3306' # use this if you want to access db using GUI Tools (Beekeeper Studio, DBeaver Community, MySQL Workbench, etc...)
