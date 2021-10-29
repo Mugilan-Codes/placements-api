@@ -1,3 +1,5 @@
+// SERVER CONFIGURATION
+
 import express from 'express';
 import cors from 'cors';
 import compression from 'compression';
@@ -5,11 +7,15 @@ import helmet from 'helmet';
 import path from 'path';
 
 import { api_port } from './config';
+import { setupDB } from './db';
 import { errorHandler, logger } from './middleware';
 import { ApiError } from './utils';
 import mountRoutes from './routes';
 
 const app = express();
+
+// initialize knex & objection
+setupDB();
 
 // REF: https://youtu.be/yXEesONd_54
 // Register View Engine
