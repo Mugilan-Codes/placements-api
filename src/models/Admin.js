@@ -1,24 +1,10 @@
-import { DB } from '../config';
+import BaseModel from './BaseModel';
+import tableNames from '../constants/tableNames';
 
-class Admin {
-  tableName = 'admin';
-
-  add = async ({ name, email, password }) => {
-    await DB.insert({ name, email, password }).into(this.tableName);
-    return this.findIdByEmail(email);
-  };
-
-  findIdByEmail = async (email) => {
-    const result = (await DB(this.tableName).where({ email }).select('id'))[0];
-
-    return result;
-  };
-
-  findById = async (id) => {
-    const result = (await DB(this.tableName).where({ id }))[0];
-
-    return result;
-  };
+class Admin extends BaseModel {
+  static get tableName() {
+    return tableNames.admin;
+  }
 }
 
-export default new Admin();
+export default Admin;

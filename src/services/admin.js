@@ -1,22 +1,26 @@
-import { Admin, Course, Listing } from '../models';
+import { Course, Listing } from '../models';
+import { adminDao } from '../dao';
 import { bcryptPass, Role, token } from '../utils';
-
 class AdminService {
   className = 'AdminService';
 
   register = async (admin) => {
     const { name, email, password } = admin;
     try {
-      const adminExists = await Admin.findIdByEmail(email);
+      const adminExists = await adminDao.findOne(email);
       if (adminExists) {
         return { err_msg: 'Admin already exists' };
       }
 
       const hashedPassword = await bcryptPass.hash(password);
-      const user = await Admin.add({ name, email, password: hashedPassword });
+      const newAdminId = await adminDao.add({
+        name,
+        email,
+        password: hashedPassword,
+      });
 
       const payload = {
-        sub: user.id,
+        sub: newAdminId,
         role: Role.Admin,
       };
 
@@ -36,12 +40,12 @@ class AdminService {
   login = async (admin) => {
     const { email, password } = admin;
     try {
-      let user = await Admin.findIdByEmail(email);
+      let user = await adminDao.findOne(email);
       if (!user) {
         return { err_msg: 'Invalid Credentials' };
       }
 
-      user = await Admin.findById(user.id);
+      user = await adminDao.findById(user.id);
 
       const isMatch = await bcryptPass.compare(password, user.password);
       if (!isMatch) {
@@ -68,7 +72,8 @@ class AdminService {
 
   getOne = async (id) => {
     try {
-      const admin = await Admin.findById(id);
+      // const admin = await Admin.findById(id);
+      const admin = await adminDao.findById(id);
       if (!admin) {
         return { err_msg: 'Admin Not Found' };
       }
