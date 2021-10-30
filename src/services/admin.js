@@ -1,5 +1,5 @@
-import { Course, Listing } from '../models';
-import { adminDao } from '../dao';
+import { Listing } from '../models';
+import { adminDao, courseDao } from '../dao';
 import { bcryptPass, Role, token } from '../utils';
 class AdminService {
   className = 'AdminService';
@@ -72,7 +72,6 @@ class AdminService {
 
   getOne = async (id) => {
     try {
-      // const admin = await Admin.findById(id);
       const admin = await adminDao.findById(id);
       if (!admin) {
         return { err_msg: 'Admin Not Found' };
@@ -93,28 +92,29 @@ class AdminService {
   addCourse = async (course) => {
     const { degree, type, short_name, course_name, department } = course;
     try {
-      //! Change course_id to UUID instead of relying on correct entries for three fields
+      // TODO: default value using some other way
       let typeDefault = type || 'R';
+      // TODO: Change course_id to UUID instead of relying on correct entries for three fields
       const course_id = `${degree}-${short_name}-${typeDefault}`.toLowerCase();
-      console.log({ course_id });
 
-      let course = await Course.findOne({ course_id });
+      // TODO: have a effective way to check
+      let course = await courseDao.findById(course_id);
       if (course) {
         return { err_msg: 'Course Id already exists!' };
       }
 
-      course = await Course.findOne({ course_name });
+      course = await courseDao.findOne({ course_name });
       if (course) {
         return { err_msg: 'Course Name already exists!' };
       }
 
-      course = await Course.findOne({ short_name, type: typeDefault });
+      course = await courseDao.findOne({ short_name, type: typeDefault });
       if (course) {
         return { err_msg: `${short_name} - ${typeDefault} already exists!` };
       }
 
-      return await Course.addCourse({
-        course_id,
+      return await courseDao.add({
+        id: course_id,
         degree,
         type,
         short_name,
@@ -132,7 +132,7 @@ class AdminService {
 
   getOneCourse = async (course_id) => {
     try {
-      const course = await Course.findById(course_id);
+      const course = await courseDao.findById(course_id);
       if (!course) {
         return { err_msg: 'Course Not Found' };
       }
