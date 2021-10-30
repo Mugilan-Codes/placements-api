@@ -39,7 +39,7 @@ export const findOne = async ({ course_name, short_name, type } = {}) => {
 };
 
 export const getAll = async () => {
-  const getAllResult = await Course.query().select();
+  const getAllResult = await Course.query();
 
   return getAllResult;
 };

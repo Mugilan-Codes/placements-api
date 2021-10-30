@@ -1,5 +1,4 @@
-import { Listing } from '../models';
-import { adminDao, courseDao } from '../dao';
+import { adminDao, courseDao, listingDao } from '../dao';
 import { bcryptPass, Role, token } from '../utils';
 class AdminService {
   className = 'AdminService';
@@ -159,12 +158,12 @@ class AdminService {
     //   backlog_history,
     // } = listing;
     try {
-      const titleExists = await Listing.findIdByTitle(listing.title);
+      const titleExists = await listingDao.findIdByTitle(listing.title);
       if (titleExists) {
         return { err_msg: 'Listing Title already exists' };
       }
 
-      const newListing = await Listing.add(listing);
+      const newListing = await listingDao.add(listing);
 
       // retrieve listing details using title and id
 
@@ -177,8 +176,7 @@ class AdminService {
 
   getAllListings = async () => {
     try {
-      const listings = await Listing.findAll();
-
+      const listings = await listingDao.findAll();
       if (listings.length < 1) {
         return { err_msg: 'No Listings Available' };
       }
@@ -192,7 +190,7 @@ class AdminService {
 
   getOneListing = async (list_id) => {
     try {
-      const listing = await Listing.findById(list_id);
+      const listing = await listingDao.findById(list_id);
       if (!listing) {
         return { err_msg: 'Listing not found' };
       }
@@ -206,11 +204,12 @@ class AdminService {
 
   deleteOneListing = async (list_id) => {
     try {
-      const listing = await Listing.findById(list_id);
+      const listing = await listingDao.findById(list_id);
       if (!listing) {
         return { err_msg: 'Listing not found' };
       }
-      const deleteListing = await Listing.deleteById(list_id);
+
+      const deleteListing = await listingDao.deleteById(list_id);
 
       return deleteListing;
     } catch (err) {
