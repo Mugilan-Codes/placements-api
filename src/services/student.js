@@ -1,7 +1,7 @@
 import crypto from 'crypto';
 
 import { Course, Student, Education, Listing } from '../models';
-import { studentDao, courseDao, marksDao } from '../dao';
+import { studentDao, courseDao, marksDao, educationDao } from '../dao';
 import { bcryptPass, Role, token, isDifferent, isEmptyObject } from '../utils';
 import { SendEmail } from '../config';
 
@@ -212,14 +212,11 @@ class StudentService {
       }
 
       // Retrieve Mark & Education in similar way
-      // const markInfo = await Mark.findById(register_no);
       const markInfo = await marksDao.findById(register_no);
-
       resultObj['mark'] = markInfo;
 
-      // const educatonInfo = await Education.findById(register_no);
-
-      // resultObj['education'] = educatonInfo;
+      const educatonInfo = await educationDao.findById(register_no);
+      resultObj['education'] = educatonInfo;
 
       return resultObj;
     } catch (err) {
@@ -286,15 +283,19 @@ class StudentService {
         twelfth_percentage,
         grad_course,
         grad_percentage,
-        updated_on: new Date(),
       };
-      let education = await Education.findById(register_no);
+
+      let education = await educationDao.findById(register_no);
+      let msg;
       if (!education) {
-        education = await Education.add(newEducation);
+        education = await educationDao.add(newEducation);
+        msg = 'Education Added';
       } else {
-        education = await Education.update(newEducation);
+        education = await educationDao.update(newEducation);
+        msg = 'Education Updated';
       }
-      return education;
+
+      return { education, msg };
     } catch (err) {
       console.log(`${this.className} --> addEducation`);
       throw new Error(err.message);

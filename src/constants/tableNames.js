@@ -4,6 +4,7 @@ const tableNames = {
   listings: 'listings',
   student: 'student',
   marks: 'marks',
+  education: 'education',
 };
 
 export default tableNames;
