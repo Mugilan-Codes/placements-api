@@ -1,6 +1,6 @@
 import crypto from 'crypto';
 
-import { Course, Student, Education, Listing } from '../models';
+import { Course, Student, Listing } from '../models';
 import { studentDao, courseDao, marksDao, educationDao } from '../dao';
 import { bcryptPass, Role, token, isDifferent, isEmptyObject } from '../utils';
 import { SendEmail } from '../config';
@@ -305,11 +305,12 @@ class StudentService {
   // TODO: Change Password
   // TODO: Reset/Forgot Password
 
+  // TODO: regenerate verification token if email is changed and make email_verified to false
   async updateStudent({ user, body }) {
     const { sub: register_no } = user;
     const { name, email, course_id } = body;
     try {
-      const student = await Student.findById(register_no);
+      const student = await studentDao.findById(register_no);
 
       let userFields = {
         name,
@@ -317,7 +318,7 @@ class StudentService {
         course_id,
       };
 
-      const course = course_id && (await Course.findById(course_id));
+      const course = course_id && (await courseDao.findById(course_id));
       if (!course) {
         userFields['course_id'] = undefined; // or null or ''
       }
@@ -333,9 +334,7 @@ class StudentService {
         return { msg: 'No Changes' };
       }
 
-      userFields['updated_on'] = new Date();
-
-      const updateStud = await Student.update(register_no, userFields);
+      const updateStud = await studentDao.update(register_no, userFields);
 
       return updateStud;
     } catch (err) {
