@@ -1,7 +1,7 @@
 import crypto from 'crypto';
 
-import { Course, Student, Mark, Education, Listing } from '../models';
-import { studentDao, courseDao } from '../dao';
+import { Course, Student, Education, Listing } from '../models';
+import { studentDao, courseDao, marksDao } from '../dao';
 import { bcryptPass, Role, token, isDifferent, isEmptyObject } from '../utils';
 import { SendEmail } from '../config';
 
@@ -213,8 +213,9 @@ class StudentService {
 
       // Retrieve Mark & Education in similar way
       // const markInfo = await Mark.findById(register_no);
+      const markInfo = await marksDao.findById(register_no);
 
-      // resultObj['mark'] = markInfo;
+      resultObj['mark'] = markInfo;
 
       // const educatonInfo = await Education.findById(register_no);
 
@@ -247,15 +248,18 @@ class StudentService {
         cgpa,
         active_backlog,
         backlog_history,
-        updated_on: new Date(),
       };
-      let marks = await Mark.findById(register_no);
+
+      let marks = await marksDao.findById(register_no);
+      let msg;
       if (!marks) {
-        marks = await Mark.add(newMarks);
+        marks = await marksDao.add(newMarks);
+        msg = 'Marks Added';
       } else {
-        marks = await Mark.update(newMarks);
+        marks = await marksDao.update(newMarks);
+        msg = 'Marks Updated';
       }
-      return marks;
+      return { marks, msg };
     } catch (err) {
       console.log(`${this.className} --> addMarks`);
       throw new Error(err.message);
