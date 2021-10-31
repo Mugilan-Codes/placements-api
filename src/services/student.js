@@ -1,7 +1,12 @@
 import crypto from 'crypto';
 
-import { Course, Student, Listing } from '../models';
-import { studentDao, courseDao, marksDao, educationDao } from '../dao';
+import {
+  studentDao,
+  courseDao,
+  marksDao,
+  educationDao,
+  listingDao,
+} from '../dao';
 import { bcryptPass, Role, token, isDifferent, isEmptyObject } from '../utils';
 import { SendEmail } from '../config';
 
@@ -405,6 +410,7 @@ class StudentService {
   };
 
   // TODO: Send Every detail about a listing
+  // TODO: send what criteria is not matched
   getOneListing = async (register_no, list_id) => {
     try {
       //! Using the service existing in the same class
@@ -412,7 +418,8 @@ class StudentService {
       if (student.err_msg) {
         return student.err_msg;
       }
-      const listing = await Listing.findById(list_id);
+
+      const listing = await listingDao.findById(list_id);
       if (!listing) {
         return { err_msg: 'Listing Not Found' };
       }
@@ -437,7 +444,7 @@ class StudentService {
       }
 
       // TODO: Get Only list ID
-      const listings = await Listing.find();
+      const listings = await listingDao.findAll();
       if (listings.length < 1) {
         return { err_msg: 'No Listings Available' };
       }
