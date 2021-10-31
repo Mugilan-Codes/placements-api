@@ -6,6 +6,9 @@ import { schema } from '../../models';
 
 const router = express.Router();
 
+// TODO: course - update, delete
+// TODO: listing - update
+
 router
   .post('/register', validate(schema.admin.register), Admin.register)
   .post('/login', validate(schema.admin.login), Admin.login)

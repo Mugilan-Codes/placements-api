@@ -59,6 +59,7 @@ class StudentController {
     }
   };
 
+  // accessible only for admin
   getAll = async (req, res, next) => {
     try {
       const students = await StudentService.getAll();
