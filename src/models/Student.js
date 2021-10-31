@@ -1,69 +1,20 @@
-import { DB } from '../config';
+import BaseModel from './BaseModel';
+import tableNames from '../constants/tableNames';
 
-class Student {
-  tableName = 'student';
+class Student extends BaseModel {
+  static get tableName() {
+    return tableNames.student;
+  }
 
-  add = async ({
-    register_no,
-    name,
-    email,
-    password,
-    course_id,
-    created_on,
-    updated_on,
-    verification_token,
-  }) => {
-    await DB.insert({
-      register_no,
-      name,
-      email,
-      password,
-      course_id,
-      created_on,
-      updated_on,
-      verification_token,
-    }).into(this.tableName);
+  static get idColumn() {
+    return 'register_no';
+  }
 
-    return this.findById(register_no);
-  };
-
-  update = async (register_no, userFields) => {
-    await DB(this.tableName).where({ register_no }).update(userFields);
-
-    return this.findById(register_no);
-  };
-
-  findById = async (register_no) => {
-    const result = (await DB(this.tableName).where({ register_no }))[0];
-
-    return result;
-  };
-
-  findOne = async ({ register_no, email, token } = {}) => {
-    let student;
-
-    if (register_no) {
-      student = await this.findById(register_no);
-    }
-
-    if (email) {
-      student = (await DB(this.tableName).where({ email }))[0];
-    }
-
-    if (token) {
-      student = (
-        await DB(this.tableName).where({
-          verification_token: token,
-        })
-      )[0];
-    }
-
-    return student;
-  };
-
-  find = async () => {
-    return await DB.select('register_no').from(this.tableName);
-  };
+  $beforeUpdate() {
+    // TODO: use this in migrations - table.timestamp('created_on').defaultTo(knex.fn.now());
+    // this.updated_on = this.$knex().fn.now();
+    this.updated_on = new Date().toISOString().slice(0, 19).replace('T', ' ');
+  }
 }
 
-export default new Student();
+export default Student;

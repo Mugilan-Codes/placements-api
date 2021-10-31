@@ -1,6 +1,7 @@
 import crypto from 'crypto';
 
 import { Course, Student, Mark, Education, Listing } from '../models';
+import { studentDao, courseDao } from '../dao';
 import { bcryptPass, Role, token, isDifferent, isEmptyObject } from '../utils';
 import { SendEmail } from '../config';
 
@@ -15,20 +16,21 @@ class StudentService {
   async register(student, origin) {
     const { register_no, name, email, password, course_id } = student;
     try {
-      let student = await Student.findOne({ register_no });
+      let student = await studentDao.findById(register_no);
       if (student) {
         return { err_msg: 'Student with Register Number already exists!' };
       }
 
-      student = await Student.findOne({ email });
+      student = await studentDao.findOne({ email });
       if (student) {
-        await SendEmail.alreadyRegistered(email, origin);
+        console.log({ origin });
+        // await SendEmail.alreadyRegistered(email, origin);
         return { err_msg: 'Email ID already exists!' };
       }
 
       // Check for course only when course_id is given
       if (course_id) {
-        const course = await Course.findById(course_id);
+        const course = await courseDao.findById(course_id);
         if (!course) {
           return { err_msg: 'Course does not exist' };
         }
@@ -36,31 +38,26 @@ class StudentService {
 
       const hashedPassword = await bcryptPass.hash(password);
 
-      const created_on = new Date();
-      const updated_on = new Date();
-
       const verificationToken = randomTokenString();
 
-      const user = await Student.add({
+      const newStudent = await studentDao.add({
         register_no,
         name,
         email,
         password: hashedPassword,
         course_id,
-        created_on,
-        updated_on,
         verification_token: verificationToken,
       });
 
       const payload = {
-        sub: user.register_no,
+        sub: newStudent.register_no,
         role: Role.Student,
       };
 
       const accessToken = token.sign(payload);
       const refreshToken = token.refresh.sign(payload);
 
-      await SendEmail.verification(email, user.verification_token, origin);
+      // await SendEmail.verification(email, newStudent.verification_token, origin);
 
       return { accessToken, refreshToken };
     } catch (err) {
@@ -74,19 +71,18 @@ class StudentService {
 
   async verifyEmail(token) {
     try {
-      const account = await Student.findOne({ token });
+      const account = await studentDao.findOne({ token });
       if (!account) {
         throw Error('Verification Failed');
       }
 
       // Mark it Verified
       const userFields = {
-        updated_on: new Date(),
         email_verified: true,
         verification_token: null,
       };
 
-      const verifiedStudent = await Student.update(
+      const verifiedStudent = await studentDao.update(
         account.register_no,
         userFields
       );
@@ -101,7 +97,7 @@ class StudentService {
   async login(student) {
     const { register_no, email, password } = student;
     try {
-      const user = await Student.findOne({ register_no, email });
+      const user = await studentDao.findOne({ register_no, email });
       if (!user) {
         return { err_msg: 'Invalid Credentials' };
       }
@@ -126,9 +122,10 @@ class StudentService {
     }
   }
 
+  // TODO: optimize getAll()
   async getAll() {
     try {
-      const students = await Student.find();
+      const students = await studentDao.findAll();
 
       const studentRegisterNumbers = students.map((item) => item.register_no);
 
@@ -148,9 +145,10 @@ class StudentService {
     }
   }
 
+  // TODO: optimize getAllStatus()
   async getAllStatus() {
     try {
-      const students = await Student.find();
+      const students = await studentDao.findAll();
       const studentRegisterNumbers = students.map((item) => item.register_no);
       const studentWithDetails = await Promise.all(
         studentRegisterNumbers.map(this.getOne)
@@ -166,13 +164,6 @@ class StudentService {
         return !item.email_verified;
       });
 
-      console.log({
-        unverifiedEmail: {
-          total: emailUnverified.length,
-          students: emailUnverified,
-        },
-      });
-
       // Email Verified but Admin Unverified Students and their total
       const adminUnVerified = studentWithDetails.filter((item) => {
         return item.email_verified && !item.admin_verified;
@@ -185,15 +176,18 @@ class StudentService {
 
       return {
         total,
-        // unverifiedEmail: {
-        //   total: emailUnverified.length,
-        //   students: emailUnverified,
-        // },
+        unverifiedEmail: {
+          total: emailUnverified.length,
+          students: emailUnverified,
+        },
         pendingVerification: {
           total: adminUnVerified.length,
           students: adminUnVerified,
         },
-        verified: { total: adminVerified.length, students: adminVerified },
+        verified: {
+          total: adminVerified.length,
+          students: adminVerified,
+        },
       };
     } catch (err) {
       console.log(`${this.className} --> getAllStatus`);
@@ -203,7 +197,7 @@ class StudentService {
 
   async getOne(register_no) {
     try {
-      const studentInfo = await Student.findById(register_no);
+      const studentInfo = await studentDao.findById(register_no);
       if (!studentInfo) {
         return { err_msg: 'Student Not Found' };
       }
@@ -211,20 +205,20 @@ class StudentService {
       let { password, course_id, ...resultObj } = studentInfo;
 
       if (course_id !== null) {
-        const courseInfo = await Course.findById(course_id);
+        const courseInfo = await courseDao.findById(course_id);
         if (courseInfo) {
           resultObj['course'] = courseInfo;
         }
       }
 
       // Retrieve Mark & Education in similar way
-      const markInfo = await Mark.findById(register_no);
+      // const markInfo = await Mark.findById(register_no);
 
-      resultObj['mark'] = markInfo;
+      // resultObj['mark'] = markInfo;
 
-      const educatonInfo = await Education.findById(register_no);
+      // const educatonInfo = await Education.findById(register_no);
 
-      resultObj['education'] = educatonInfo;
+      // resultObj['education'] = educatonInfo;
 
       return resultObj;
     } catch (err) {
@@ -235,8 +229,8 @@ class StudentService {
 
   async getAllCourses() {
     try {
-      const courses = await Course.getAll();
-      return courses;
+      const courses = await courseDao.getAll();
+      return { total: courses.length, courses };
     } catch (err) {
       console.log(`${this.className} --> getAllCourses`);
       throw new Error(err.message);
