@@ -4,6 +4,8 @@
 
 ### TODO
 
+- Caching using Redis.
+- use express-rate-limit & express-slow-down
 - Create website for admin
 - Deploy using AWS EC2 container and use Amazon SES with it
 - Handle Errors efficiently. Use loggers like `winston`
