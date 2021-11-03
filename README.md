@@ -95,7 +95,7 @@
 - [ ] Update Listing
 - [X] Get All Listings
 - [X] Get One Listing
-- [ ] Delete One Listing
+- [X] Delete One Listing
 
 `Student`
 
