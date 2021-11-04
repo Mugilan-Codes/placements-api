@@ -121,6 +121,24 @@ class AdminController {
     }
   };
 
+  updateOneListing = async (req, res, next) => {
+    const {
+      body,
+      params: { list_id },
+    } = req;
+    try {
+      const listing = await AdminService.updateOneListing(list_id, body);
+      if (listing.err_msg) {
+        return next(ApiError.notFound(listing.err_msg));
+      }
+
+      res.json(listing);
+    } catch (err) {
+      console.log(`${this.className} --> updateOneListing`);
+      next(err);
+    }
+  };
+
   deleteOneListing = async (req, res, next) => {
     const { list_id } = req.params;
     try {

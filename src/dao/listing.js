@@ -53,3 +53,12 @@ export const deleteById = async (id) => {
 
   return { noOfRowsDeleted: deleteByIdResult, msg: 'Listing Deleted' };
 };
+
+export const update = async (id, updateFields) => {
+  const updateResult = await Listing.query().patchAndFetchById(
+    id,
+    updateFields
+  );
+
+  return updateResult;
+};

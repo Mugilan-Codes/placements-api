@@ -92,7 +92,7 @@
 - [ ] Delete Course
 - [X] Get One Course
 - [X] Add Listing
-- [ ] Update Listing
+- [X] Update Listing
 - [X] Get All Listings
 - [X] Get One Listing
 - [X] Delete One Listing

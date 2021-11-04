@@ -1,5 +1,6 @@
 import { adminDao, courseDao, listingDao } from '../dao';
-import { bcryptPass, Role, token } from '../utils';
+import { bcryptPass, isDifferent, isEmptyObject, Role, token } from '../utils';
+import student from './student';
 class AdminService {
   className = 'AdminService';
 
@@ -198,6 +199,62 @@ class AdminService {
       return listing;
     } catch (err) {
       console.log(`${this.className} --> getOneListing`);
+      throw new Error(err.message);
+    }
+  };
+
+  updateOneListing = async (list_id, list) => {
+    const {
+      title,
+      description,
+      company_name,
+      start_date,
+      tenth_percentage,
+      twelfth_percentage,
+      grad_percentage,
+      cgpa,
+      active_backlog,
+      backlog_history,
+    } = list;
+    try {
+      let listing = await listingDao.findById(list_id);
+      if (!listing) {
+        return { err_msg: 'Listing not found' };
+      }
+
+      let newListing = {
+        title,
+        description,
+        company_name,
+        start_date,
+        tenth_percentage,
+        twelfth_percentage,
+        grad_percentage,
+        cgpa,
+        active_backlog,
+        backlog_history,
+      };
+      Object.keys(newListing).forEach((key) => {
+        if (!isDifferent(newListing[key], listing[key])) {
+          delete newListing[key];
+        }
+      });
+      if (isEmptyObject(newListing)) {
+        return { msg: 'No Changes' };
+      }
+
+      const listingByTitle =
+        newListing.title && (await listingDao.findIdByTitle(newListing.title));
+      if (listingByTitle) {
+        return { err_msg: 'Listing Title Already Exists, Try another one' };
+      }
+
+      // update listing
+      listing = await listingDao.update(list_id, newListing);
+
+      return listing;
+    } catch (err) {
+      console.log(`${this.className} --> updateOneListing`);
       throw new Error(err.message);
     }
   };

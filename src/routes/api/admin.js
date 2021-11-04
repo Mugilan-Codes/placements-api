@@ -7,7 +7,7 @@ import { schema } from '../../models';
 const router = express.Router();
 
 // TODO: course - update, delete
-// TODO: listing - update
+// TODO: listing - update (schema validation)
 
 router
   .post('/register', validate(schema.admin.register), Admin.register)
@@ -30,6 +30,7 @@ router
   )
   .get('/listing', authorize(Role.Admin), Admin.getAllListings)
   .get('/listing/:list_id', authorize(Role.Admin), Admin.getOneListing)
+  .put('/listing/:list_id', authorize(Role.Admin), Admin.updateOneListing)
   .delete('/listing/:list_id', authorize(Role.Admin), Admin.deleteOneListing);
 
 export default router;
