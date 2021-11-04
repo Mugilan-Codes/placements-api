@@ -6,6 +6,7 @@
 
 - Caching using Redis.
 - use express-rate-limit & express-slow-down
+- Listing `start_date` format should be `yyyy-mm-dd`
 - Create website for admin
 - Deploy using AWS EC2 container and use Amazon SES with it
 - Handle Errors efficiently. Use loggers like `winston`
@@ -94,8 +95,10 @@
 - [X] Add Listing
 - [X] Update Listing
 - [X] Get All Listings
+- [ ] Delete All Listings
 - [X] Get One Listing
 - [X] Delete One Listing
+- [ ] Delete Multiple Listings
 
 `Student`
 

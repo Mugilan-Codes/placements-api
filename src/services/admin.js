@@ -1,6 +1,6 @@
 import { adminDao, courseDao, listingDao } from '../dao';
 import { bcryptPass, isDifferent, isEmptyObject, Role, token } from '../utils';
-import student from './student';
+
 class AdminService {
   className = 'AdminService';
 
@@ -249,7 +249,6 @@ class AdminService {
         return { err_msg: 'Listing Title Already Exists, Try another one' };
       }
 
-      // update listing
       listing = await listingDao.update(list_id, newListing);
 
       return listing;
