@@ -90,8 +90,8 @@
 - [ ] Verify Students
 - [ ] Delete Student
 - [X] Add Course
-- [ ] Update Course
-- [ ] Delete Course
+- [X] Update Course
+- [X] Delete Course
 - [X] Get One Course
 - [X] Add Listing
 - [X] Update Listing
