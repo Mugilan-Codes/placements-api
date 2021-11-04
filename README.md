@@ -4,6 +4,7 @@
 
 ### TODO
 
+- check migrations file to replace raw implementation
 - Caching using Redis.
 - use express-rate-limit & express-slow-down
 - Listing `start_date` format should be `yyyy-mm-dd`. ([@hapi/joi-date](https://www.npmjs.com/package/@hapi/joi-date))

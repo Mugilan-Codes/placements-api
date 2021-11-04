@@ -6,6 +6,8 @@ exports.up = (knex) => {
     table.string('short_name', 25).notNullable();
     table.string('course_name', 75).notNullable().unique();
     table.string('department', 75).notNullable();
+    table.timestamp('created_on', { precision: 6 }).defaultTo(knex.fn.now(6));
+    table.timestamp('updated_on', { precision: 6 }).defaultTo(knex.fn.now(6));
     table.unique(['short_name', 'type']);
     table.engine('INNODB');
   });

@@ -76,9 +76,12 @@ class AdminController {
   };
 
   updateOneCourse = async (req, res, next) => {
-    const { course_id } = req.params;
+    const {
+      body,
+      params: { course_id },
+    } = req;
     try {
-      const course = await AdminService.updateOneCourse(course_id);
+      const course = await AdminService.updateOneCourse(course_id, body);
       if (course.err_msg) {
         return next(ApiError.notFound(course.err_msg));
       }

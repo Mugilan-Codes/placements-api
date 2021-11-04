@@ -144,12 +144,37 @@ class AdminService {
     }
   };
 
-  updateOneCourse = async (course_id) => {
+  updateOneCourse = async (course_id, courseUpdate) => {
+    const { degree, type, short_name, course_name, department } = courseUpdate;
     try {
-      const course = await courseDao.findById(course_id);
+      let course = await courseDao.findById(course_id);
       if (!course) {
         return { err_msg: 'Course Not Found' };
       }
+
+      console.log({ degree, short_name, type });
+      let newCourse = {
+        course_name,
+        department,
+      };
+      Object.keys(newCourse).forEach((key) => {
+        if (!isDifferent(newCourse[key], course[key])) {
+          delete newCourse[key];
+        }
+      });
+      console.log({ newCourse });
+      if (isEmptyObject(newCourse)) {
+        return { msg: 'No Changes' };
+      }
+      
+      // TODO: generate new course_id
+      // const listingByTitle =
+      //   newListing.title && (await listingDao.findIdByTitle(newListing.title));
+      // if (listingByTitle) {
+      //   return { err_msg: 'Listing Title Already Exists, Try another one' };
+      // }
+
+      course = await courseDao.update(course_id, newCourse);
 
       return course;
     } catch (err) {
@@ -157,15 +182,17 @@ class AdminService {
       throw new Error(err.message);
     }
   };
-  
+
   deleteOneCourse = async (course_id) => {
     try {
-      const course = await courseDao.findById(course_id);
+      let course = await courseDao.findById(course_id);
       if (!course) {
         return { err_msg: 'Course Not Found' };
       }
 
-      return course;
+      course = await courseDao.deleteById(course_id);
+
+      return { noOfDeletedRows: course, msg: 'Course Deleted' };
     } catch (err) {
       console.log(`${this.className} --> deleteOneCourse`);
       throw new Error(err.message);

@@ -26,6 +26,12 @@ export const findById = async (id) => {
   return findByIdResult;
 };
 
+export const deleteById = async (id) => {
+  const deleteByIdResult = await Course.query().deleteById(id);
+
+  return deleteByIdResult;
+};
+
 export const findOne = async ({ course_name, short_name, type } = {}) => {
   let course;
 
@@ -36,6 +42,12 @@ export const findOne = async ({ course_name, short_name, type } = {}) => {
   }
 
   return course;
+};
+
+export const update = async (id, updateFields) => {
+  const updateResult = await Course.query().patchAndFetchById(id, updateFields);
+
+  return updateResult;
 };
 
 export const getAll = async () => {
