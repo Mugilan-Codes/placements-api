@@ -75,6 +75,36 @@ class AdminController {
     }
   };
 
+  updateOneCourse = async (req, res, next) => {
+    const { course_id } = req.params;
+    try {
+      const course = await AdminService.updateOneCourse(course_id);
+      if (course.err_msg) {
+        return next(ApiError.notFound(course.err_msg));
+      }
+
+      res.json(course);
+    } catch (err) {
+      console.log(`${this.className} --> updateOneCourse`);
+      next(err);
+    }
+  };
+
+  deleteOneCourse = async (req, res, next) => {
+    const { course_id } = req.params;
+    try {
+      const course = await AdminService.deleteOneCourse(course_id);
+      if (course.err_msg) {
+        return next(ApiError.notFound(course.err_msg));
+      }
+
+      res.json(course);
+    } catch (err) {
+      console.log(`${this.className} --> deleteOneCourse`);
+      next(err);
+    }
+  };
+
   addListing = async (req, res, next) => {
     try {
       const listing = await AdminService.addListing(req.body);

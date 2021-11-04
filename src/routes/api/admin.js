@@ -23,6 +23,16 @@ router
     [authorize(Role.Admin), validate(schema.course.add)],
     Admin.addCourse
   )
+  .put(
+    '/course/:course_id',
+    [authorize(Role.Admin), validate(schema.course.idParam, 'params')],
+    Admin.updateOneCourse
+  )
+  .delete(
+    '/course/:course_id',
+    [authorize(Role.Admin), validate(schema.course.idParam, 'params')],
+    Admin.deleteOneCourse
+  )
   .post(
     '/listing',
     [authorize(Role.Admin), validate(schema.listing.add)],

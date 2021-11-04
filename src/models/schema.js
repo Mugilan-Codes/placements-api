@@ -178,6 +178,7 @@ const educationSchema = {
     .messages({ 'object.unknown': `{#key} is not a valid field` }),
 };
 
+// TODO: use joi-date
 const listingSchema = {
   add: Joi.object()
     .keys({

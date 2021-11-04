@@ -144,6 +144,34 @@ class AdminService {
     }
   };
 
+  updateOneCourse = async (course_id) => {
+    try {
+      const course = await courseDao.findById(course_id);
+      if (!course) {
+        return { err_msg: 'Course Not Found' };
+      }
+
+      return course;
+    } catch (err) {
+      console.log(`${this.className} --> updateOneCourse`);
+      throw new Error(err.message);
+    }
+  };
+  
+  deleteOneCourse = async (course_id) => {
+    try {
+      const course = await courseDao.findById(course_id);
+      if (!course) {
+        return { err_msg: 'Course Not Found' };
+      }
+
+      return course;
+    } catch (err) {
+      console.log(`${this.className} --> deleteOneCourse`);
+      throw new Error(err.message);
+    }
+  };
+
   // TODO: backlog_history automatically adjusted as active_backlog. it must not be less
   addListing = async (listing) => {
     // const {
