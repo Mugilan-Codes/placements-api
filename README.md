@@ -8,7 +8,7 @@
 - Caching using Redis.
 - use express-rate-limit & express-slow-down
 - Listing `start_date` format should be `yyyy-mm-dd`. ([@hapi/joi-date](https://www.npmjs.com/package/@hapi/joi-date))
-- Create website for admin
+- Create website for admin (use CMS or react.js or next.js)
 - Deploy using AWS EC2 container and use Amazon SES with it
 - Handle Errors efficiently. Use loggers like `winston`
 - verify Email and reset password.
