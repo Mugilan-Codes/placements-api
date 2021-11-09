@@ -10,7 +10,6 @@
 - Listing `start_date` format should be `yyyy-mm-dd`. ([@hapi/joi-date](https://www.npmjs.com/package/@hapi/joi-date))
 - Create website for admin (use CMS or react.js or next.js)
 - Deploy using AWS EC2 container and use Amazon SES with it
-- Handle Errors efficiently. Use loggers like `winston`
 - verify Email and reset password.
 - Check for Valid date before adding listing.
 - Send proper errors to frontend. Including Joi Validation and Database errors.
