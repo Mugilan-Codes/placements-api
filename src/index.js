@@ -8,8 +8,8 @@ import path from 'path';
 
 import { api_port } from './config';
 import { setupDB } from './db';
-import { errorHandler, logger } from './middleware';
-import { ApiError } from './utils';
+import { errorHandler, morgan } from './middleware';
+import { ApiError, logger } from './utils';
 import mountRoutes from './routes';
 
 const app = express();
@@ -27,9 +27,11 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(helmet());
 app.use(cors());
 app.use(compression());
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(logger);
+
+app.use(morgan);
 
 mountRoutes(app);
 
@@ -44,7 +46,7 @@ app.use((req, res, next) => {
 app.use(errorHandler);
 
 app.listen(api_port, () => {
-  console.log(
+  logger.info(
     `Server started on port ${api_port} -> http://localhost:${api_port}`
   );
 });
