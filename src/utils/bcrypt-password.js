@@ -1,10 +1,10 @@
-import bcrypt from 'bcrypt';
+import bcrypt from 'bcryptjs';
 
 export default {
-  hash: (password, saltRounds = 10) => {
-    return bcrypt.hash(password, saltRounds);
+  hash: async (password, saltRounds = 10) => {
+    return await bcrypt.hash(password, saltRounds);
   },
-  compare: (password, passwordHash) => {
-    return bcrypt.compare(password, passwordHash);
+  compare: async (password, passwordHash) => {
+    return await bcrypt.compare(password, passwordHash);
   },
 };
