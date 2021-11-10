@@ -24,3 +24,5 @@ export const oauth2 = {
   refreshToken: process.env.OAUTH_REFRESH_TOKEN,
   email: process.env.MAIL_USERNAME,
 };
+
+export const MONGO_URI = process.env.MONGO_URI;
