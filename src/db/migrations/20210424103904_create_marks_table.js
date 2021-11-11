@@ -4,7 +4,7 @@ exports.up = function (knex) {
     table.float('cgpa', 4, 2).notNullable(); // check constraint added in raw
     table.integer('active_backlog').defaultTo(0);
     table.integer('backlog_history').defaultTo(0);
-    // table.timestamp('created_on', { precision: 6 }).defaultTo(knex.fn.now(6));
+    table.timestamp('created_on', { precision: 6 }).defaultTo(knex.fn.now(6));
     table.timestamp('updated_on', { precision: 6 }).defaultTo(knex.fn.now(6));
     table
       .foreign('register_no')
