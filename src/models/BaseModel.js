@@ -21,9 +21,9 @@ class BaseModel extends Model {
   }
 
   $beforeUpdate() {
-    // TODO: use this in migrations - table.timestamp('created_on').defaultTo(knex.fn.now());
     // this.updated_on = this.$knex().fn.now();
-    this.updated_on = new Date().toISOString().slice(0, 19).replace('T', ' ');
+    // this.updated_on = new Date().toISOString().slice(0, 19).replace('T', ' ');
+    this.updated_at = new Date().toISOString();
   }
 }
 
