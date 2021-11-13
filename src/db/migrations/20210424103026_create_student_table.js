@@ -8,8 +8,8 @@ exports.up = (knex) => {
     table.timestamp('created_on', { precision: 6 }).defaultTo(knex.fn.now(6));
     table.timestamp('updated_on', { precision: 6 }).defaultTo(knex.fn.now(6));
     table.string('verification_token', 100);
-    table.boolean('email_verified').defaultTo('false');
-    table.boolean('admin_verified').defaultTo('false');
+    table.boolean('email_verified').defaultTo(false);
+    table.boolean('admin_verified').defaultTo(false);
     table.foreign('course_id').references('id').inTable('course');
     table.engine('INNODB');
   });

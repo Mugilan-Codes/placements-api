@@ -1,7 +1,8 @@
 const {
   addDefaultColumns,
-  email,
   referencesId,
+  url,
+  addAuthColumns,
 } = require('../../lib/tableUtils');
 const tableNames = require('../../constants/tableNames').default;
 
@@ -11,9 +12,7 @@ exports.up = async (knex) => {
     knex.schema.createTable(tableNames.admin, (table) => {
       // table.increments('id').notNullable();
       table.increments().notNullable();
-      table.string('name', 50).notNullable();
-      email(table, 'email').notNullable().unique();
-      table.string('password', 127).notNullable();
+      addAuthColumns(table);
       addDefaultColumns(table);
     }),
     knex.schema.createTable(tableNames.course, (table) => {
@@ -31,8 +30,9 @@ exports.up = async (knex) => {
       table.string('title').notNullable().unique();
       table.string('description', 1000).notNullable();
       table.string('company_name').notNullable();
-      table.date('deadline').notNullable();
       table.date('start_date');
+      table.date('deadline').notNullable();
+      url(table, 'listing_url');
       table.float('tenth_mark', 5, 2).notNullable(); // TODO: Check Constraint for tenth_mark (>= 0 && <= 100)
       table.float('twelfth_mark', 5, 2).notNullable(); // TODO: Check Constraint for twelfth_mark (>= 0 && <= 100)
       table.float('grad_cgpa', 4, 2); // TODO: Check Constraint for GRAD_CGPA (>= 0 && <= 10)
@@ -45,15 +45,13 @@ exports.up = async (knex) => {
 
   await knex.schema.createTable(tableNames.student, (table) => {
     table.string('register_no', 15).primary();
-    table.string('name', 50).notNullable();
-    email(table, 'email').notNullable().unique();
-    table.string('password', 127).notNullable();
+    addAuthColumns(table);
     addDefaultColumns(table);
     // referencesId(table, 'course', false);
     referencesId(table, tableNames.course, false);
     table.string('token', 150);
-    table.boolean('email_verfied').defaultTo('false');
-    table.boolean('admin_verfied').defaultTo('false');
+    table.boolean('email_verfied').defaultTo(false);
+    table.boolean('admin_verfied').defaultTo(false);
   });
 
   // TODO: Check Constraint for CGPA (>= 0 && <= 10)

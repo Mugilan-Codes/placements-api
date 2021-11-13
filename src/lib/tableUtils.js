@@ -4,11 +4,11 @@ export const addDefaultColumns = (table) => {
   // table.timestamp('created_at').defaultTo(knex.fn.now());
   table.timestamp('created_at', { precision: 6 }).defaultTo(knex.fn.now(6));
   table.timestamp('updated_at', { precision: 6 }).defaultTo(knex.fn.now(6));
-  // table.datetime('deleted_at', { precision: 6 }).defaultTo(knex.fn.now(6));
+  // table.datetime('deleted_at');
 };
 
-export const email = (table, columnName) => {
-  return table.string(columnName, 254);
+export const url = (table, columnName) => {
+  table.string(columnName, 2000);
 };
 
 export const referencesId = (
@@ -28,4 +28,10 @@ export const referencesId = (
     definition.notNullable();
   }
   return definition;
+};
+
+export const addAuthColumns = (table) => {
+  table.string('name', 50).notNullable();
+  table.string('email', 254).notNullable().unique();
+  table.string('password', 127).notNullable();
 };
