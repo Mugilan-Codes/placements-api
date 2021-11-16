@@ -166,7 +166,7 @@ class AdminService {
       if (isEmptyObject(newCourse)) {
         return { msg: 'No Changes' };
       }
-      
+
       // TODO: generate new course_id
       // const listingByTitle =
       //   newListing.title && (await listingDao.findIdByTitle(newListing.title));
@@ -200,6 +200,7 @@ class AdminService {
   };
 
   // TODO: backlog_history automatically adjusted as active_backlog. it must not be less
+  // TODO: skip some attributes too
   addListing = async (listing) => {
     // const {
     //   title,
