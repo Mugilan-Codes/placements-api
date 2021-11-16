@@ -62,6 +62,8 @@ class StudentService {
       const accessToken = token.sign(payload);
       const refreshToken = token.refresh.sign(payload);
 
+      // TODO: store refresh token in db
+
       // await SendEmail.verification(email, newStudent.verification_token, origin);
 
       return { accessToken, refreshToken };
@@ -119,6 +121,8 @@ class StudentService {
 
       const accessToken = token.sign(payload);
       const refreshToken = token.refresh.sign(payload);
+
+      // TODO: store refresh token in db
 
       return { accessToken, refreshToken };
     } catch (err) {
