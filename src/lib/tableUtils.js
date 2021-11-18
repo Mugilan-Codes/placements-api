@@ -34,4 +34,5 @@ export const addAuthColumns = (table) => {
   table.string('name', 50).notNullable();
   table.string('email', 254).notNullable().unique();
   table.string('password', 127).notNullable();
+  // table.datetime('last_login');
 };
