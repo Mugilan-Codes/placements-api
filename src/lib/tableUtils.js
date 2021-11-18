@@ -1,6 +1,8 @@
 // knex migration helpers
 
-export const addDefaultColumns = (table) => {
+// REVIEW: timestamp or datetime?
+// REVIEW: deleted_at implementation?
+export const addDefaultColumns = (knex, table) => {
   // table.timestamp('created_at').defaultTo(knex.fn.now());
   table.timestamp('created_at', { precision: 6 }).defaultTo(knex.fn.now(6));
   table.timestamp('updated_at', { precision: 6 }).defaultTo(knex.fn.now(6));

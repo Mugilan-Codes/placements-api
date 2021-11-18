@@ -1,19 +1,22 @@
-const {
+import {
   addDefaultColumns,
   referencesId,
   url,
   addAuthColumns,
-} = require('../../lib/tableUtils');
-const tableNames = require('../../constants/tableNames').default;
+} from '../../lib/tableUtils';
+import tableNames from '../../constants/tableNames';
 
+/**
+ * @param {import('knex')} knex
+ */
 // table.engine('INNODB');
-exports.up = async (knex) => {
+export async function up(knex) {
   await Promise.all([
     knex.schema.createTable(tableNames.admin, (table) => {
       // table.increments('id').notNullable();
       table.increments().notNullable();
       addAuthColumns(table);
-      addDefaultColumns(table);
+      addDefaultColumns(knex, table);
     }),
     knex.schema.createTable(tableNames.course, (table) => {
       table.increments().notNullable();
@@ -22,7 +25,7 @@ exports.up = async (knex) => {
       table.string('short_name', 15).notNullable();
       table.enu('type', ['R', 'SS']).notNullable().defaultTo('R');
       table.string('department', 100).notNullable();
-      addDefaultColumns(table);
+      addDefaultColumns(knex, table);
       table.unique(['short_name', 'type']);
     }),
     knex.schema.createTable(tableNames.listings, (table) => {
@@ -39,14 +42,14 @@ exports.up = async (knex) => {
       table.float('cgpa', 4, 2).notNullable(); // TODO: Check Constraint for CGPA (>= 0 && <= 10)
       table.integer('backlog_current').defaultTo(0); // TODO: Current Backlog should be less than or equal to Backlog History
       table.integer('backlog_history').defaultTo(0);
-      addDefaultColumns(table);
+      addDefaultColumns(knex, table);
     }),
   ]);
 
   await knex.schema.createTable(tableNames.student, (table) => {
     table.string('register_no', 15).primary();
     addAuthColumns(table);
-    addDefaultColumns(table);
+    addDefaultColumns(knex, table);
     // referencesId(table, 'course', false);
     referencesId(table, tableNames.course, false);
     table.string('token', 150);
@@ -61,7 +64,7 @@ exports.up = async (knex) => {
     table.float('cgpa', 4, 2).notNullable();
     table.integer('backlog_current').defaultTo(0);
     table.integer('backlog_history').defaultTo(0);
-    addDefaultColumns(table);
+    addDefaultColumns(knex, table);
     table
       .foreign('register_no')
       .references('register_no')
@@ -81,16 +84,16 @@ exports.up = async (knex) => {
     table.float('twelfth_mark', 5, 2).notNullable();
     table.string('grad_course');
     table.float('grad_cgpa', 4, 2);
-    addDefaultColumns(table);
+    addDefaultColumns(knex, table);
     table
       .foreign('register_no')
       .references('register_no')
       .inTable(tableNames.student)
       .onDelete('CASCADE');
   });
-};
+}
 
-exports.down = async (knex) => {
+export async function down(knex) {
   await Promise.all(
     [
       tableNames.admin,
@@ -101,4 +104,4 @@ exports.down = async (knex) => {
       tableNames.education,
     ].map((tableName) => knex.schema.dropTableIfExists(tableName))
   );
-};
+}
