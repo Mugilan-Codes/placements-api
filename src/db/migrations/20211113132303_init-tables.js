@@ -93,6 +93,9 @@ export async function up(knex) {
   });
 }
 
+/**
+ * @param {import('knex')} knex
+ */
 export async function down(knex) {
   await Promise.all(
     [
