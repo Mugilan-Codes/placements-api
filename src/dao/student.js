@@ -21,7 +21,9 @@ export const add = async ({
 };
 
 export const findById = async (register_no) => {
-  const findByIdResult = await Student.query().findById(register_no);
+  const findByIdResult = await Student.query()
+    .findById(register_no)
+    .withGraphFetched('[course, mark, education]');
 
   return findByIdResult;
 };

@@ -10,18 +10,34 @@ class Student extends BaseModel {
     return 'register_no';
   }
 
-  // static get relationMappings() {
-  //   return {
-  //     marks: {
-  //       relation: BaseModel.HasOneRelation,
-  //       modelClass: async () => await import('./Mark'),
-  //       join: {
-  //         from: 'student.register_no',
-  //         to: 'marks.register_no',
-  //       },
-  //     },
-  //   };
-  // }
+  static get relationMappings() {
+    return {
+      course: {
+        relation: BaseModel.BelongsToOneRelation,
+        modelClass: `Course`,
+        join: {
+          from: `${tableNames.student}.course_id`,
+          to: `${tableNames.course}.id`,
+        },
+      },
+      mark: {
+        relation: BaseModel.HasOneRelation,
+        modelClass: `Mark`,
+        join: {
+          from: `${tableNames.student}.register_no`,
+          to: `${tableNames.marks}.register_no`,
+        },
+      },
+      education: {
+        relation: BaseModel.HasOneRelation,
+        modelClass: `Education`,
+        join: {
+          from: `${tableNames.student}.register_no`,
+          to: `${tableNames.education}.register_no`,
+        },
+      },
+    };
+  }
 }
 
 export default Student;

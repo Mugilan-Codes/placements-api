@@ -213,20 +213,6 @@ class StudentService {
 
       let { password, course_id, ...resultObj } = studentInfo;
 
-      if (course_id !== null) {
-        const courseInfo = await courseDao.findById(course_id);
-        if (courseInfo) {
-          resultObj['course'] = courseInfo;
-        }
-      }
-
-      // Retrieve Mark & Education in similar way
-      const markInfo = await marksDao.findById(register_no);
-      resultObj['mark'] = markInfo;
-
-      const educatonInfo = await educationDao.findById(register_no);
-      resultObj['education'] = educatonInfo;
-
       return resultObj;
     } catch (err) {
       console.log(`${this.className} --> getOne`);
