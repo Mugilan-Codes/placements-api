@@ -20,7 +20,7 @@ const email = Joi.string().email().messages({
 //? Possible pattern replacement for password:
 //? /^(?=.*[0-9])(?=.*[A-Z])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,16}$/
 //? /^(?=.*[0-9])(?=.*[A-Z])(?=.*[!@#\$%\^\&*\)\(\[\]\{\}+=._-]).{8,16}$/
-const password = Joi.string().alphanum().min(8).max(50).required().messages({
+const password = Joi.string().alphanum().min(8).max(127).required().messages({
   'any.required': `{#key} is a required field`,
   'string.alphanum': `{#key} must contain only alpha-numeric characters`,
   'string.empty': `{#key} should not be empty`,
@@ -49,9 +49,9 @@ const courseSchema = {
   add: Joi.object().keys({
     degree: Joi.string().uppercase().valid('UG', 'PG').required(),
     type: Joi.string().uppercase().valid('R', 'SS'),
-    short_name: Joi.string().max(25).required(),
-    course_name: Joi.string().max(75).required(),
-    department: Joi.string().max(75).required(),
+    short_name: Joi.string().max(15).required(),
+    course_name: Joi.string().max(100).required(),
+    department: Joi.string().max(100).required(),
   }),
   idParam: Joi.object().keys({
     course_id: Joi.string().max(15).messages({
@@ -187,7 +187,7 @@ const listingSchema = {
         'string.empty': `{#key} should not be empty`,
         'string.max': `{#key} should have a maximum length of {#limit}`,
       }),
-      description: Joi.string().max(255).required().messages({
+      description: Joi.string().max(1000).required().messages({
         'any.required': `{#key} is a required field`,
         'string.empty': `{#key} should not be empty`,
         'string.max': `{#key} should have a maximum length of {#limit}`,
@@ -207,6 +207,10 @@ const listingSchema = {
           'date.format': `{#key} does not match date format {#format}`,
           'date.min': `{#key} should not be less than today (${today}||{#limit})`,
         }),
+      listing_url: Joi.string().uri().messages({
+        'string.empty': `{#key} should not be empty`,
+        'string.uri': `{#key} should be a valid url`,
+      }),
       tenth_percentage: percentage,
       twelfth_percentage: percentage,
       grad_percentage: percentage,
@@ -217,7 +221,7 @@ const listingSchema = {
     .or(
       'tenth_percentage',
       'twelfth_percentage',
-      'grad_percentage',
+      // 'grad_percentage',
       'cgpa',
       'active_backlog',
       'backlog_history'

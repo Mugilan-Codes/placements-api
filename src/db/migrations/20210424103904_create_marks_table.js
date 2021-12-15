@@ -1,20 +1,25 @@
-exports.up = function (knex) {
-  return knex.schema.createTable('marks', (table) => {
+import { addDefaultColumns } from '../../lib/tableUtils';
+import tableNames from '../../constants/tableNames';
+
+/**
+ * @param {import('knex')} knex
+ */
+export function up(knex) {
+  return knex.schema.createTable(tableNames.marks, (table) => {
     table.string('register_no', 15).primary();
     table.float('cgpa', 4, 2).notNullable(); // check constraint added in raw
     table.integer('active_backlog').defaultTo(0);
     table.integer('backlog_history').defaultTo(0);
-    table.timestamp('created_on', { precision: 6 }).defaultTo(knex.fn.now(6));
-    table.timestamp('updated_on', { precision: 6 }).defaultTo(knex.fn.now(6));
+    addDefaultColumns(knex, table);
     table
       .foreign('register_no')
       .references('register_no')
-      .inTable('student')
+      .inTable(tableNames.student)
       .onDelete('CASCADE');
     table.engine('INNODB');
   });
-};
+}
 
-exports.down = function (knex) {
-  return knex.schema.dropTable('marks');
-};
+export function down(knex) {
+  return knex.schema.dropTable(tableNames.marks);
+}

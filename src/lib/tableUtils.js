@@ -4,6 +4,8 @@
 // REVIEW: deleted_at implementation?
 export const addDefaultColumns = (knex, table) => {
   // table.timestamp('created_at').defaultTo(knex.fn.now());
+  // table.timestamp('created_on', { precision: 6 }).defaultTo(knex.fn.now(6));
+  // table.timestamp('updated_on', { precision: 6 }).defaultTo(knex.fn.now(6));
   table.timestamp('created_at', { precision: 6 }).defaultTo(knex.fn.now(6));
   table.timestamp('updated_at', { precision: 6 }).defaultTo(knex.fn.now(6));
   // table.datetime('deleted_at');

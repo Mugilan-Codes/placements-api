@@ -23,5 +23,13 @@ services:
     volumes:
       - mysql-db:/var/lib/mysql
 
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
+    depends_on:
+      - mysql
+
 volumes:
   mysql-db:
