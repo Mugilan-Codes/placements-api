@@ -15,7 +15,7 @@ services:
         delay: 15s
     build:
       target: prod
-    # image: mugilancodes/objection-knex-node-app
+    image: mugilancodes/placements-app
     environment:
       - DB_USER=${MYSQL_USER}
       - DB_PASSWORD=${MYSQL_PASSWORD}
