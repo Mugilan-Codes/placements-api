@@ -8,8 +8,8 @@ services:
   node-app:
     deploy:
       replicas: 8
-      restart_policy:
-        condition: any
+      # restart_policy:
+      #   condition: any
       update_config:
         parallelism: 2
         delay: 15s
@@ -21,6 +21,7 @@ services:
       - DB_PASSWORD=${MYSQL_PASSWORD}
       - DB_NAME=${MYSQL_DATABASE}
       - SESSION_SECRET=${SESSION_SECRET}
+      - MONGO_URI=${MONGO_URI}
     command: ./wait-for.sh mysql:3306 -- npm run start:prod
 
   mysql:
