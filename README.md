@@ -4,6 +4,7 @@
 
 ### TODO
 
+- add https
 - store refresh tokens in database
 - check migrations file to replace raw implementation
 - make a fresh migration file to initialize all tables in a single file
