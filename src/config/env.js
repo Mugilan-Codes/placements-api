@@ -12,8 +12,8 @@ export const DB_CONNECTION = {
 export const NODE_ENV = process.env.NODE_ENV || 'development';
 
 export const jwt_secret = {
-  access: process.env.ACCESS_TOKEN_SECRET,
-  refresh: process.env.REFRESH_TOKEN_SECRET,
+  access: `${process.env.ACCESS_TOKEN_SECRET}`,
+  refresh: `${process.env.REFRESH_TOKEN_SECRET}`,
 };
 
 export const email_from = process.env.EMAIL_FROM;

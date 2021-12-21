@@ -7,7 +7,14 @@ import {
   educationDao,
   listingDao,
 } from '../dao';
-import { bcryptPass, Role, token, isDifferent, isEmptyObject } from '../utils';
+import {
+  bcryptPass,
+  Role,
+  token,
+  isDifferent,
+  isEmptyObject,
+  logger,
+} from '../utils';
 import { SendEmail } from '../config';
 
 // Used for setting verificationToken
@@ -23,13 +30,15 @@ class StudentService {
     try {
       let student = await studentDao.findById(register_no);
       if (student) {
+        logger.warn('Student already exists');
         return { err_msg: 'Student with Register Number already exists!' };
       }
 
       student = await studentDao.findOne({ email });
       if (student) {
-        console.log({ origin });
+        logger.info({ origin });
         // await SendEmail.alreadyRegistered(email, origin);
+        logger.warn('Student already exists');
         return { err_msg: 'Email ID already exists!' };
       }
 
@@ -37,6 +46,7 @@ class StudentService {
       if (course_id) {
         const course = await courseDao.findById(course_id);
         if (!course) {
+          logger.warn('Course not found');
           return { err_msg: 'Course does not exist' };
         }
       }
@@ -68,7 +78,7 @@ class StudentService {
 
       return { accessToken, refreshToken };
     } catch (err) {
-      console.log(`${this.className} --> register`);
+      logger.error(`${this.className} --> register`);
       if (err.sqlMessage) {
         throw new Error(err.sqlMessage);
       }
@@ -80,6 +90,7 @@ class StudentService {
     try {
       const account = await studentDao.findOne({ token });
       if (!account) {
+        logger.error('Email verification Failed');
         throw Error('Verification Failed');
       }
 
@@ -96,7 +107,7 @@ class StudentService {
 
       return verifiedStudent;
     } catch (err) {
-      console.log(`${this.className} --> verifyEmail`);
+      logger.error(`${this.className} --> verifyEmail`);
       throw new Error(err.message);
     }
   }
@@ -106,11 +117,13 @@ class StudentService {
     try {
       const user = await studentDao.findOne({ register_no, email });
       if (!user) {
+        logger.warn('User not found');
         return { err_msg: 'Invalid Credentials' };
       }
 
       const isMatch = await bcryptPass.compare(password, user.password);
       if (!isMatch) {
+        logger.warn('Invalid Credentials');
         return { err_msg: 'Invalid Credentials' };
       }
 
@@ -126,7 +139,7 @@ class StudentService {
 
       return { accessToken, refreshToken };
     } catch (err) {
-      console.log(`${this.className} --> login`);
+      logger.error(`${this.className} --> login`);
       throw new Error(err.message);
     }
   }
@@ -144,12 +157,13 @@ class StudentService {
       const total = studentWithDetails.length;
 
       if (!total) {
+        logger.warn('No students found');
         return { err_msg: 'There are no students' };
       }
 
       return { total, students: studentWithDetails };
     } catch (err) {
-      console.log(`${this.className} --> getAll`);
+      logger.error(`${this.className} --> getAll`);
       throw new Error(err.message);
     }
   }
@@ -165,6 +179,7 @@ class StudentService {
 
       const total = studentWithDetails.length;
       if (!total) {
+        logger.warn('No students found');
         return { err_msg: 'There are no students' };
       }
 
@@ -199,7 +214,7 @@ class StudentService {
         },
       };
     } catch (err) {
-      console.log(`${this.className} --> getAllStatus`);
+      logger.error(`${this.className} --> getAllStatus`);
       throw new Error(err.message);
     }
   }
@@ -208,6 +223,7 @@ class StudentService {
     try {
       const studentInfo = await studentDao.findById(register_no);
       if (!studentInfo) {
+        logger.warn('Student not found');
         return { err_msg: 'Student Not Found' };
       }
 
@@ -215,7 +231,7 @@ class StudentService {
 
       return resultObj;
     } catch (err) {
-      console.log(`${this.className} --> getOne`);
+      logger.error(`${this.className} --> getOne`);
       throw new Error(err.message);
     }
   }
@@ -225,7 +241,7 @@ class StudentService {
       const courses = await courseDao.getAll();
       return { total: courses.length, courses };
     } catch (err) {
-      console.log(`${this.className} --> getAllCourses`);
+      logger.error(`${this.className} --> getAllCourses`);
       throw new Error(err.message);
     }
   }
@@ -253,7 +269,7 @@ class StudentService {
       }
       return { marks, msg };
     } catch (err) {
-      console.log(`${this.className} --> addMarks`);
+      logger.error(`${this.className} --> addMarks`);
       throw new Error(err.message);
     }
   }
@@ -292,7 +308,7 @@ class StudentService {
 
       return { education, msg };
     } catch (err) {
-      console.log(`${this.className} --> addEducation`);
+      logger.error(`${this.className} --> addEducation`);
       throw new Error(err.message);
     }
   }
@@ -333,7 +349,7 @@ class StudentService {
 
       return updateStud;
     } catch (err) {
-      console.log(`${this.className} --> updateStudent`);
+      logger.error(`${this.className} --> updateStudent`);
       throw new Error(err.message);
     }
   }
@@ -406,11 +422,13 @@ class StudentService {
       //! Using the service existing in the same class
       const student = await this.getOne(register_no);
       if (student.err_msg) {
+        logger.warn('getOneListing --> Student Not Found', student.err_msg);
         return student.err_msg;
       }
 
       const listing = await listingDao.findById(list_id);
       if (!listing) {
+        logger.warn('Listing Not Found');
         return { err_msg: 'Listing Not Found' };
       }
 
@@ -418,7 +436,7 @@ class StudentService {
 
       return newListing;
     } catch (err) {
-      console.log(`${this.className} --> getOneListing`);
+      logger.error(`${this.className} --> getOneListing`);
       throw new Error(err.message);
     }
   };
@@ -430,12 +448,14 @@ class StudentService {
       //! Using the service existing in the same class
       const student = await this.getOne(register_no);
       if (student.err_msg) {
+        logger.warn('getListings --> Student Not Found', student.err_msg);
         return student.err_msg;
       }
 
       // TODO: Get Only list ID
       const listings = await listingDao.findAll();
       if (listings.length < 1) {
+        logger.warn('Listings Not Found');
         return { err_msg: 'No Listings Available' };
       }
       const newListings = listings.map((listing) =>
@@ -444,7 +464,7 @@ class StudentService {
 
       return newListings;
     } catch (err) {
-      console.log(`${this.className} --> getListings`);
+      logger.error(`${this.className} --> getListings`);
       throw new Error(err.message);
     }
   };

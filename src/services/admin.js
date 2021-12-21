@@ -1,5 +1,12 @@
 import { adminDao, courseDao, listingDao } from '../dao';
-import { bcryptPass, isDifferent, isEmptyObject, Role, token } from '../utils';
+import {
+  bcryptPass,
+  isDifferent,
+  isEmptyObject,
+  Role,
+  token,
+  logger,
+} from '../utils';
 
 class AdminService {
   className = 'AdminService';
@@ -9,6 +16,7 @@ class AdminService {
     try {
       const adminExists = await adminDao.findOne(email);
       if (adminExists) {
+        logger.warn('Admin already exists');
         return { err_msg: 'Admin already exists' };
       }
 
@@ -29,7 +37,7 @@ class AdminService {
 
       return { accessToken, refreshToken };
     } catch (err) {
-      console.log(`${this.className} --> register`);
+      logger.error(`${this.className} --> register`);
       if (err.sqlMessage) {
         throw new Error(err.sqlMessage);
       }
@@ -42,6 +50,7 @@ class AdminService {
     try {
       let user = await adminDao.findOne(email);
       if (!user) {
+        logger.warn('Admin does not exist');
         return { err_msg: 'Invalid Credentials' };
       }
 
@@ -49,6 +58,7 @@ class AdminService {
 
       const isMatch = await bcryptPass.compare(password, user.password);
       if (!isMatch) {
+        logger.warn('Invalid Credentials');
         return { err_msg: 'Invalid Credentials' };
       }
 
@@ -62,7 +72,7 @@ class AdminService {
 
       return { accessToken, refreshToken };
     } catch (err) {
-      console.log(`${this.className} --> login`);
+      logger.error(`${this.className} --> login`);
       if (err.sqlMessage) {
         throw new Error(err.sqlMessage);
       }
@@ -74,6 +84,7 @@ class AdminService {
     try {
       const admin = await adminDao.findById(id);
       if (!admin) {
+        logger.warn('Admin does not exist');
         return { err_msg: 'Admin Not Found' };
       }
 
@@ -81,7 +92,7 @@ class AdminService {
 
       return result;
     } catch (err) {
-      console.log(`${this.className} --> getOne`);
+      logger.error(`${this.className} --> getOne`);
       if (err.sqlMessage) {
         throw new Error(err.sqlMessage);
       }
@@ -100,16 +111,19 @@ class AdminService {
       // TODO: have a effective way to check
       let course = await courseDao.findById(course_id);
       if (course) {
+        logger.warn('Course already exists');
         return { err_msg: 'Course Id already exists!' };
       }
 
       course = await courseDao.findOne({ course_name });
       if (course) {
+        logger.warn('Course already exists');
         return { err_msg: 'Course Name already exists!' };
       }
 
       course = await courseDao.findOne({ short_name, type: typeDefault });
       if (course) {
+        logger.warn('Course already exists');
         return { err_msg: `${short_name} - ${typeDefault} already exists!` };
       }
 
@@ -122,7 +136,7 @@ class AdminService {
         department,
       });
     } catch (err) {
-      console.log(`${this.className} --> addCourse`);
+      logger.error(`${this.className} --> addCourse`);
       if (err.sqlMessage) {
         throw new Error(err.sqlMessage);
       }
@@ -134,12 +148,13 @@ class AdminService {
     try {
       const course = await courseDao.findById(course_id);
       if (!course) {
+        logger.warn('Course does not exist');
         return { err_msg: 'Course Not Found' };
       }
 
       return course;
     } catch (err) {
-      console.log(`${this.className} --> getOneCourse`);
+      logger.error(`${this.className} --> getOneCourse`);
       throw new Error(err.message);
     }
   };
@@ -149,10 +164,11 @@ class AdminService {
     try {
       let course = await courseDao.findById(course_id);
       if (!course) {
+        logger.warn('Course does not exist');
         return { err_msg: 'Course Not Found' };
       }
 
-      console.log({ degree, short_name, type });
+      logger.debug({ degree, short_name, type });
       let newCourse = {
         course_name,
         department,
@@ -162,7 +178,7 @@ class AdminService {
           delete newCourse[key];
         }
       });
-      console.log({ newCourse });
+      logger.debug({ newCourse });
       if (isEmptyObject(newCourse)) {
         return { msg: 'No Changes' };
       }
@@ -178,7 +194,7 @@ class AdminService {
 
       return course;
     } catch (err) {
-      console.log(`${this.className} --> updateOneCourse`);
+      logger.error(`${this.className} --> updateOneCourse`);
       throw new Error(err.message);
     }
   };
@@ -187,6 +203,7 @@ class AdminService {
     try {
       let course = await courseDao.findById(course_id);
       if (!course) {
+        logger.warn('Course does not exist');
         return { err_msg: 'Course Not Found' };
       }
 
@@ -194,7 +211,7 @@ class AdminService {
 
       return { noOfDeletedRows: course, msg: 'Course Deleted' };
     } catch (err) {
-      console.log(`${this.className} --> deleteOneCourse`);
+      logger.error(`${this.className} --> deleteOneCourse`);
       throw new Error(err.message);
     }
   };
@@ -218,6 +235,7 @@ class AdminService {
     try {
       const titleExists = await listingDao.findIdByTitle(listing.title);
       if (titleExists) {
+        logger.warn('Listing Title Already Exists, Try another one');
         return { err_msg: 'Listing Title already exists' };
       }
 
@@ -227,7 +245,7 @@ class AdminService {
 
       return newListing;
     } catch (err) {
-      console.log(`${this.className} --> addListing`);
+      logger.error(`${this.className} --> addListing`);
       throw new Error(err.message);
     }
   };
@@ -236,12 +254,13 @@ class AdminService {
     try {
       const listings = await listingDao.findAll();
       if (listings.length < 1) {
+        logger.warn('Listings does not exist');
         return { err_msg: 'No Listings Available' };
       }
 
       return listings;
     } catch (err) {
-      console.log(`${this.className} --> getAllListings`);
+      logger.error(`${this.className} --> getAllListings`);
       throw new Error(err.message);
     }
   };
@@ -250,12 +269,13 @@ class AdminService {
     try {
       const listing = await listingDao.findById(list_id);
       if (!listing) {
+        logger.warn('Listing does not exist');
         return { err_msg: 'Listing not found' };
       }
 
       return listing;
     } catch (err) {
-      console.log(`${this.className} --> getOneListing`);
+      logger.error(`${this.className} --> getOneListing`);
       throw new Error(err.message);
     }
   };
@@ -277,6 +297,7 @@ class AdminService {
     try {
       let listing = await listingDao.findById(list_id);
       if (!listing) {
+        logger.warn('Listing does not exist');
         return { err_msg: 'Listing not found' };
       }
 
@@ -305,6 +326,7 @@ class AdminService {
       const listingByTitle =
         newListing.title && (await listingDao.findIdByTitle(newListing.title));
       if (listingByTitle) {
+        logger.warn('Listing Title Already Exists, Try another one');
         return { err_msg: 'Listing Title Already Exists, Try another one' };
       }
 
@@ -312,7 +334,7 @@ class AdminService {
 
       return listing;
     } catch (err) {
-      console.log(`${this.className} --> updateOneListing`);
+      logger.error(`${this.className} --> updateOneListing`);
       throw new Error(err.message);
     }
   };
@@ -321,6 +343,7 @@ class AdminService {
     try {
       const listing = await listingDao.findById(list_id);
       if (!listing) {
+        logger.warn('Listing does not exist');
         return { err_msg: 'Listing not found' };
       }
 
@@ -328,7 +351,7 @@ class AdminService {
 
       return deleteListing;
     } catch (err) {
-      console.log(`${this.className} --> deleteOneListing`);
+      logger.error(`${this.className} --> deleteOneListing`);
       throw new Error(err.message);
     }
   };

@@ -1,5 +1,5 @@
 import { AdminService } from '../services';
-import { ApiError } from '../utils';
+import { ApiError, logger } from '../utils';
 
 class AdminController {
   className = 'AdminController';
@@ -14,7 +14,7 @@ class AdminController {
 
       res.json(admin);
     } catch (err) {
-      console.log(`${this.className} --> register`);
+      logger.error(`${this.className} --> register`);
       next(err);
     }
   };
@@ -29,7 +29,7 @@ class AdminController {
 
       res.json(admin);
     } catch (err) {
-      console.log(`${this.className} --> login`);
+      logger.error(`${this.className} --> login`);
       next(err);
     }
   };
@@ -39,7 +39,7 @@ class AdminController {
       const detail = await AdminService.getOne(req.user.sub);
       res.json(detail);
     } catch (err) {
-      console.log(`${this.className} --> getDetail`);
+      logger.error(`${this.className} --> getDetail`);
       next(err);
     }
   };
@@ -54,7 +54,7 @@ class AdminController {
 
       res.json({ course });
     } catch (err) {
-      console.log(`${this.className} --> addCourse`);
+      logger.error(`${this.className} --> addCourse`);
       next(err);
     }
   };
@@ -70,7 +70,7 @@ class AdminController {
 
       res.json(course);
     } catch (err) {
-      console.log(`${this.className} --> getOneCourse`);
+      logger.error(`${this.className} --> getOneCourse`);
       next(err);
     }
   };
@@ -88,7 +88,7 @@ class AdminController {
 
       res.json(course);
     } catch (err) {
-      console.log(`${this.className} --> updateOneCourse`);
+      logger.error(`${this.className} --> updateOneCourse`);
       next(err);
     }
   };
@@ -103,7 +103,7 @@ class AdminController {
 
       res.json(course);
     } catch (err) {
-      console.log(`${this.className} --> deleteOneCourse`);
+      logger.error(`${this.className} --> deleteOneCourse`);
       next(err);
     }
   };
@@ -118,7 +118,7 @@ class AdminController {
 
       res.json(listing);
     } catch (err) {
-      console.log(`${this.className} --> addListing`);
+      logger.error(`${this.className} --> addListing`);
       next(err);
     }
   };
@@ -133,7 +133,7 @@ class AdminController {
 
       res.json(listings);
     } catch (err) {
-      console.log(`${this.className} --> getAllListings`);
+      logger.error(`${this.className} --> getAllListings`);
       next(err);
     }
   };
@@ -149,7 +149,7 @@ class AdminController {
 
       res.json(listing);
     } catch (err) {
-      console.log(`${this.className} --> getOneListing`);
+      logger.error(`${this.className} --> getOneListing`);
       next(err);
     }
   };
@@ -167,7 +167,7 @@ class AdminController {
 
       res.json(listing);
     } catch (err) {
-      console.log(`${this.className} --> updateOneListing`);
+      logger.error(`${this.className} --> updateOneListing`);
       next(err);
     }
   };
@@ -183,7 +183,7 @@ class AdminController {
 
       res.json(listing);
     } catch (err) {
-      console.log(`${this.className} --> deleteOneListing`);
+      logger.error(`${this.className} --> deleteOneListing`);
       next(err);
     }
   };

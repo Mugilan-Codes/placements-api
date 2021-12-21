@@ -23,7 +23,34 @@ const buildProdLogger = () => {
         options: {
           useUnifiedTopology: true,
         },
-        collection: 'server_logs',
+        collection: 'server_error_logs',
+        format: combine(timestamp(), json()),
+      }),
+      new transports.MongoDB({
+        level: 'warn',
+        db: MONGO_URI,
+        options: {
+          useUnifiedTopology: true,
+        },
+        collection: 'server_warn_logs',
+        format: combine(timestamp(), json()),
+      }),
+      new transports.MongoDB({
+        level: 'http',
+        db: MONGO_URI,
+        options: {
+          useUnifiedTopology: true,
+        },
+        collection: 'server_http_logs',
+        format: combine(timestamp(), json()),
+      }),
+      new transports.MongoDB({
+        level: 'info',
+        db: MONGO_URI,
+        options: {
+          useUnifiedTopology: true,
+        },
+        collection: 'server_info_logs',
         format: combine(timestamp(), json()),
       }),
     ],

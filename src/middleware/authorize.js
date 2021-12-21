@@ -1,4 +1,4 @@
-import { token } from '../utils';
+import { logger, token } from '../utils';
 
 const AUTH_HEADER = 'x-auth-token';
 
@@ -23,6 +23,7 @@ export const authorize = (roles = []) => {
 
       next();
     } catch (err) {
+      logger.error(`authorize --> ${err.message}`);
       res.status(401).json({ msg: 'Token is Invalid', err_msg: err.message });
     }
   };

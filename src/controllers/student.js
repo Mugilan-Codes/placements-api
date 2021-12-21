@@ -26,7 +26,7 @@ class StudentController {
 
       res.json(student);
     } catch (err) {
-      console.log(`${this.className} --> register`);
+      logger.error(`${this.className} --> register`);
       next(err);
     }
   };
@@ -39,7 +39,7 @@ class StudentController {
       // TODO: Render a Successfull Email Verification Page if email is verified
       res.json(emailVerification);
     } catch (err) {
-      console.log(`${this.className} --> verify`);
+      logger.error(`${this.className} --> verify`);
       next(err);
     }
   };
@@ -54,7 +54,7 @@ class StudentController {
 
       res.json(student);
     } catch (err) {
-      console.log(`${this.className} --> login`);
+      logger.error(`${this.className} --> login`);
       next(err);
     }
   };
@@ -69,7 +69,7 @@ class StudentController {
 
       res.json(students);
     } catch (err) {
-      console.log(`${this.className} --> getAll`);
+      logger.error(`${this.className} --> getAll`);
       next(err);
     }
   };
@@ -83,7 +83,7 @@ class StudentController {
 
       res.json(students);
     } catch (err) {
-      console.log(`${this.className} --> getAllStatus`);
+      logger.error(`${this.className} --> getAllStatus`);
       next(err);
     }
   };
@@ -97,7 +97,7 @@ class StudentController {
       }
       res.json(student);
     } catch (err) {
-      console.log(`${this.className} --> getOne`);
+      logger.error(`${this.className} --> getOne`);
       next(err);
     }
   };
@@ -107,7 +107,7 @@ class StudentController {
       const courses = await StudentService.getAllCourses();
       res.json(courses);
     } catch (err) {
-      console.log(`${this.className} --> getAllCourses`);
+      logger.error(`${this.className} --> getAllCourses`);
       next(err);
     }
   };
@@ -118,7 +118,7 @@ class StudentController {
       const marks = await StudentService.addMarks({ user, body });
       res.json(marks);
     } catch (err) {
-      console.log(`${this.className} --> addMarks`);
+      logger.error(`${this.className} --> addMarks`);
       next(err);
     }
   };
@@ -129,7 +129,7 @@ class StudentController {
       const education = await StudentService.addEducation({ user, body });
       res.json(education);
     } catch (err) {
-      console.log(`${this.className} --> addEducation`);
+      logger.error(`${this.className} --> addEducation`);
       next(err);
     }
   };
@@ -139,7 +139,7 @@ class StudentController {
       const detail = await StudentService.getOne(req.user.sub);
       res.json(detail);
     } catch (err) {
-      console.log(`${this.className} --> getDetail`);
+      logger.error(`${this.className} --> getDetail`);
       next(err);
     }
   };
@@ -150,7 +150,7 @@ class StudentController {
       const student = await StudentService.updateStudent({ user, body });
       res.json(student);
     } catch (err) {
-      console.log(`${this.className} --> updateDetail`);
+      logger.error(`${this.className} --> updateDetail`);
       next(err);
     }
   };
@@ -166,7 +166,7 @@ class StudentController {
 
       res.json(listings);
     } catch (err) {
-      console.log(`${this.className} --> getListings`);
+      logger.error(`${this.className} --> getListings`);
       next(err);
     }
   };
@@ -184,7 +184,7 @@ class StudentController {
 
       res.json(listing);
     } catch (err) {
-      console.log(`${this.className} --> getOneListing`);
+      logger.error(`${this.className} --> getOneListing`);
       next(err);
     }
   };

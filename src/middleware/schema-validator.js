@@ -1,3 +1,5 @@
+import { logger } from '../utils';
+
 const validator = (schema, property = 'body') => {
   return async (req, res, next) => {
     const { error, value } = schema.validate(req[property], {
@@ -9,7 +11,7 @@ const validator = (schema, property = 'body') => {
     const isValid = error == null;
 
     if (isValid) {
-      console.log(`req[${property}] value =`, value);
+      logger.debug(`req[${property}] value =`, value);
       next();
     } else {
       const { details } = error;
