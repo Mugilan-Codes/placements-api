@@ -18,7 +18,6 @@
 - Send proper errors to frontend. Including Joi Validation and Database errors.
 - Implement global error handler
 - [Node.js + MySQL - Boilerplate API with Email Sign Up, Verification, Authentication & Forgot Password](https://jasonwatmore.com/post/2020/09/08/nodejs-mysql-boilerplate-api-with-email-sign-up-verification-authentication-forgot-password)
-- Add RefreshToken for Student. Do Admin Later
 - Migration TODO's
   - Change id of each table to UUID like values
   - Set Triggers to enforce uniqueness across tables
@@ -28,7 +27,6 @@
   - created_by & updated_by admins to listings
   - Separate table to hold active refresh tokens
 - [How to get the full URL in Express?](https://stackoverflow.com/a/10185427/12381908)
-- Create Token Table to store the tokens for verification and reference the student id.
 
 ### Sources
 
